@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>基础信息登记</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../dist/css/mui.min.css">
+
+		<style>
+			h5 {
+				margin: 5px 7px;
+			}
+			
+			        /*这里的样式是为第一个行的单选框写的,其他的换行的不用*/
+			          .radio_inline{
+			                display: inline-block;
+			                width: 65%;
+			            }
+			            .radio_inline label{
+			
+			                width: 20%;
+			                padding-left: 40px;
+			                padding-right: 40px;
+			            }
+			            .radio_inline input[type=radio]{
+			                width: 15%;             
+			                right: auto;
+			            }
+			            
+			            
+			            /*//换个样式*/
+			           .change .mui-radio input[type='radio']:checked:before{
+			            content:'\e442';
+			            color:red;
+			            }
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">基础信息登记</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded" style="margin: 5px;">
+				
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label>姓名</label>
+						<input type="text" class="mui-input-clear" placeholder="请填写姓名">
+					</div>
+				   <div class="mui-input-row change">
+                        <label>性别</label>
+                        <span class="radio_inline mui-radio">
+                            <input name="radio1" type="radio" id="radio_man" checked value="1">
+                            <label for="radio_man">男</label>
+                            <input name="radio1" type="radio" id="radio_woman" value="0">     
+                            <label for="radio_woman">女</label>        
+                        </span>               
+                  </div>
+
+					
+					<div class="mui-input-row">
+						<label>身份证号</label>
+						<input type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
+					</div>
+					<div class="mui-input-row">
+						<label>出生年月</label>
+						<input type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
+					</div>
+					<div class="mui-input-row">
+						<label>所属村居</label>
+						<input type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
+					</div>
+					<div class="mui-input-row">
+						<label>住址</label>
+						<input type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
+					</div>
+					
+				</form>
+				<div class="mui-input-row" style="margin: 10px 5px;">
+					<textarea id="textarea" rows="5" placeholder="多行文本框"></textarea>
+				</div>
+			</div>
+		</div>
+		<script src="../dist/js/mui.min.js"></script>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			 //语音识别完成事件
+			document.getElementById("search").addEventListener('recognized', function(e) {
+				console.log(e.detail.value);
+			});
+
+			var nativeWebview, imm, InputMethodManager;
+			var initNativeObjects = function() {
+				if (mui.os.android) {
+					var main = plus.android.runtimeMainActivity();
+					var Context = plus.android.importClass("android.content.Context");
+					InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+					imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+				} else {
+					nativeWebview = plus.webview.currentWebview().nativeInstanceObject();
+				}
+			};
+			var showSoftInput = function() {
+				if (mui.os.android) {
+					imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+				} else {
+					nativeWebview.plusCallMethod({
+						"setKeyboardDisplayRequiresUserAction": false
+					});
+				}
+				setTimeout(function() {
+					var inputElem = document.querySelector('input');
+					inputElem.focus();
+					inputElem.parentNode.classList.add('mui-active'); //第一个是search，加上激活样式
+				}, 200);
+			};
+			mui.plusReady(function() {
+				initNativeObjects();
+				showSoftInput();
+			});
+
+		</script>
+	</body>
+
+</html>
