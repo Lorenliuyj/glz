@@ -57,11 +57,34 @@
                     // plus.ui.toast("密码不能为空");
                     return;
                 }
-				mui.toast('欢迎进入古劳镇困难群众管理系统');
-				mui.openWindow({
-					    url:'examples/menu.html'
-					    })
 				
+				                mui.ajax('http://127.0.0.1:8080/user/login',{
+				                    data:{
+				                        loingName:username.value,
+				                        password:password.value
+				                    },
+				                    dataType:'json',
+				                    type:'POST',
+				                    timeout:10000,
+				                    success:function(data){
+				                        //{"reslut":1}
+				                        if(data.result == 0){
+				                            //登录成功
+				                            	mui.toast('欢迎进入古劳镇困难群众管理系统');
+				                            mui.openWindow({
+				                            	    url:'examples/menu.html'
+				                            	    })
+				                            
+				                        }else{
+				                           	mui.alert('登录出错请重新登录');
+				                        }
+				                    },
+				                    error:function(){
+				                    }
+				                })
+				
+				
+			
 				
 				
 //                 mui.ajax('http://192.168.0.7/newssystem/index.php/Home/User/login',{
