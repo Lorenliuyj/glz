@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>标题</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			html,body {background-color: #efeff4;}
+			.mui-bar{
+				font-size: 15px;
+				box-shadow: none;
+			}
+			.mui-scroll a{height: 40px;display: block;padding: 10px;overflow: hidden;text-overflow: ellipsis;}
+			.mui-content>.mui-table-view:first-child{margin-top: 10px;}
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell{padding: 0px;}
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell img{width:45px;height: 45px;max-height:45px;margin-bottom: -5px;}
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{font-size: 12px;}
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body.undone{color: #999999;}
+			.color-blue{color: #12B6F6 !important;}
+			.mui-btn .mui-badge{background-color: #dd524d;}
+			.mui-scroll a{height: 40px;display: block;padding-top: 10px;padding-left: 10px;}
+			.mui-btn {width: 50px;height: 40px;line-height: 20px;padding-right: 0px;}
+			#msgNumber{font-size: 8px;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+				<h1 class="mui-title">首页</h1>
+			
+		</header>
+		
+		<div id="slider" class="mui-content mui-slider" style="height: 10%;max-height:10%;">
+			<div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="images/t3.png">
+					</a>
+				</div>
+				<!-- 第一张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="images/t1.png">
+					</a>
+				</div>
+				<!-- 第二张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="images/t2.png">
+					</a>
+				</div>
+				<!-- 第三张 -->
+				<div class="mui-slider-item">
+					<a href="#">
+						<img src="images/t3.png">
+					</a>
+				</div>
+				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+				<div class="mui-slider-item mui-slider-item-duplicate">
+					<a href="#">
+						<img src="images/t1.png">
+					</a>
+				</div>
+			</div>
+			<div class="mui-slider-indicator">
+				<div class="mui-indicator mui-active"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+				<div class="mui-indicator"></div>
+			</div>
+		</div>
+		<div align="mui-content" style="margin:0px;padding: 0;">
+			<div class="mui-content" style="padding: 0px;">
+				<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin-top: -1px;">
+					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+						<a onclick="openUrls('home/villageInfo.html')">
+							<img src="images/pkh.png"/>
+							<div class="mui-media-body">贫困户录入</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+						<a onclick="openUrls('home/visitLog.html')">
+							<img src="images/pkhcx.png"/>
+							<div class="mui-media-body">贫困户查询</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+						<a onclick="openUrls('home/visitLog.html')">
+							<img src="images/sf.png"/>
+							<div class="mui-media-body">走访录入</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+						<a onclick="">
+							<img src="images/sfcx.png"/>
+							<div class="mui-media-body">走访查询</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+						<a onclick="">
+							<img src="images/gengduo.png"/>
+							<div class="mui-media-body">更多</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<div class="mui-content" style="padding-top: 5px;">
+			<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin: 0px;">
+				<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="text-align: left;height: 40px;" onclick="openUrl('home/notice.html')">
+					<img src="images/qianzhidian.png" style="width: 2%;margin-bottom: -2px;margin-left: 10px;height: 50%;">
+					<span style="line-height:40px;">爱心之行</span>
+					<a class="mui-pull-right" style="padding-right: 20px;">>></a>
+				</li>
+			</ul>
+			<div id="text-slider" class="mui-scroll-wrapper" style="background-color: white;height: 40px;position: relative;">
+				<div style="height: 160px;overflow:hidden;white-space:nowrap;" id="notice" class="mui-scroll" ></div>
+			</div>
+		</div>
+		
+<script src="js/mui.min.js"></script>
+<script src="js/jquery2.min.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" src="js/appajax.js" ></script>		
+<script>
+		
+		var state=app.getUserState();
+		var i = 0;
+		/*var scrollHeight = (mui("#text-slider a").length-1)*40;*/
+		var scrollHeight = 0;
+		var slider = mui("#slider");
+		var textSlider = mui("#text-slider");
+		var orgcode = "";
+		mui.ready(function() {
+			mui.init(); 
+		    if (window.plus){
+		        plusReady();
+		    } else {
+		        document.addEventListener("plusready",plusReady,false);
+		    }
+		    window.setInterval("scrollText()",3000);
+		});
+		
+		slider.slider({interval: 3000});
+		textSlider.scroll({
+			scrollY: true, //是否竖向滚动
+			scrollX: false, //是否横向滚动
+ 			startX: 0, //初始化时滚动至x
+ 			startY: 0, //初始化时滚动至y
+			indicators: false, //是否显示滚动条
+		});
+		function scrollText(){
+			if(i>-scrollHeight){
+				i=i-40;
+				textSlider.scroll().scrollTo(0,i,1000);
+			}else{
+				i=0;
+				textSlider.scroll().scrollTo(0,i,2000);
+			}
+		}
+		
+		function plusReady(){	
+			plus.nativeUI.closeWaiting();
+			
+		}
+		
+		
+		function openUrls(pageUrl) {
+			
+						
+			mui.openWindow({
+				url:pageUrl,
+				id:pageUrl,
+				extras:{
+					
+				}
+			});
+					
+		}
+		
+</script>
+</div>
+</body>
+</html>

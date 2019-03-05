@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>爱心之行APP Login</title>
+    <link rel="stylesheet" href="css/mui.min.css">
+    <link rel="stylesheet" href="css/icons-extra.css" />
+</head>
+<style>
+	body{background-color: white;}
+	.head-image{width: 80px;height: 80px;}
+	.mui-content{background-color: white;padding-left: 8px;padding-right: 4px;}
+	.mui-input-group:before{background-color: white;}
+	.mui-input-group:after{height: 0px;}
+	.mui-table-view:before{height: 0px;}
+	.mui-table-view:after{height: 0px;}
+	.icon-text{display: inline-block;vertical-align: middle;height: 28px;}
+	.btn-blue{background-color: #12B6F6;color: white;padding:6px 10px;border-radius: 6px;border: 0px;}
+	.login-btn{
+		background: url(images/btnBg.png) no-repeat;
+		background-size: cover;
+		color: white;padding:6px 10px;
+		width: 90%;
+		margin: auto;
+		border: 0px;
+	}
+</style>
+<body>
+	<div style="text-align: center;margin: 70px 0px 70px;" class="mui-content">
+		<img class="head-image"  src="images/applogo.png" /><br />
+		<span>爱心之行</span>
+	</div>
+	<div class="mui-content">
+		<div class="mui-content-padded" style="margin: 5px;">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label><span class="mui-icon-extra mui-icon-extra-phone"></span><span class="icon-text">用户名</span></label>
+					<input id='userName' type="text" value="" class="mui-input-clear mui-input" placeholder="请输入手机号码">
+				</div>
+				<div class="mui-input-row">
+					<label><span class="mui-icon mui-icon-locked"></span>密码</label>
+					<input id='passWord' type="password" class="mui-input" placeholder="请输入密码" autocomplete="off" maxlength="16">
+					<a id="btnForget" class="color-blue" style="position: absolute;right:10px;top:12px;color:#63b5ff ;">｜忘记密码？</a>
+				</div>
+	            <ul class="mui-table-view mui-table-view-chevron" style="margin-bottom: 10px;">
+	                <li class="mui-table-view-cell"> 下次自动登录
+	                    <div id="autoLogin" class="mui-switch">
+	                        <div class="mui-switch-handle"></div>
+	                    </div>
+	                </li>
+	            </ul>
+				<button type="button" id='btnLogin' class="login-btn mui-btn-block">登录</button>
+			</form>
+		</div>
+        <form class="mui-input-group">
+        </form>  
+        <div style="float: right;">
+            <a id="regUser" style="color: #cccccc; padding-right: 20px;">还没注册账号？<font color="#12b6f6">注册账号</font></a>
+        </div>
+	</div>
+
+<script src="js/mui.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/appajax.js"></script>
+
+<script>
+	mui.init();
+	//App,浏览器端运行
+	mui.ready(function() {
+	    var btnLogin = gbid('btnLogin');
+	    btnLogin.addEventListener('tap', function(event) {
+	    	openUrl("Menu.html");
+	    });
+	});
+	//App端运行
+	mui.plusReady(function() {
+		mui.init();
+		mui.alert("5");
+		var btnLogin = gbid('btnLogin');
+		
+		btnLogin.addEventListener('tap', function(event) {
+			plus.webview.currentWebview().loadURL("mainMenu.html");
+		});
+		
+		var btnAutoLogin = gbid("autoLogin");
+		var option = app.getAppOption();
+		btnAutoLogin.classList[option.autoLogin ? 'add' : 'remove']('mui-active');
+		btnAutoLogin.addEventListener('toggle', function(event) {
+		    setTimeout(function() {
+		        var isActive = event.detail.isActive;
+		        option.autoLogin = isActive;
+		        app.setAppOption(option);
+		    }, 50);
+		}, false);
+		
+		
+	}); 
+	
+	mui.back = function() {
+	    appConfirm('您确定要关闭退出当前APP么？', '确认操作', function(e) {
+	        if (e.index === 1) {
+	            plus.runtime.quit();
+	        }
+	    });
+	};
+	
+</script>
+
+</body>
+</html>

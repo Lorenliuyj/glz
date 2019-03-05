@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>贫困户录入</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link href="../css/mui.picker.all.css" rel="stylesheet" />
+		<style>
+			html,body,.mui-content {background-color: #F6F9FC;}
+			.mui-bar-nav{background-color: white;box-shadow :0 0 0.5px rgba(0,0,0,0.1)}
+			.amountInput{border: 0px;width:60%;text-align: right;}
+			input::-webkit-input-placeholder{text-align: right;}
+			input{font-size: 14px;color: #8f8f94;}
+			.mui-table-view:before{height: 0px;}
+			.mui-table-view:after{height: 0px;}
+			.mui-table-view-chevron .mui-table-view-cell {padding-right:40px;}
+			.color-blue{color: #12B6F6 !important;}
+			.btn-blue{background-color: #12B6F6;color: white;padding:6px 10px;border-radius: 6px;border: 0px;} 
+			#addBtn{padding-top: 15px; border: 1px solid #CCCCCC;width: 72px;height: 72px;text-align: center;color: #B8B8B8;font-weight: bold;}
+			#addBtn img{height: 30px;}
+			
+			.radio_inline{
+			    display: inline-block;
+			    width: 65%;
+			}
+			.radio_inline label{
+			    width: 20%;
+			    padding-left: 30px;
+			    padding-right: 10px;
+			    padding-top: 12px;
+			    font-size: 15px;
+			}
+			.radio_inline input[type=radio]{
+			    width: 15%;             
+			    right: auto;
+			    padding-top: 2px;
+			}
+			.mui-android #ai {margin-right: -10%;}
+			.mui-ios #ai {margin-right: -16%;}
+			/* .mui-radio input[id='r1']:checked:before{
+			    content:'\e442';
+			    color:red;
+			} */
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-blue"></a>
+			<h1 class="mui-title color-blue">贫困户信息录入</h1>
+		</header>
+		<div class="mui-content-padded" style="margin-top: 50px;">
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<label>姓名</label>
+					<input id="name" class="mui-pull-right amountInput" placeholder="请输入姓名"/>
+				</li>
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+							<label style="width: 40%;">性别</label>
+							<div id="ai" class="radio_inline mui-radio mui-pull-right" style="width: 60%;" >
+								<input id="r1" name="comType" type="radio" value="1">
+								<label class="radio-inline"  style="width: 90px;">男</label>
+								<input id="r2" name="comType" type="radio" value="2">
+								<label class="radio-inline"  style="width: 90px;">女</label>
+							</div>
+					</div>
+				</form>
+				<li class="mui-table-view-cell">
+					<label>身份证号</label>
+					<input id="name" class="mui-pull-right amountInput" placeholder="请输入身份证号码"/>
+				</li>
+				<li class="mui-table-view-cell" id="timePicker">
+					<label>出生年月</label>
+					<p id="birthday" class="mui-pull-right mui-navigate-right">请选择</p>
+				</li>
+				<li class="mui-table-view-cell" id="forcountryPicker">
+					<label>所属村居</label>
+					<p id="countryType" class="mui-pull-right mui-navigate-right">请选择</p>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>住址</label>
+					<input id="address" class="mui-pull-right amountInput" placeholder="请输入住址"/>
+				</li>
+				<li class="mui-table-view-cell" id="forhardPicker">
+					<label>困难类型</label>
+					<p id="hardType" class="mui-pull-right mui-navigate-right">请选择</p>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>联系电话</label>
+					<input id="mphone" class="mui-pull-right amountInput" placeholder="请输入联系电话"/>
+				</li>
+				<p style="margin-bottom: -2px;">个人图片</p>
+				<div class="mui-input-row" style="background-color: white;padding: 0px 10px;">
+					<div id="files" style="display: inline-block;margin: 5px 0px;float:left;"></div>
+					<a id="addBtn" style="display: inline-block;margin: 5px;">
+						<img src="../images/addPhoto.png" /><br />
+						<span style="font-size: 10px;">添加照片</span>
+					</a>
+				</div>
+				<div class="mui-input-row" style="margin-top: 10px;">
+					<p style="margin-bottom: -2px;">家庭月收入</p>
+					<textarea id="textarea" rows="2" placeholder="请输入家庭月收入" class="mui-input-speech mui-input-clear"></textarea>
+				</div>
+				<li class="mui-table-view-cell">
+					<label>家庭情况</label>
+					<input id="familyinfo" class="mui-pull-right amountInput" placeholder="请输入家庭情况"/>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>主要困难</label>
+					<input id="hardType" class="mui-pull-right amountInput" placeholder="请输入主要困难"/>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>联系电话</label>
+					<input id="telephone" class="mui-pull-right amountInput" placeholder="请输入联系电话"/>
+				</li>
+				<div class="mui-input-row" style="margin-top: 10px;">
+					<p style="margin-bottom: -2px;">备注</p>
+					<textarea id="textarea" rows="3" placeholder="请填写备注" class="mui-input-speech mui-input-clear"></textarea>
+				</div>
+			</ul>
+			<button id="submitBtn" class="mui-btn mui-btn-block btn-blue" style="margin-top: 5px;">提交</button>
+		</div>
+		<div id="picture" class="mui-popover mui-popover-action mui-popover-bottom">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#" onclick="appendByCamera()">拍照</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="#" onclick="appendByGallery()">从手机相册中选择</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="#picture"><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.picker.all.js"></script>
+	<script src="../js/exif.js" ></script>
+	<script src="../js/app.js"></script>
+	<script src="../js/appajax.js"></script>
+	<script type="text/javascript">
+		//本地缓存
+		var state=app.getUserState();
+		mui.init();
+		mui.ready(function() {
+			forcountryPicker.setData(forcountryData);
+			forhardPicker.setData(forhardData);
+			
+			gbid('timePicker').addEventListener('tap', function(event) {
+				timePicker.show(function(items) {
+					birthday=parseDateTime(items.toString());
+					gbid("birthday").innerHTML=items;
+				});
+			});
+			gbid('forcountryPicker').addEventListener('tap', function(event) {
+				forcountryPicker.show(function(items) {
+					countryType=items[0].value;
+					gbid("countryType").innerHTML=items[0].text;
+				});
+			});
+			gbid('forhardPicker').addEventListener('tap', function(event) {
+				forhardPicker.show(function(items) {
+					hardType=items[0].value;
+					gbid("hardType").innerHTML=items[0].text;
+				});
+			});
+			
+			gbid('submitBtn').addEventListener('tap', function(event) {
+				
+			});
+		});
+		//数据初始化
+		var birthday = "";
+		var countryType = "";
+		var hardType = "";
+		var timePicker = new mui.DtPicker({"type":"date"});
+		var forcountryPicker = new mui.PopPicker();
+		var forhardPicker = new mui.PopPicker();
+		var forcountryData=[{value:"",text:"请选择"},{value:"1",text:"古村"},{value:"2",text:"月村"}];
+		var forhardData=[{value:"",text:"请选择"},{value:"1",text:"一般困难"},{value:"2",text:"超级困难"}];
+		//初始化数据设置
+		function plusReady(){
+			
+			forcountryPicker.setData(forcountryData);
+			forhardPicker.setData(forhardData);
+			
+			gbid('timePicker').addEventListener('tap', function(event) {
+				timePicker.show(function(items) {
+					birthday=parseDateTime(items.toString());
+					gbid("birthday").innerHTML=items;
+				});
+			});
+			gbid('forcountryPicker').addEventListener('tap', function(event) {
+				forcountryPicker.show(function(items) {
+					countryType=items[0].value;
+					gbid("countryType").innerHTML=items[0].text;
+				});
+			});
+			gbid('forhardPicker').addEventListener('tap', function(event) {
+				forhardPicker.show(function(items) {
+					hardType=items[0].value;
+					gbid("hardType").innerHTML=items[0].text;
+				});
+			});
+			
+			gbid('submitBtn').addEventListener('tap', function(event) {
+				
+			});
+			
+		}
+		
+		//上传功能,一下是参数
+		var j=0;
+		var files=[];
+		var fileName=null;
+		var server=appajax.SERVER_URL+"/ppt/PPT090200Person.do?method=uploadImage";
+		function upload(server){
+			fileName="";
+			for(var i=0;i<files.length;i++){
+				consoleLog("开始上传：");
+				plus.nativeUI.showWaiting();
+				var task=plus.uploader.createUpload(server,
+					{method:"POST"},
+					function(t,status){ //上传完成
+						if(status==200){
+							var responseText = eval('('+t.responseText+')');
+							fileName += (fileName!="" ? "," : "") + responseText.url;
+							j++;
+							if(j==files.length){
+								publish();
+							}
+							consoleLog("上传成功："+t.responseText);
+							plus.nativeUI.closeWaiting();
+						}else{
+							consoleLog("上传失败："+status);
+							plus.nativeUI.closeWaiting();
+						}
+					}
+				);
+				var f=files[i];
+				task.addFile(f.path,{key:f.name});
+				task.start();
+			}
+		}
+			
+		// 拍照添加文件
+		function appendByCamera(){
+			mui('#picture').popover('toggle');
+			plus.camera.getCamera().captureImage(function(p){
+				plus.io.resolveLocalFileSystemURL(p, function(entry) { 
+					var path = entry.toLocalURL(); 
+					//压缩后的本地存储路径_documents/新文件名/后缀名
+					var localPath = "_documents/"+getDateTime()+path.substr(path.lastIndexOf("."));
+					roateImg(path,localPath);
+				});
+			});	
+		}
+		// 从相册添加文件
+		function appendByGallery(){
+			mui('#picture').popover('toggle');
+			plus.gallery.pick(function(p){
+				plus.io.resolveLocalFileSystemURL(p, function(entry) { 
+					var path = entry.toLocalURL(); 
+					//压缩后的本地存储路径_documents/新文件名/后缀名
+					var localPath = "_documents/"+getDateTime()+path.substr(path.lastIndexOf("."));
+					roateImg(path,localPath);
+				});
+			});
+		}
+		//防止图片旋转
+		function roateImg(path,localPath) {
+			var img = new Image();
+			img.src = path;
+			var Orientation = 1;
+			var rota = 0;
+			img.onload = function() {
+				EXIF.getData(img, function() {
+					EXIF.getAllTags(this);
+					Orientation = EXIF.getTag(this, 'Orientation');
+					if(Orientation != "" && Orientation != 1){
+						switch(Orientation){
+							case 6://需要顺时针（向左）90度旋转
+								rota = 90;
+								break;
+							case 8://需要逆时针（向右）90度旋转
+								rota = 270;
+								break;
+							case 3://需要180度旋转
+								rota = 180;
+								break;
+						}	
+						plus.zip.compressImage({src:path,dst:localPath,rotate:rota},function(event){
+							appendFile(event.target);
+						}, function(error){mui.toast(error.message);});
+					}
+				});
+			}
+		}
+			
+		// 添加多张图片,以下为参数
+		var index=1;
+		var maxlength=1;
+		function appendFile(p){
+			var fe=document.getElementById("files");
+			var div=document.createElement("div");
+			var img=document.createElement("img");
+			var btn=document.createElement("span");
+			div.setAttribute("style","display: inline-block;")
+			img.setAttribute("style","height: 90px;width: 90px;margin-left: 5px;");
+			img.setAttribute("src",p);
+			btn.setAttribute("class","mui-icon mui-icon-close-filled");
+			btn.setAttribute("style","position: relative;bottom: 70px;right:25px;margin-right: -20px;");
+			btn.onclick=function(){removeFile(div,p);};
+			div.appendChild(img);
+			div.appendChild(btn);
+			fe.appendChild(div);
+			files.push({name:"uploadkey"+index,path:p});
+			index++;
+		}
+		
+		//删除图片
+		function removeFile(div,p){
+			gbid("files").removeChild(div);
+			index--;
+			for (var i=0;i<files.length;i++) {
+				if(files[i].path==p){
+					files.splice(i,1);
+					return;
+				}
+			}
+		}
+		
+		gbid('addBtn').addEventListener('tap', function(event) {
+			if(index>maxlength){
+				mui.toast("最多上传"+maxlength+"张图片");
+				return;
+			}
+			mui('#picture').popover('toggle');
+		});
+			
+			
+	</script>
+
+</html>
