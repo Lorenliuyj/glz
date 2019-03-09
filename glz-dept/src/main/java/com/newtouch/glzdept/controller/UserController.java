@@ -29,8 +29,7 @@ public class UserController {
      */
     @RequestMapping(value="/login",method=RequestMethod.POST)
     @ResponseBody
-    public String userLogin(@RequestBody String userJosnString){
-         UserVO userVO = JSONObject.parseObject(JSONObject.toJSONString(userJosnString),UserVO.class);
+    public String userLogin(@RequestBody UserVO userVO){
         return userService.userLogin(userVO.getLoginName(),userVO.getPassword());
     }
 
