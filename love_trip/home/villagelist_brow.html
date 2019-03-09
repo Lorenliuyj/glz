@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>贫困户查询</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css"/>
+		<style>
+			.title {margin: 20px 15px 10px;color: #6d6d72;font-size: 15px;}
+			html,body,.mui-content {background-color: #F6F9FC;}
+			.mui-bar-nav{background-color: white;box-shadow :0 0 0.5px rgba(0,0,0,0.1)}
+			.color-blue{color: #12B6F6 !important;}
+			.mui-bar-nav~.mui-content .mui-pull-top-pocket {top:0px;}
+			.mui-media {font-size: 14px;}
+			.mui-table-view-chevron .mui-table-view-cell {padding-right: 10px;}
+			.mui-table-view .mui-media-object {
+				max-width: initial;
+				width: 90px;
+				height: 70px;
+			}
+			.meta-info {
+				margin-top: 30px;
+				left: 115px;
+				right: 15px;
+				bottom: 8px;
+				color: #8f8f94;
+			}
+			.meta-info .author,
+			.meta-info .time {
+				display: inline-block;
+			}
+			.meta-info .time {
+				float: right;
+			}
+			.mui-table-view:before,
+			.mui-table-view:after {
+				height: 0;
+			}
+			.mui-content>.mui-table-view:first-child {
+				margin-top: 50px;
+			}
+			.banner {
+				height: 180px;
+				overflow: hidden;
+				position: relative;
+				background-position: center;
+				background-color: #ccc;
+			}
+			.banner img {
+				width: 100%;
+				height: auto;
+			}
+			.banner .title {
+				position: absolute;
+				left: 15px;
+				bottom: 15px;
+				width: 90%;
+				font-size: 16px;
+				font-weight: 400;
+				line-height: 21px;
+				color: white;
+				z-index: 11;
+			}
+			#selectMenu .mui-btn{display: inline-block;width: 45%;}
+			#selectMenu .mui-table-view{padding: 0px;}
+			#selectMenu .mui-table-view-cell{padding: 11px 5px;}
+			#selectMenu .mui-table-view-cell>a{border: 1px solid #12B6F6;margin:-10px 5px 0px;font-size: 14px;padding: 2px 0px;}
+			.active{background-color: #12B6F6;color: white !important;}
+			.btn-blue{background-color: #12B6F6;color: white;padding:6px 0;border-radius: 6px;margin-bottom: 10px;border: 0px;}
+			#selectMenu{display:none ;position:fixed;top:88px;z-index: 3;background-color: white;width: 100%;height:100%;padding: 0px 5px;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-blue"></a>
+			<h1 class="mui-title color-blue">贫困户查询</h1>
+		</header>
+		<div class="mui-content">
+			<div id="searchBar" class="mui-table-view mui-grid-view" style="position: fixed;margin-top:0px;z-index: 2;background-color: #12B6F6;padding-left:15px;padding-right: 1px;height: 45px;">
+				<div class="mui-input-row mui-search mui-col-sm-9 mui-col-xs-9" style="display: inline-block;margin-top: 5px;">
+					<input id="sName" type="search" class="mui-input-clear" placeholder="搜索贫困户姓名" style="background-color: white;"/>
+				</div>
+				<button class="mui-btn-link  mui-col-sm-3 mui-col-xs-3 selectBtn" style="line-height: 30px;color: white;">更多筛选</button>
+			</div>
+
+			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:89px;z-index: 1;">
+				<div class="mui-scroll">
+					<ul id="villageInfolist" class="mui-table-view mui-table-view-chevron">
+						<li class="mui-table-view-cell mui-media" v-for="item in items">
+							<div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-success" datasrc="">走访</a>
+							</div>
+							<div class="mui-slider-handle">
+								<a href="javascript:;" onclick="">
+									<img class="mui-media-object mui-pull-left" src="../images/shuijiao.png">
+									<div class="mui-media-body">
+										<div class="mui-ellipsis-2">张三</div>
+									</div>
+									<div class="meta-info">
+										<div class="author">东宁社区</div>
+										<div class="time">镇妇办-单亲家庭</div>
+									</div>
+								</a>
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media" v-for="item in items">
+							<div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-success" datasrc="">走访</a>
+							</div>
+							<div class="mui-slider-handle">
+								<a href="javascript:;" onclick="">
+									<img class="mui-media-object mui-pull-left" src="../images/shuijiao.png">
+									<div class="mui-media-body">
+										<div class="mui-ellipsis-2">李四</div>
+									</div>
+									<div class="meta-info">
+										<div class="author">丽水村</div>
+										<div class="time">社事办-低保户</div>
+									</div>
+								</a>
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media" v-for="item in items">
+							<div class="mui-slider-right mui-disabled">
+								<a class="mui-btn mui-btn-success" datasrc="">走访</a>
+							</div>
+							<div class="mui-slider-handle">
+								<a href="javascript:;" onclick="">
+									<img class="mui-media-object mui-pull-left" src="../images/shuijiao.png">
+									<div class="mui-media-body">
+										<div class="mui-ellipsis-2">王麻子</div>
+									</div>
+									<div class="meta-info">
+										<div class="author">新星村</div>
+										<div class="time">组织办-困难党员</div>
+									</div>
+								</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="selectMenu">
+				<div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">所属村居</div>
+				<ul id="forcountryRow" class="mui-table-view mui-grid-view">
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784002">东宁社区</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784201">古劳村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784202">麦水村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784203">丽水村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784204">茶山村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784205">下六村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784206">连城村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784207">连南村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784208">连北村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784209">大埠村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784210">双桥村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784211">上升村</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="440784212">新星村</a></li>
+				</ul>
+				<div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">一级困难类型</div>
+				<ul id="hardRow1" class="mui-table-view mui-grid-view">
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType1" id="0">社事办</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType1" id="1">组织办</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType1" id="2">农业办</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType1" id="3">镇妇办</a></li>
+				</ul>
+				<div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">二级困难类型</div>
+				<ul id="hardRow2" class="mui-table-view mui-grid-view">
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType2" id="00">低保户</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType2" id="01">五保户</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType2" id="02">困难残疾人</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType2" id="10">困难党员</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType2" id="20">精准扶贫对象</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a datasrc="hardType2" id="30">单亲家庭</a></li>
+				</ul>
+				<div style="position: relative;left: 0px;width: 100%;padding: 0 5px;text-align: center;">
+					<button id="cancelBtn" class="mui-btn mui-btn-block  btn-blue">取消筛选</button>
+					<button id="confirmBtn" class="mui-btn mui-btn-block btn-blue">确定</button>
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/app.js"></script>
+	<script src="../js/jquery2.min.js"></script>
+	<script>
+        mui.ready(function () {
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						style:'circle',
+						callback: pulldownRefresh
+					},
+					up: {
+						auto:true,
+						contentrefresh: '正在加载...',
+						contentnomore:'没有更多数据了',
+						callback: pullupRefresh
+					}
+				}
+			});
+        });
+        var upAndDown = 0;//0:up,1:down
+        function pullupRefresh() {
+            upAndDown = 0;
+            mui.toast("上拉加载");
+            setTimeout(function () {
+                //mui('#pullrefresh').pullRefresh().endPullup(true);
+                mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+			},1000);
+        }
+        function pulldownRefresh() {
+            upAndDown = 1;
+            setTimeout(function(){
+                mui.toast("下拉刷新");
+                mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+                mui('#pullrefresh').pullRefresh().refresh(true);
+            },1000);
+        }
+        //点击更多筛选收起或显示
+        mui("body").on('tap','.selectBtn',function(){
+            $('#selectMenu').slideToggle();
+        });
+        //点击取消筛选
+        mui("#selectMenu").on('tap','#cancelBtn',function(){
+            $("a").toggleClass("active",false);
+            $('#selectMenu').slideToggle();
+            //清空列表
+
+        });
+        mui("body").on("tap", ".mui-icon-clear", function() {
+            //清空列表
+        });
+        $("#forcountryRow").on('tap','a',function(){
+            $(this).toggleClass('active');
+        });
+        $("#hardRow1").on('tap','a',function(){
+            $(this).toggleClass('active');
+        });
+        $("#hardRow2").on('tap','a',function(){
+            $(this).toggleClass('active');
+        });
+
+        $("#villageInfolist").on('tap','.mui-slider-handle',function () {
+			openUrl("villageInfoDetail_brow.html");
+        });
+
+	</script>
+</html>

@@ -38,11 +38,11 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label><span class="mui-icon-extra mui-icon-extra-phone"></span><span class="icon-text">用户名</span></label>
-					<input id='userName' type="text" value="" class="mui-input-clear mui-input" placeholder="请输入手机号码">
+					<input id='userName' type="text" value="admin" readonly="readonly" class="mui-input-clear mui-input" placeholder="请输入手机号码">
 				</div>
 				<div class="mui-input-row">
 					<label><span class="mui-icon mui-icon-locked"></span>密码</label>
-					<input id='passWord' type="password" class="mui-input" placeholder="请输入密码" autocomplete="off" maxlength="16">
+					<input id='passWord' type="password" value="admin" readonly="readonly" class="mui-input" placeholder="请输入密码" autocomplete="off" maxlength="16">
 					<a id="btnForget" class="color-blue" style="position: absolute;right:10px;top:12px;color:#63b5ff ;">｜忘记密码？</a>
 				</div>
 	            <ul class="mui-table-view mui-table-view-chevron" style="margin-bottom: 10px;">
@@ -56,7 +56,7 @@
 			</form>
 		</div>
         <form class="mui-input-group">
-        </form>  
+        </form>
         <div style="float: right;">
             <a id="regUser" style="color: #cccccc; padding-right: 20px;">还没注册账号？<font color="#12b6f6">注册账号</font></a>
         </div>
@@ -71,8 +71,13 @@
 	//App,浏览器端运行
 	mui.ready(function() {
 	    var btnLogin = gbid('btnLogin');
+	    //var data = {userName:gbid(userName).value,passWord:gbid(passWord)};
 	    btnLogin.addEventListener('tap', function(event) {
-	    	openUrl("Menu.html");
+            openUrl("menu.html");
+           /* SendRequestByPost("/login",data,function (response) {
+            }),function(response) {
+				mui.alert("用户名或者密码错误！");
+			});*/
 	    });
 	});
 	//App端运行
@@ -80,11 +85,11 @@
 		mui.init();
 		mui.alert("5");
 		var btnLogin = gbid('btnLogin');
-		
+
 		btnLogin.addEventListener('tap', function(event) {
 			plus.webview.currentWebview().loadURL("mainMenu.html");
 		});
-		
+
 		var btnAutoLogin = gbid("autoLogin");
 		var option = app.getAppOption();
 		btnAutoLogin.classList[option.autoLogin ? 'add' : 'remove']('mui-active');
@@ -95,10 +100,10 @@
 		        app.setAppOption(option);
 		    }, 50);
 		}, false);
-		
-		
-	}); 
-	
+
+
+	});
+
 	mui.back = function() {
 	    appConfirm('您确定要关闭退出当前APP么？', '确认操作', function(e) {
 	        if (e.index === 1) {
@@ -106,7 +111,7 @@
 	        }
 	    });
 	};
-	
+
 </script>
 
 </body>
