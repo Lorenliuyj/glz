@@ -7,7 +7,7 @@ import java.util.List;
  * @date: 2019/3/9 下午3:42
  * project:glz-dept
  */
-public class PovertyUserVO {
+public class PovertyPeopleVO {
 
     private String id;
 
@@ -151,7 +151,7 @@ public class PovertyUserVO {
 
     @Override
     public String toString() {
-        return "PovertyUserVO{" +
+        return "PovertyPeopleVO{" +
                 "id='" + id + '\'' +
                 ", povertyName='" + povertyName + '\'' +
                 ", sex='" + sex + '\'' +
