@@ -5,7 +5,6 @@ import com.newtouch.common.entity.base.ResponseVO;
 import com.newtouch.common.util.ResponseUtil;
 import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
 import com.newtouch.glzdept.service.PovertyPeopleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +18,11 @@ import javax.annotation.Resource;
 public class PovertyPeopleController {
 
 
-    @Autowired
+    @Resource
     PovertyPeopleService povertyUserService;
 
 
-    @RequestMapping(value="/add",method=RequestMethod.POST)
+    @PostMapping(value="/add")
     @ResponseBody
     public ResponseVO addPovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){
         povertyUserService.addPovertyUser(povertyPeopleVO);
@@ -31,7 +30,7 @@ public class PovertyPeopleController {
     }
 
 
-    @RequestMapping(value="/update",method=RequestMethod.POST)
+    @PostMapping(value="/update")
     @ResponseBody
     public ResponseVO updatePovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){
         povertyUserService.updatePovertyUser(povertyPeopleVO);
