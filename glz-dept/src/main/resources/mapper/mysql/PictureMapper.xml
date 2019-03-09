@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.glzdept.dao.PictureDao">
+
+    <resultMap id="PicturePOMap" type="com.newtouch.glzdept.entity.PO.PicturePO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="tid" property="tid" jdbcType="VARCHAR" />
+        <result column="type" property="type" jdbcType="VARCHAR" />
+        <result column="picture" property="picture" jdbcType="VARCHAR" />
+        <result column="isdelete" property="isdelete" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="ALL_COLUMN">
+        id,
+        tid,
+        `type`,
+        picture,
+        isdelete
+    </sql>
+
+    <sql id="ALL_VALUES">
+        #{picturePO.id},
+        #{picturePO.tid},
+        #{picturePO.type},
+        #{picturePO.picture},
+        #{picturePO.isdelete}
+    </sql>
+
+    <sql id="ALL_IF_UPDATE">
+        <if test="picturePO.tid != null and picturePO.tid != ''"> tid = #{picturePO.tid} </if>
+        <if test="picturePO.type != null and picturePO.type != ''"> ,`type` = #{picturePO.type} </if>
+        <if test="picturePO.picture != null and picturePO.picture != ''"> ,picture = #{picturePO.picture} </if>
+        <if test="picturePO.isdelete != null and picturePO.isdelete != ''"> ,isdelete = #{picturePO.isdelete} </if>
+    </sql>
+
+    <sql id="ALL_IF_SELECT">
+        <if test="picturePO.tid != null and picturePO.tid != ''"> AND tid = #{picturePO.tid} </if>
+        <if test="picturePO.type != null and picturePO.type != ''"> AND type = #{picturePO.type} </if>
+        <if test="picturePO.picture != null and picturePO.picture != ''"> AND picture = #{picturePO.picture} </if>
+        <if test="picturePO.isdelete != null and picturePO.isdelete != ''"> AND isdelete = #{picturePO.isdelete} </if>
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO t_picture (
+          <include refid="ALL_COLUMN"/>
+        )
+        VALUES (
+          <include refid="ALL_VALUES"/>
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_poverty_people (
+        <include refid="ALL_COLUMN"/>
+        )
+        VALUES
+        <foreach collection="pictures" item="picturePO" separator=",">
+            (
+            <include refid="ALL_VALUES"/>
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM t_picture
+        WHERE
+          id = #{id}
+    </delete>
+
+    <select id="deleteByTid">
+        DELETE FROM t_picture
+        WHERE
+          tid = #{tid}
+    </select>
+
+    <update id="updateById">
+        UPDATE t_picture SET
+          <include refid="ALL_IF"/>
+        WHERE
+          id = #{picturePO.id}
+    </update>
+
+    <select id="select" resultMap="PicturePOMap">
+      select
+        <include refid="ALL_COLUMN"/>
+      FROM
+        t_picture
+      WHERE
+        1=1
+        <include refid="ALL_IF"/>
+    </select>
+
+    <select id="selectByTid" resultMap="PicturePOMap">
+        select
+        <include refid="ALL_COLUMN"/>
+        FROM
+        t_picture
+        WHERE
+        tid = #{tid}
+    </select>
+
+
+</mapper>

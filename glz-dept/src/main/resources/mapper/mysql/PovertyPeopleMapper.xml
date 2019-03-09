@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.glzdept.dao.PovertyPeopleDao">
+
+
+    <resultMap id="PovertyPeoplePOMap" type="com.newtouch.glzdept.entity.PO.PovertyPeoplePO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="poverty_name" property="povertyName" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="VARCHAR" />
+        <result column="idcard_no" property="idcardNo" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" jdbcType="DATE" />
+        <result column="village" property="village" jdbcType="VARCHAR" />
+        <result column="proverty_type" property="provertyType" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="family_detail" property="familyDetail" jdbcType="VARCHAR" />
+        <result column="trouble" property="trouble" jdbcType="VARCHAR" />
+        <result column="income" property="income" jdbcType="VARCHAR" />
+        <result column="comments" property="comments" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="PovertyPeopleVOMap" extends="PovertyPeoplePOMap" type="com.newtouch.glzdept.entity.VO.PovertyPeopleVO">
+        <collection property="pictures" ofType="com.newtouch.glzdept.entity.VO.PictureVO" column="id" select="com.newtouch.glzdept.dao.PictureDao.selectByTid"/>
+    </resultMap>
+
+    <sql id="ALL_COLUMN">
+        id,
+        poverty_name,
+        sex,
+        idcard_no,
+        birthday,
+        village,
+        proverty_type,
+        address,
+        phone,
+        family_detail,
+        trouble,
+        income,
+        comments
+    </sql>
+
+    <sql id="ALL_VALUES">
+        #{povertyPeoplePO.id},
+        #{povertyPeoplePO.povertyName},
+        #{povertyPeoplePO.sex},
+        #{povertyPeoplePO.idcardNo},
+        #{povertyPeoplePO.birthday},
+        #{povertyPeoplePO.village},
+        #{povertyPeoplePO.provertyType},
+        #{povertyPeoplePO.address},
+        #{povertyPeoplePO.phone},
+        #{povertyPeoplePO.familyDetail},
+        #{povertyPeoplePO.trouble},
+        #{povertyPeoplePO.income},
+        #{povertyPeoplePO.comments}
+    </sql>
+
+    <sql id="ALL_IF_UPDATE">
+        <if test="povertyPeoplePO.povertyName != null and povertyPeoplePO.povertyName != ''"> poverty_name = #{povertyPeoplePO.povertyName} </if>
+        <if test="povertyPeoplePO.sex != null and povertyPeoplePO.sex != ''"> ,sex = #{povertyPeoplePO.sex} </if>
+        <if test="povertyPeoplePO.idcardNo != null and povertyPeoplePO.idcardNo != ''"> ,idcar_no = #{povertyPeoplePO.idcardNo} </if>
+        <if test="povertyPeoplePO.birthday != null and povertyPeoplePO.birthday != ''"> ,birthday = #{povertyPeoplePO.birthday} </if>
+        <if test="povertyPeoplePO.village != null and povertyPeoplePO.village != ''"> ,village = #{povertyPeoplePO.village} </if>
+        <if test="povertyPeoplePO.provertyType != null and povertyPeoplePO.provertyType != ''"> ,provert_type = #{povertyPeoplePO.provertyType} </if>
+        <if test="povertyPeoplePO.address != null and povertyPeoplePO.address != ''"> ,address = #{povertyPeoplePO.address} </if>
+        <if test="povertyPeoplePO.phone != null and povertyPeoplePO.phone != ''"> ,phone = #{povertyPeoplePO.phone} </if>
+        <if test="povertyPeoplePO.familyDetail != null and povertyPeoplePO.familyDetail != ''"> ,family_detail = #{povertyPeoplePO.familyDetail} </if>
+        <if test="povertyPeoplePO.trouble != null and povertyPeoplePO.trouble != ''"> ,trouble = #{povertyPeoplePO.trouble} </if>
+        <if test="povertyPeoplePO.income != null and povertyPeoplePO.income != ''"> ,income = #{povertyPeoplePO.income} </if>
+        <if test="povertyPeoplePO.comments != null and povertyPeoplePO.comments != ''"> ,comments = #{povertyPeoplePO.comments} </if>
+    </sql>
+
+    <sql id="ALL_IF_SELECT">
+        <if test="povertyPeoplePO.povertyName != null and povertyPeoplePO.povertyName != ''"> AND poverty_name = #{povertyPeoplePO.povertyName} </if>
+        <if test="povertyPeoplePO.sex != null and povertyPeoplePO.sex != ''"> AND sex = #{povertyPeoplePO.sex} </if>
+        <if test="povertyPeoplePO.idcardNo != null and povertyPeoplePO.idcardNo != ''"> AND idcar_no = #{povertyPeoplePO.idcardNo} </if>
+        <if test="povertyPeoplePO.birthday != null and povertyPeoplePO.birthday != ''"> AND birthday = #{povertyPeoplePO.birthday} </if>
+        <if test="povertyPeoplePO.village != null and povertyPeoplePO.village != ''"> AND village = #{povertyPeoplePO.village} </if>
+        <if test="povertyPeoplePO.provertyType != null and povertyPeoplePO.provertyType != ''"> AND provert_type = #{povertyPeoplePO.provertyType} </if>
+        <if test="povertyPeoplePO.address != null and povertyPeoplePO.address != ''"> AND address = #{povertyPeoplePO.address} </if>
+        <if test="povertyPeoplePO.phone != null and povertyPeoplePO.phone != ''"> AND phone = #{povertyPeoplePO.phone} </if>
+        <if test="povertyPeoplePO.familyDetail != null and povertyPeoplePO.familyDetail != ''"> AND family_detail = #{povertyPeoplePO.familyDetail} </if>
+        <if test="povertyPeoplePO.trouble != null and povertyPeoplePO.trouble != ''"> AND trouble = #{povertyPeoplePO.trouble} </if>
+        <if test="povertyPeoplePO.income != null and povertyPeoplePO.income != ''"> AND income = #{povertyPeoplePO.income} </if>
+        <if test="povertyPeoplePO.comments != null and povertyPeoplePO.comments != ''"> AND comments = #{povertyPeoplePO.comments} </if>
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO t_poverty_people (
+          <include refid="ALL_COLUMN"/>
+        )
+        VALUES (
+          <include refid="ALL_VALUES"/>
+        )
+    </insert>
+
+    <insert id="insertBatch">
+        INSERT INTO t_poverty_people (
+        <include refid="ALL_COLUMN"/>
+        )
+        VALUES
+        <foreach collection="povertyPeoples" item="povertyPeoplePO" separator=",">
+            (
+            <include refid="ALL_VALUES"/>
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM t_poverty_people
+        WHERE
+          id = #{povertyPeoplePO.id}
+    </delete>
+
+    <update id="updateById">
+        UPDATE t_poverty_people SET
+          <include refid="ALL_IF"/>
+        WHERE
+          id = #{povertyPeoplePO.id}
+    </update>
+
+    <select id="select" resultMap="PovertyPeopleVOMap">
+      select
+        <include refid="ALL_COLUMN"/>
+      FROM
+        t_poverty_people
+      WHERE
+        1=1
+        <include refid="ALL_IF"/>
+    </select>
+
+</mapper>
