@@ -1,8 +1,6 @@
 package com.newtouch.glzdept.entity.PO;
 
-import com.newtouch.glzdept.entity.VO.PictureVO;
 
-import java.util.List;
 
 /**
  * @author: lgyu6
@@ -12,6 +10,8 @@ import java.util.List;
 public class PovertyPeoplePO {
 
     private String id;
+
+    private String difficultTypeId;
 
     private String povertyName;
 
@@ -33,6 +33,12 @@ public class PovertyPeoplePO {
 
     private String trouble;
 
+    private String image1;
+
+    private String image2;
+
+    private String image3;
+
     private String income;
 
     private String comments;
@@ -43,6 +49,14 @@ public class PovertyPeoplePO {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDifficultTypeId() {
+        return difficultTypeId;
+    }
+
+    public void setDifficultTypeId(String difficultTypeId) {
+        this.difficultTypeId = difficultTypeId;
     }
 
     public String getPovertyName() {
@@ -125,6 +139,30 @@ public class PovertyPeoplePO {
         this.trouble = trouble;
     }
 
+    public String getImage1() {
+        return image1;
+    }
+
+    public void setImage1(String image1) {
+        this.image1 = image1;
+    }
+
+    public String getImage2() {
+        return image2;
+    }
+
+    public void setImage2(String image2) {
+        this.image2 = image2;
+    }
+
+    public String getImage3() {
+        return image3;
+    }
+
+    public void setImage3(String image3) {
+        this.image3 = image3;
+    }
+
     public String getIncome() {
         return income;
     }
@@ -140,6 +178,5 @@ public class PovertyPeoplePO {
     public void setComments(String comments) {
         this.comments = comments;
     }
-    
 }
 
