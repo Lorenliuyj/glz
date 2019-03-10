@@ -30,6 +30,7 @@ public class PovertyPeopleController {
         return ResponseUtil.successResponse(null);
     }
 
+    //查询贫困户详细信息
     @PostMapping(value="/search")
     @ResponseBody
     public ResponseVO searchPovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){
