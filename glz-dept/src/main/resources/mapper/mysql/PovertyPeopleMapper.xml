@@ -3,7 +3,7 @@
 <mapper namespace="com.newtouch.glzdept.dao.PovertyPeopleDao">
 
 
-    <resultMap id="PovertyPeoplePOMap" type="com.newtouch.glzdept.entity.PO.PovertyPeoplePO">
+    <resultMap id="PovertyPeopleVOMap" type="com.newtouch.glzdept.entity.PO.PovertyPeoplePO">
         <id column="id" property="id" jdbcType="VARCHAR"/>
         <result column="difficult_type_id" property="difficultTypeId" jdbcType="VARCHAR" />
         <result column="poverty_name" property="povertyName" jdbcType="VARCHAR" />
@@ -131,7 +131,7 @@
 
     <update id="updateById">
         UPDATE t_poverty_people SET
-          <include refid="ALL_IF"/>
+          <include refid="ALL_IF_UPDATE"/>
         WHERE
           id = #{povertyPeoplePO.id}
     </update>
@@ -143,7 +143,7 @@
         t_poverty_people
       WHERE
         1=1
-        <include refid="ALL_IF"/>
+        <include refid="ALL_IF_SELECT"/>
     </select>
 
 </mapper>

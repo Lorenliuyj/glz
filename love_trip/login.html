@@ -71,13 +71,34 @@
 	//App,浏览器端运行
 	mui.ready(function() {
 	    var btnLogin = gbid('btnLogin');
-	    //var data = {userName:gbid(userName).value,passWord:gbid(passWord)};
 	    btnLogin.addEventListener('tap', function(event) {
-            openUrl("menu.html");
-           /* SendRequestByPost("/login",data,function (response) {
-            }),function(response) {
-				mui.alert("用户名或者密码错误！");
-			});*/
+	    		var username=document.getElementById("userName");
+	    	    var password=document.getElementById("passWord");
+				if(username.value.length<0){
+					mui.alert('用户名不能为空');
+					return;
+				}
+				if(password.value.length<0){
+					mui.alert('密码不能为空');
+					return;
+				}
+	    	    var data={
+	    				    loginName:username.value,
+	    				    password:password.value
+	    				  }
+	    	var msg = JSON.stringify(data);
+			console.info(msg);
+	    	appajax.SendRequestByPost("user/login",msg,function(resultMsg){
+				if(resultMsg.result == 0){
+				             //登录成功
+				            openUrl("menu.html");
+				             
+				         }else{
+				            	mui.alert('登录出错请重新登录');
+				         }
+			},function(errorMsg){
+				
+			});
 	    });
 	});
 	//App端运行
@@ -86,10 +107,10 @@
 		mui.alert("5");
 		var btnLogin = gbid('btnLogin');
 
-		btnLogin.addEventListener('tap', function(event) {
-			plus.webview.currentWebview().loadURL("mainMenu.html");
-		});
-
+// 		btnLogin.addEventListener('tap', function(event) {
+// 			plus.webview.currentWebview().loadURL("mainMenu.html");
+// 		});
+// 
 		var btnAutoLogin = gbid("autoLogin");
 		var option = app.getAppOption();
 		btnAutoLogin.classList[option.autoLogin ? 'add' : 'remove']('mui-active');
@@ -100,8 +121,6 @@
 		        app.setAppOption(option);
 		    }, 50);
 		}, false);
-
-
 	});
 
 	mui.back = function() {

@@ -1,0 +1,3 @@
+2019-03-09 21:12:10.445 [main] INFO  com.newtouch.glzdept.GlzDeptApplication - Starting GlzDeptApplication on DESKTOP-7CMJ8VP with PID 1852 (D:\github\glz\glz-dept\target\classes started by yfbb in D:\github\glz\glz-dept)
+2019-03-09 21:12:10.472 [main] DEBUG com.newtouch.glzdept.GlzDeptApplication - Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
+2019-03-09 21:12:10.473 [main] INFO  com.newtouch.glzdept.GlzDeptApplication - The following profiles are active: dev
