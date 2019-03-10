@@ -166,9 +166,71 @@
 
         mui.init();
 		mui.ready(function() {
+			var tid = localStorage.getItem("id");
 			forcountryPicker.setData(forcountryData);
 			forhardPicker.setData(forhardData);
-
+			
+			var data = {id:2};
+			var tabimg = gbid("imgList");
+			appajax.SendRequestByPost("poverty/search",JSON.stringify(data),function (response) {
+				if("0000" == response.code) {
+					console.log(response.result);
+					
+					birthday = "";
+					village = "";
+					povertyType1 = "";
+					povertyType2 = "";
+					
+					
+					$("#povertyName").val();
+					$("[name='sex'][value='"+a+"']").prop("checked", "checked");
+					$("#idcardNo").val();
+					$("#address").val();
+					$("#phone").val();
+					$("#familyDetail").val();
+					$("#trouble").val();
+					$("#income").val();
+					$("#comments").val();
+					$("#birthday").html(fmDates());
+					$("#village").html(getDictJsonText(forcountryData, dictId));
+					$("#phone").val();
+					$("#phone").val();
+					$("#phone").val();
+					
+					
+					
+					
+					if(image1!="") {
+						var img = document.createElement('img');
+						img.setAttribute("data-preview-src","");
+						img.className = "mui-table-view-cell mui-col-sm-4 mui-col-xs-4";
+						img.src = "data:image/png;base64,"+image1;
+						gbid("imgList").appendChild(img);
+					}
+					if(image2!="") {
+						var img = document.createElement('img');
+						img.setAttribute("data-preview-src","");
+						img.className = "mui-table-view-cell mui-col-sm-4 mui-col-xs-4";
+						img.src = "data:image/png;base64,"+image2;
+						gbid("imgList").appendChild(img);
+					}
+					if(image3!="") {
+						var img = document.createElement('img');
+						img.setAttribute("data-preview-src","");
+						img.className = "mui-table-view-cell mui-col-sm-4 mui-col-xs-4";
+						img.src = "data:image/png;base64,"+image3;
+						gbid("imgList").appendChild(img);
+					}
+					
+					
+					
+				}else{
+					mui.toast("查询详情失败！");
+				}
+			},function(response) {
+					mui.toast("查询详情失败！");
+			});
+			
 			gbid('timePicker').addEventListener('tap', function(event) {
 				timePicker.show(function(items) {
 					birthday=parseDate(items.toString());
