@@ -146,4 +146,13 @@
         <include refid="ALL_IF_SELECT"/>
     </select>
 
+    <select id="search" resultMap="PovertyPeopleVOMap" parameterType="java.lang.String">
+        select
+        <include refid="ALL_COLUMN"/>
+        FROM
+        t_poverty_people
+        WHERE
+        id=#{id}
+    </select>
+
 </mapper>

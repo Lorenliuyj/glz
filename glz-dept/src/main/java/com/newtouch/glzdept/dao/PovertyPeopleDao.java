@@ -22,7 +22,7 @@ public interface PovertyPeopleDao {
 
     void updateById(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
 
-    void search(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
+    public  PovertyPeopleVO  search(@Param("id") String id);
 
     List<PovertyPeopleVO> selectPovertyPeopleVO(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
 

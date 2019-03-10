@@ -33,8 +33,8 @@ public class PovertyPeopleController {
     @PostMapping(value="/search")
     @ResponseBody
     public ResponseVO searchPovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){
-        povertyUserService.searchPovertyUser(povertyPeopleVO);
-        return ResponseUtil.successResponse(null);
+        PovertyPeopleVO list  = povertyUserService.searchPovertyPeople(povertyPeopleVO);
+        return ResponseUtil.successResponse(list);
     }
 
     @PostMapping(value="/update")
@@ -46,7 +46,7 @@ public class PovertyPeopleController {
 
     /**
      * 查询列表数据
-     * @param povertyPeopleVO
+     * @param
      * @param page
      * @return
      */
