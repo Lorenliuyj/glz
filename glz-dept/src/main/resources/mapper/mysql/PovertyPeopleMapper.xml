@@ -88,6 +88,8 @@
     </sql>
 
     <sql id="ALL_IF_SELECT">
+        <if test="povertyPeoplePO.id != null and povertyPeoplePO.id != ''"> AND id = #{povertyPeoplePO.id} </if>
+
         <if test="povertyPeoplePO.difficultTypeId != null and povertyPeoplePO.difficultTypeId != ''"> AND difficult_type_id = #{povertyPeoplePO.difficultTypeId} </if>
         <if test="povertyPeoplePO.povertyName != null and povertyPeoplePO.povertyName != ''"> AND poverty_name = #{povertyPeoplePO.povertyName} </if>
         <if test="povertyPeoplePO.sex != null and povertyPeoplePO.sex != ''"> AND sex = #{povertyPeoplePO.sex} </if>
