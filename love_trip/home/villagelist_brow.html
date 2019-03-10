@@ -168,16 +168,15 @@
             setTimeout(function () {
                 //mui('#pullrefresh').pullRefresh().endPullup(true);
                 //mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-				
-				getData(upAndDown);
+								getData(upAndDown);
 			},1000);
         }
         function pulldownRefresh() {
             upAndDown = 1;
+			pageNum = 0;
             setTimeout(function(){
-                mui.toast("下拉刷新");
                 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-                mui('#pullrefresh').pullRefresh().refresh(true);
+                //mui('#pullrefresh').pullRefresh().refresh(true);
             },1000);
         }
 		
@@ -196,7 +195,7 @@
 					var total = rtnData.totalNum;
 					if(upAndDown == 0) {
 						//mui('#pullrefresh').pullRefresh().endPullup(false);
-						mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh((pageNum*pageSize)>total);
 					}
 					if(!list) {return;}//为空直接返回
 					for(var i=0;i<list.length;i++) {
