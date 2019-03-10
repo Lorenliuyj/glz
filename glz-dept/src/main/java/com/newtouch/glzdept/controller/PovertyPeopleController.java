@@ -52,8 +52,8 @@ public class PovertyPeopleController {
      */
     @PostMapping(value="/selectPovertyPeoplePage")
     @ResponseBody
-    public ResponseVO selectPovertyPeoplePage(@RequestBody PovertyPeopleVO povertyPeopleVO,Page page){
-        Page<PovertyPeopleVO> list  =  povertyUserService.selectPovertyUserPage(povertyPeopleVO,page);
+    public ResponseVO selectPovertyPeoplePage(@RequestBody Page page){
+        Page<PovertyPeopleVO> list  =  povertyUserService.selectPovertyUserPage(page.getPovertyPeopleVO(),page);
         return ResponseUtil.successResponse(list);
     }
 }
