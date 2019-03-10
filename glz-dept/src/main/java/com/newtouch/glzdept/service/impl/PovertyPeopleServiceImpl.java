@@ -1,5 +1,6 @@
 package com.newtouch.glzdept.service.impl;
 
+import com.newtouch.common.entity.base.Page;
 import com.newtouch.glzdept.dao.PovertyPeopleDao;
 import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
 import com.newtouch.glzdept.service.PovertyPeopleService;
@@ -27,4 +28,14 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
     public void updatePovertyUser(PovertyPeopleVO povertyPeopleVO) {
         povertyPeopleDao.updateById(povertyPeopleVO);
     }
+
+    @Override
+    public Page<PovertyPeopleVO> selectPovertyUserPage(PovertyPeopleVO povertyPeopleVO, Page page) {
+        if(page == null){
+            page.init();
+        }
+        page.setList(povertyPeopleDao.selectPovertyPeoplePage(povertyPeopleVO,page));
+        return page;
+    }
+
 }

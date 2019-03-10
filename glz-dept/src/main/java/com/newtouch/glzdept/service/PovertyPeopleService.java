@@ -1,5 +1,6 @@
 package com.newtouch.glzdept.service;
 
+import com.newtouch.common.entity.base.Page;
 import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
 
 /**
@@ -20,5 +21,12 @@ public interface PovertyPeopleService {
      * @param povertyPeopleVO
      */
     void updatePovertyUser(PovertyPeopleVO povertyPeopleVO);
+
+    /**
+     * 分页查询数据
+     * @param povertyPeopleVO
+     * @param page
+     */
+    Page<PovertyPeopleVO> selectPovertyUserPage(PovertyPeopleVO povertyPeopleVO, Page page);
 
 }

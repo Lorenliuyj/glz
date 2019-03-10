@@ -1,6 +1,7 @@
 package com.newtouch.glzdept.controller;
 
 
+import com.newtouch.common.entity.base.Page;
 import com.newtouch.common.entity.base.ResponseVO;
 import com.newtouch.common.util.ResponseUtil;
 import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
@@ -35,5 +36,18 @@ public class PovertyPeopleController {
     public ResponseVO updatePovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){
         povertyUserService.updatePovertyUser(povertyPeopleVO);
         return ResponseUtil.successResponse(null);
+    }
+
+    /**
+     * 查询列表数据
+     * @param povertyPeopleVO
+     * @param page
+     * @return
+     */
+    @PostMapping(value="/selectPovertyPeoplePage")
+    @ResponseBody
+    public ResponseVO selectPovertyPeoplePage(@RequestBody PovertyPeopleVO povertyPeopleVO,Page page){
+        Page<PovertyPeopleVO> list  =  povertyUserService.selectPovertyUserPage(povertyPeopleVO,page);
+        return ResponseUtil.successResponse(list);
     }
 }
