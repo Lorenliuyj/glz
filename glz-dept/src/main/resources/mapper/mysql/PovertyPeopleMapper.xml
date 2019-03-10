@@ -136,7 +136,6 @@
           id = #{povertyPeoplePO.id}
     </update>
 
-
     <select id="select" resultMap="PovertyPeopleVOMap">
       select
         <include refid="ALL_COLUMN"/>
@@ -147,12 +146,4 @@
         <include refid="ALL_IF_SELECT"/>
     </select>
 
-    <select id="search" resultMap="PovertyPeopleVOMap" >
-     select
-       <include refid="ALL_COLUMN"/>
-      FROM
-        t_poverty_people
-      where
-        id > (pageNum*10) ORDER BY id ASC LIMIT 10
-    </select>
 </mapper>

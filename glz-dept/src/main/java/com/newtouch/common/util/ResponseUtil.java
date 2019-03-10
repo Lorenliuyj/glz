@@ -32,4 +32,14 @@ public class ResponseUtil {
         return  getResponseVO(MessageType.SUCCESS, data);
     }
 
+    /**
+     * 异常响应组装VO
+     * @param data
+     * @param <T>
+     * @return
+     */
+    public static <T> ResponseVO errorResponse(T data){
+        return  getResponseVO(MessageType.ERROR, data);
+    }
+
 }
