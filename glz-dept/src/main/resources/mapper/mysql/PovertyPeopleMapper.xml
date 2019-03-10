@@ -74,8 +74,8 @@
         <if test="povertyPeoplePO.idcardNo != null and povertyPeoplePO.idcardNo != ''"> ,idcar_no = #{povertyPeoplePO.idcardNo} </if>
         <if test="povertyPeoplePO.birthday != null and povertyPeoplePO.birthday != ''"> ,birthday = #{povertyPeoplePO.birthday} </if>
         <if test="povertyPeoplePO.village != null and povertyPeoplePO.village != ''"> ,village = #{povertyPeoplePO.village} </if>
-        <if test="povertyPeoplePO.povertyType1 != null and povertyPeoplePO.povertyType1 != ''"> ,povert_type_1 = #{povertyPeoplePO.povertyType1} </if>
-        <if test="povertyPeoplePO.povertyType2 != null and povertyPeoplePO.povertyType2 != ''"> ,povert_type_2 = #{povertyPeoplePO.povertyType2} </if>
+        <if test="povertyPeoplePO.povertyType1 != null and povertyPeoplePO.povertyType1 != ''"> ,poverty_type_1 = #{povertyPeoplePO.povertyType1} </if>
+        <if test="povertyPeoplePO.povertyType2 != null and povertyPeoplePO.povertyType2 != ''"> ,poverty_type_2 = #{povertyPeoplePO.povertyType2} </if>
         <if test="povertyPeoplePO.address != null and povertyPeoplePO.address != ''"> ,address = #{povertyPeoplePO.address} </if>
         <if test="povertyPeoplePO.phone != null and povertyPeoplePO.phone != ''"> ,phone = #{povertyPeoplePO.phone} </if>
         <if test="povertyPeoplePO.familyDetail != null and povertyPeoplePO.familyDetail != ''"> ,family_detail = #{povertyPeoplePO.familyDetail} </if>
