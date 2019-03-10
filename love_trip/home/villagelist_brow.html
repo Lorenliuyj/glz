@@ -192,6 +192,7 @@
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/app.js"></script>
+	<script src="../js/appajax.js"></script>
 	<script src="../js/jquery2.min.js"></script>
 	<script>
         mui.ready(function () {
@@ -217,7 +218,9 @@
             mui.toast("上拉加载");
             setTimeout(function () {
                 //mui('#pullrefresh').pullRefresh().endPullup(true);
-                mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+                //mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+				
+				getData(upAndDown);
 			},1000);
         }
         function pulldownRefresh() {
@@ -228,6 +231,31 @@
                 mui('#pullrefresh').pullRefresh().refresh(true);
             },1000);
         }
+		
+		var pageNum = 0;
+		var pageSize = 5;
+		function getData(upAndDown) {
+			pageNum++;
+			var data = {};
+			console.log("开始");
+			appajax.SendRequestByPost("poverty/selectPovertyPeoplePage",JSON.stringify(data),function(response) {
+				var rtnData = response.rusult;
+				console.log(rtnData);
+				var row = rtnData;
+				var total = rtnData.totalNum;
+				
+				
+				
+				
+			},function(response) {
+				
+			});
+			
+			
+			
+		}
+		
+		
         //点击更多筛选收起或显示
         mui("body").on('tap','.selectBtn',function(){
             $('#selectMenu').slideToggle();

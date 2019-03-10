@@ -53,7 +53,7 @@
         mui.ajax(reqUrl, {data:data, type:"POST", timeout:(isAsync ? 3000 : 2000), async:(isAsync ? true : false),
             success:function(response) {
                 consoleLog("ajax return data:"+JSON.stringify(response));
-                if (response.info == "success"){
+                if (response.msg == "请求正常"){
                     successCallback && successCallback(response);
                 } else {
                     consoleLog("execute failure,info:"+response.info+",message:"+response.message);

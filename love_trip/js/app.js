@@ -76,7 +76,7 @@ function parseDateTimeLess(dstr) {
 }
 
 //将YYYY-MM-DD格式转化为YYYYMMDD
-function parseDat(dstr) {
+function parseDate(dstr) {
 	if (isNull(dstr)) {
 		return "";
 	} else {
