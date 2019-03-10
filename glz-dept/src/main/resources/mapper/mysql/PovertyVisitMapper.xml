@@ -84,7 +84,7 @@
           ,#{visitVO.createId,jdbcType=BIGINT},#{visitVO.createTime,jdbcType=TIMESTAMP},#{visitVO.isdelete,jdbcType=CHAR})
     </insert>
 
-    <select id="selectPovertyVisitPage" resultMap="PovertyVisitVOMap">
+    <select id="selectPovertyVisitPage" resultMap="BaseResultMap">
         select
         <include refid="ALL_COLUMN"/>
         FROM
