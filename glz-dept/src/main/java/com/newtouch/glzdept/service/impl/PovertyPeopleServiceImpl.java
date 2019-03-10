@@ -24,6 +24,7 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
         povertyPeopleDao.insert(povertyPeopleVO);
     }
 
+    //
     @Override
     public  PovertyPeopleVO searchPovertyPeople(PovertyPeopleVO povertyPeopleVO) {
         Integer id = Integer.parseInt(povertyPeopleVO.getId());
