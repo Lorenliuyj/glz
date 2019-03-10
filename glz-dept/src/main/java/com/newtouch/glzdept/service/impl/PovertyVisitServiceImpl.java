@@ -1,8 +1,10 @@
 package com.newtouch.glzdept.service.impl;
 
 import com.newtouch.common.entity.base.MessageType;
+import com.newtouch.common.entity.base.Page;
 import com.newtouch.common.exception.BlcException;
 import com.newtouch.glzdept.dao.PovertyVisitDao;
+import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
 import com.newtouch.glzdept.entity.VO.PovertyVisitVO;
 import com.newtouch.glzdept.service.IPovertyVisitService;
 import org.springframework.stereotype.Service;
@@ -29,5 +31,14 @@ public class PovertyVisitServiceImpl implements IPovertyVisitService {
         if(key == null){
             throw new BlcException(MessageType.ERROR);
         }
+    }
+
+    @Override
+    public Page<PovertyVisitVO> selectPovertyVisitPage(PovertyVisitVO povertyVisitVO, Page page) {
+        if(page == null){
+            page.init();
+        }
+        page.setList(povertyVisitDao.selectPovertyVisitPage(povertyVisitVO,page));
+        return page;
     }
 }
