@@ -29,7 +29,9 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
     @Override
     public PovertyPeopleVO searchPovertyPeople(PovertyPeopleVO povertyPeopleVO) {
         PovertyPeoplePO result =  povertyPeopleDao.search(povertyPeopleVO);
-        PovertyPeopleVO aad=new PovertyPeopleVO();
+        System.out.println("转换成VO前*************************************************");
+        System.out.println(result);
+        PovertyPeopleVO aad = new PovertyPeopleVO();
         aad.setVillage(result.getVillage());
         aad.setPovertyName(result.getPovertyName());
         aad.setAddress(result.getAddress());
@@ -48,6 +50,8 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
         aad.setPovertyType2(result.getPovertyType2());
         aad.setSex(result.getSex());
         aad.setTrouble(result.getTrouble());
+        System.out.println("转换成VO后*************************************************");
+        System.out.println(aad);
         return aad;
     }
 
