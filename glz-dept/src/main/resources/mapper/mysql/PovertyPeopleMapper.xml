@@ -129,21 +129,21 @@
           id = #{povertyPeoplePO.id}
     </delete>
 
-    <update id="updateById">
-        UPDATE t_poverty_people SET
-          <include refid="ALL_IF"/>
-        WHERE
-          id = #{povertyPeoplePO.id}
-    </update>
+    <!--<update id="updateById">-->
+        <!--UPDATE t_poverty_people SET-->
+          <!--<include refid="ALL_IF"/>-->
+        <!--WHERE-->
+          <!--id = #{povertyPeoplePO.id}-->
+    <!--</update>-->
 
-    <select id="select" resultMap="PovertyPeopleVOMap">
-      select
-        <include refid="ALL_COLUMN"/>
-      FROM
-        t_poverty_people
-      WHERE
-        1=1
-        <include refid="ALL_IF"/>
-    </select>
+    <!--<select id="select" resultMap="PovertyPeopleVOMap">-->
+      <!--select-->
+        <!--<include refid="ALL_COLUMN"/>-->
+      <!--FROM-->
+        <!--t_poverty_people-->
+      <!--WHERE-->
+        <!--1=1-->
+        <!--<include refid="ALL_IF"/>-->
+    <!--</select>-->
 
 </mapper>
