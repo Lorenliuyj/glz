@@ -16,6 +16,12 @@ public interface PovertyPeopleService {
     void addPovertyUser(PovertyPeopleVO povertyPeopleVO);
 
     /**
+     * 查询贫困户信息
+     * @param povertyPeopleVO
+     */
+    void searchPovertyUser(PovertyPeopleVO povertyPeopleVO);
+
+    /**
      * 修改一个贫困户信息
      * @param povertyPeopleVO
      */

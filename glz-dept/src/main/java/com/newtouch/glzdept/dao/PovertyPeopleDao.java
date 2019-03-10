@@ -21,5 +21,7 @@ public interface PovertyPeopleDao {
 
     void updateById(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
 
+    void search(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
+
     List<PovertyPeopleVO> selectPovertyPeopleVO(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
 }

@@ -24,6 +24,11 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
     }
 
     @Override
+    public void searchPovertyUser(PovertyPeopleVO povertyPeopleVO) {
+        povertyPeopleDao.search(povertyPeopleVO);
+    }
+
+    @Override
     public void updatePovertyUser(PovertyPeopleVO povertyPeopleVO) {
         povertyPeopleDao.updateById(povertyPeopleVO);
     }

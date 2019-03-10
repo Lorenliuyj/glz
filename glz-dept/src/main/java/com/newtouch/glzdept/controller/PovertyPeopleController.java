@@ -29,6 +29,12 @@ public class PovertyPeopleController {
         return ResponseUtil.successResponse(null);
     }
 
+    @PostMapping(value="/search")
+    @ResponseBody
+    public ResponseVO searchPovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){
+        povertyUserService.searchPovertyUser(povertyPeopleVO);
+        return ResponseUtil.successResponse(null);
+    }
 
     @PostMapping(value="/update")
     @ResponseBody
