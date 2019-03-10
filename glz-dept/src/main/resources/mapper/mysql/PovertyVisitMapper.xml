@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.glzdept.dao.PovertyVisitDao">
+
+   <resultMap id="BaseResultMap" type="com.newtouch.glzdept.entity.VO.PovertyVisitVO">
+        <result column="id" property="id" jdbcType="BIGINT" />
+        <result column="poverty_people_id" property="povertyPeopleId" jdbcType="BIGINT" />
+        <result column="poverty_people_name" property="povertyPeopleName" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" jdbcType="DATE" />
+        <result column="village" property="village" jdbcType="VARCHAR" />
+        <result column="condolence_date" property="condolenceDate" jdbcType="DATE" />
+        <result column="family_detail" property="familyDetail" jdbcType="VARCHAR" />
+        <result column="visitor_id" property="visitorId" jdbcType="BIGINT" />
+        <result column="visitor_name" property="visitorName" jdbcType="VARCHAR" />
+        <result column="condolence_product" property="condolenceProduct" jdbcType="VARCHAR" />
+        <result column="mass_appeal" property="massAppeal" jdbcType="VARCHAR" />
+        <result column="condolence_detail" property="condolenceDetail" jdbcType="VARCHAR" />
+        <result column="image_1" property="image1" jdbcType="BLOB" />
+        <result column="image_2" property="image2" jdbcType="BLOB" />
+        <result column="image_3" property="image3" jdbcType="BLOB" />
+        <result column="comments" property="comments" jdbcType="VARCHAR" />
+        <result column="create_id" property="createId" jdbcType="BIGINT" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="isdelete" property="isdelete" jdbcType="CHAR" />
+    </resultMap>
+
+    <!--插入-->
+   <insert id="insert" parameterType="com.newtouch.glzdept.entity.VO.PovertyVisitVO">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO
+          t_poverty_visit
+        (poverty_people_id,poverty_people_name,birthday,village,condolence_date,family_detail,visitor_id,visitor_name,condolence_product,mass_appeal,condolence_detail,image_1,image_2,image_3,comments,create_id,create_time,isdelete)
+        VALUES
+          (#{visitVO.povertyPeopleId,jdbcType=BIGINT},#{visitVO.povertyPeopleName,jdbcType=VARCHAR},#{visitVO.birthday,jdbcType=DATE}
+          ,#{visitVO.village,jdbcType=VARCHAR},#{visitVO.condolenceDate,jdbcType=DATE},#{visitVO.familyDetail,jdbcType=VARCHAR}
+          ,#{visitVO.visitorId,jdbcType=BIGINT},#{visitVO.visitorName,jdbcType=VARCHAR},#{visitVO.condolenceProduct,jdbcType=VARCHAR}
+          ,#{visitVO.massAppeal,jdbcType=VARCHAR},#{visitVO.condolenceDetail,jdbcType=VARCHAR},#{visitVO.image1,jdbcType=BLOB}
+        ,#{visitVO.image2,jdbcType=BLOB},#{visitVO.image3,jdbcType=BLOB},#{visitVO.comments,jdbcType=VARCHAR}
+          ,#{visitVO.createId,jdbcType=BIGINT},#{visitVO.createTime,jdbcType=TIMESTAMP},#{visitVO.isdelete,jdbcType=CHAR})
+    </insert>
+
+</mapper>
