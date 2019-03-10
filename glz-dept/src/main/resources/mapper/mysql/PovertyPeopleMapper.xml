@@ -162,4 +162,11 @@
         limit #{page.minNum},#{page.pageSize}
     </select>
 
+    <select id="total" resultType="java.lang.Integer">
+        select count(*)
+        from t_poverty_people
+        WHERE
+        1=1
+        <include refid="ALL_IF_SELECT"/>
+    </select>
 </mapper>
