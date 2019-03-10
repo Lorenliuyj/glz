@@ -38,6 +38,7 @@ public class PovertyVisitServiceImpl implements IPovertyVisitService {
         if(page == null){
             page.init();
         }
+        page.setTotalNum(povertyVisitDao.total(povertyVisitVO));
         page.setList(povertyVisitDao.selectPovertyVisitPage(povertyVisitVO,page));
         return page;
     }

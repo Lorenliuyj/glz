@@ -20,5 +20,6 @@ public interface PovertyVisitDao {
      */
     List<PovertyVisitVO> selectPovertyVisitPage(@Param("povertyVisitVO") PovertyVisitVO povertyVisitVO, @Param("page") Page page);
 
+    int total(@Param("povertyVisitVO")PovertyVisitVO povertyVisitVO);
 }
 
