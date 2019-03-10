@@ -3,6 +3,8 @@ package com.newtouch.glzdept.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.newtouch.common.entity.base.ResponseVO;
+import com.newtouch.common.util.ResponseUtil;
 import com.newtouch.glzdept.entity.component.UserVO;
 import com.newtouch.glzdept.service.UserService;
 import org.springframework.boot.jackson.JsonObjectDeserializer;
@@ -24,13 +26,17 @@ public class UserController {
 
     /**
      * 登录
-     * @param userJosnString
+     * @param userVO
      * @return
      */
     @RequestMapping(value="/login",method=RequestMethod.POST)
     @ResponseBody
-    public String userLogin(@RequestBody UserVO userVO){
-        return userService.userLogin(userVO.getLoginName(),userVO.getPassword());
+    public ResponseVO userLogin(@RequestBody UserVO userVO){
+         String backflag = userService.userLogin(userVO.getLoginName(),userVO.getPassword());
+         if("0".equals(backflag)){
+             return ResponseUtil.successResponse(null);
+         }
+        return ResponseUtil.errorResponse(null);
     }
 
 }

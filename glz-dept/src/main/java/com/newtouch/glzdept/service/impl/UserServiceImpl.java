@@ -1,6 +1,8 @@
 package com.newtouch.glzdept.service.impl;
 
 
+import com.newtouch.common.entity.base.MessageType;
+import com.newtouch.common.util.ResponseUtil;
 import com.newtouch.glzdept.dao.UserDao;
 import com.newtouch.glzdept.entity.component.UserVO;
 import com.newtouch.glzdept.service.UserService;
