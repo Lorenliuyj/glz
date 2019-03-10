@@ -34,4 +34,6 @@ public interface PovertyPeopleDao {
      */
     List<PovertyPeopleVO> selectPovertyPeoplePage(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO, @Param("page") Page page);
 
+    int total();
+
 }
