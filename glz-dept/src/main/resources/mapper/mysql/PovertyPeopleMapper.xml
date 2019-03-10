@@ -3,7 +3,7 @@
 <mapper namespace="com.newtouch.glzdept.dao.PovertyPeopleDao">
 
 
-    <resultMap id="PovertyPeoplePOMap" type="com.newtouch.glzdept.entity.PO.PovertyPeoplePO">
+    <resultMap id="PovertyPeopleVOMap" type="com.newtouch.glzdept.entity.PO.PovertyPeoplePO">
         <id column="id" property="id" jdbcType="VARCHAR"/>
         <result column="difficult_type_id" property="difficultTypeId" jdbcType="VARCHAR" />
         <result column="poverty_name" property="povertyName" jdbcType="VARCHAR" />
@@ -129,21 +129,21 @@
           id = #{povertyPeoplePO.id}
     </delete>
 
-    <!--<update id="updateById">-->
-        <!--UPDATE t_poverty_people SET-->
-          <!--<include refid="ALL_IF"/>-->
-        <!--WHERE-->
-          <!--id = #{povertyPeoplePO.id}-->
-    <!--</update>-->
+    <update id="updateById">
+        UPDATE t_poverty_people SET
+          <include refid="ALL_IF_UPDATE"/>
+        WHERE
+          id = #{povertyPeoplePO.id}
+    </update>
 
-    <!--<select id="select" resultMap="PovertyPeopleVOMap">-->
-      <!--select-->
-        <!--<include refid="ALL_COLUMN"/>-->
-      <!--FROM-->
-        <!--t_poverty_people-->
-      <!--WHERE-->
-        <!--1=1-->
-        <!--<include refid="ALL_IF"/>-->
-    <!--</select>-->
+    <select id="select" resultMap="PovertyPeopleVOMap">
+      select
+        <include refid="ALL_COLUMN"/>
+      FROM
+        t_poverty_people
+      WHERE
+        1=1
+        <include refid="ALL_IF_SELECT"/>
+    </select>
 
 </mapper>
