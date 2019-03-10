@@ -1,6 +1,7 @@
 package com.newtouch.common.entity.base;
 
 import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
+import com.newtouch.glzdept.entity.VO.PovertyVisitVO;
 
 import java.util.List;
 
@@ -33,6 +34,16 @@ public class Page<T> {
     private List<T> list;
 
     PovertyPeopleVO povertyPeopleVO;
+    PovertyVisitVO povertyVisitVO;
+
+    public PovertyVisitVO getPovertyVisitVO() {
+        return povertyVisitVO;
+    }
+
+    public void setPovertyVisitVO(PovertyVisitVO povertyVisitVO) {
+        this.povertyVisitVO = povertyVisitVO;
+    }
+
     public Page() {
     }
 
