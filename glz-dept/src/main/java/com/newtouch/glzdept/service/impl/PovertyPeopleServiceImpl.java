@@ -41,6 +41,7 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
         if(page == null){
             page.init();
         }
+        page.setTotalNum(povertyPeopleDao.total());
         page.setList(povertyPeopleDao.selectPovertyPeoplePage(povertyPeopleVO,page));
         return page;
     }
