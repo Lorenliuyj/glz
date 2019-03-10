@@ -35,6 +35,23 @@ public class PovertyVisitVO {
     /*图片3*/
     private String image3;
 
+    /*备注*/
+    private String comments;
+    /*创建人id*/
+    private Integer createId;
+
+    private Timestamp createTime;
+
+    private String isdelete;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getImage1() {
         return image1;
     }
@@ -57,23 +74,6 @@ public class PovertyVisitVO {
 
     public void setImage3(String image3) {
         this.image3 = image3;
-    }
-
-    /*备注*/
-    private String comments;
-    /*创建人id*/
-    private Integer createId;
-
-    private Timestamp createTime;
-
-    private String isdelete;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public Integer getPovertyPeopleId() {

@@ -8,6 +8,8 @@ import com.newtouch.glzdept.service.IPovertyVisitService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Service
 public class PovertyVisitServiceImpl implements IPovertyVisitService {
@@ -20,6 +22,9 @@ public class PovertyVisitServiceImpl implements IPovertyVisitService {
         if(visitVO == null){
             return ;
         }
+        //TODO 缺少当前用户id赋值
+        visitVO.setIsdelete("n");
+        visitVO.setCreateTime(new Timestamp(new Date().getTime()));
         Integer key = povertyVisitDao.insert(visitVO);
         if(key == null){
             throw new BlcException(MessageType.ERROR);
