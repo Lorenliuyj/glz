@@ -2,6 +2,7 @@ package com.newtouch.glzdept.service.impl;
 
 import com.newtouch.common.entity.base.Page;
 import com.newtouch.glzdept.dao.PovertyPeopleDao;
+import com.newtouch.glzdept.entity.PO.PovertyPeoplePO;
 import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
 import com.newtouch.glzdept.service.PovertyPeopleService;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,28 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
 
     //
     @Override
-    public  PovertyPeopleVO searchPovertyPeople(PovertyPeopleVO povertyPeopleVO) {
-        PovertyPeopleVO result = (PovertyPeopleVO) povertyPeopleDao.search(povertyPeopleVO);
-        return result;
+    public PovertyPeopleVO searchPovertyPeople(PovertyPeopleVO povertyPeopleVO) {
+        PovertyPeoplePO result =  povertyPeopleDao.search(povertyPeopleVO);
+        PovertyPeopleVO aad=new PovertyPeopleVO();
+        aad.setVillage(result.getVillage());
+        aad.setPovertyName(result.getPovertyName());
+        aad.setAddress(result.getAddress());
+        aad.setBirthday(result.getBirthday());
+        aad.setComments(result.getComments());
+        aad.setDifficultTypeId(result.getDifficultTypeId());
+        aad.setFamilyDetail(result.getFamilyDetail());
+        aad.setId(result.getId());
+        aad.setIdcardNo(result.getIdcardNo());
+        aad.setImage1(result.getImage1());
+        aad.setImage2(result.getImage2());
+        aad.setImage3(result.getImage3());
+        aad.setIncome(result.getIncome());
+        aad.setPhone(result.getPhone());
+        aad.setPovertyType1(result.getPovertyType1());
+        aad.setPovertyType2(result.getPovertyType2());
+        aad.setSex(result.getSex());
+        aad.setTrouble(result.getTrouble());
+        return aad;
     }
 
     @Override
