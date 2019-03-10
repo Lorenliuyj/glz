@@ -23,9 +23,9 @@ public class PovertyPeoplePO {
 
     private String village;
 
-    private String provertyType1;
+    private String povertyType1;
 
-    private String provertyType2;
+    private String povertyType2;
 
     private String address;
 
@@ -101,20 +101,20 @@ public class PovertyPeoplePO {
         this.village = village;
     }
 
-    public String getProvertyType1() {
-        return provertyType1;
+    public String getPovertyType1() {
+        return povertyType1;
     }
 
-    public void setProvertyType1(String provertyType1) {
-        this.provertyType1 = provertyType1;
+    public void setPovertyType1(String povertyType1) {
+        this.povertyType1 = povertyType1;
     }
 
-    public String getProvertyType2() {
-        return provertyType2;
+    public String getPovertyType2() {
+        return povertyType2;
     }
 
-    public void setProvertyType2(String provertyType2) {
-        this.provertyType2 = provertyType2;
+    public void setPovertyType2(String povertyType2) {
+        this.povertyType2 = povertyType2;
     }
 
     public String getAddress() {

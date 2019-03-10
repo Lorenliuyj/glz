@@ -11,8 +11,8 @@
         <result column="idcard_no" property="idcardNo" jdbcType="VARCHAR" />
         <result column="birthday" property="birthday" jdbcType="DATE" />
         <result column="village" property="village" jdbcType="VARCHAR" />
-        <result column="proverty_type_1" property="provertyType1" jdbcType="VARCHAR" />
-        <result column="proverty_type_2" property="provertyType2" jdbcType="VARCHAR" />
+        <result column="poverty_type_1" property="povertyType1" jdbcType="VARCHAR" />
+        <result column="poverty_type_2" property="povertyType2" jdbcType="VARCHAR" />
         <result column="address" property="address" jdbcType="VARCHAR" />
         <result column="phone" property="phone" jdbcType="VARCHAR" />
         <result column="family_detail" property="familyDetail" jdbcType="VARCHAR" />
@@ -33,8 +33,8 @@
         idcard_no,
         birthday,
         village,
-        proverty_type_1,
-        proverty_type_2,
+        poverty_type_1,
+        poverty_type_2,
         address,
         phone,
         family_detail,
@@ -54,8 +54,8 @@
         #{povertyPeoplePO.idcardNo},
         #{povertyPeoplePO.birthday},
         #{povertyPeoplePO.village},
-        #{povertyPeoplePO.provertyType1},
-        #{povertyPeoplePO.provertyType2},
+        #{povertyPeoplePO.povertyType1},
+        #{povertyPeoplePO.povertyType2},
         #{povertyPeoplePO.address},
         #{povertyPeoplePO.phone},
         #{povertyPeoplePO.familyDetail},
@@ -74,8 +74,8 @@
         <if test="povertyPeoplePO.idcardNo != null and povertyPeoplePO.idcardNo != ''"> ,idcar_no = #{povertyPeoplePO.idcardNo} </if>
         <if test="povertyPeoplePO.birthday != null and povertyPeoplePO.birthday != ''"> ,birthday = #{povertyPeoplePO.birthday} </if>
         <if test="povertyPeoplePO.village != null and povertyPeoplePO.village != ''"> ,village = #{povertyPeoplePO.village} </if>
-        <if test="povertyPeoplePO.provertyType1 != null and povertyPeoplePO.provertyType1 != ''"> ,provert_type_1 = #{povertyPeoplePO.provertyType1} </if>
-        <if test="povertyPeoplePO.provertyType2 != null and povertyPeoplePO.provertyType2 != ''"> ,provert_type_2 = #{povertyPeoplePO.provertyType2} </if>
+        <if test="povertyPeoplePO.povertyType1 != null and povertyPeoplePO.povertyType1 != ''"> ,povert_type_1 = #{povertyPeoplePO.povertyType1} </if>
+        <if test="povertyPeoplePO.povertyType2 != null and povertyPeoplePO.povertyType2 != ''"> ,povert_type_2 = #{povertyPeoplePO.povertyType2} </if>
         <if test="povertyPeoplePO.address != null and povertyPeoplePO.address != ''"> ,address = #{povertyPeoplePO.address} </if>
         <if test="povertyPeoplePO.phone != null and povertyPeoplePO.phone != ''"> ,phone = #{povertyPeoplePO.phone} </if>
         <if test="povertyPeoplePO.familyDetail != null and povertyPeoplePO.familyDetail != ''"> ,family_detail = #{povertyPeoplePO.familyDetail} </if>
@@ -94,8 +94,8 @@
         <if test="povertyPeoplePO.idcardNo != null and povertyPeoplePO.idcardNo != ''"> AND idcar_no = #{povertyPeoplePO.idcardNo} </if>
         <if test="povertyPeoplePO.birthday != null and povertyPeoplePO.birthday != ''"> AND birthday = #{povertyPeoplePO.birthday} </if>
         <if test="povertyPeoplePO.village != null and povertyPeoplePO.village != ''"> AND village = #{povertyPeoplePO.village} </if>
-        <if test="povertyPeoplePO.provertyType1 != null and povertyPeoplePO.provertyType1 != ''"> AND provert_type_1 = #{povertyPeoplePO.provertyType1} </if>
-        <if test="povertyPeoplePO.provertyType2 != null and povertyPeoplePO.provertyType2 != ''"> AND provert_type_2 = #{povertyPeoplePO.provertyType2} </if>
+        <if test="povertyPeoplePO.povertyType1 != null and povertyPeoplePO.povertyType1 != ''"> AND provert_type_1 = #{povertyPeoplePO.povertyType1} </if>
+        <if test="povertyPeoplePO.povertyType2 != null and povertyPeoplePO.povertyType2 != ''"> AND provert_type_2 = #{povertyPeoplePO.povertyType2} </if>
         <if test="povertyPeoplePO.address != null and povertyPeoplePO.address != ''"> AND address = #{povertyPeoplePO.address} </if>
         <if test="povertyPeoplePO.phone != null and povertyPeoplePO.phone != ''"> AND phone = #{povertyPeoplePO.phone} </if>
         <if test="povertyPeoplePO.familyDetail != null and povertyPeoplePO.familyDetail != ''"> AND family_detail = #{povertyPeoplePO.familyDetail} </if>
