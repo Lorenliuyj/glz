@@ -36,4 +36,5 @@ public interface PovertyPeopleDao {
 
     int total();
 
+
 }
