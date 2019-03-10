@@ -27,8 +27,7 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
     //
     @Override
     public  PovertyPeopleVO searchPovertyPeople(PovertyPeopleVO povertyPeopleVO) {
-        Integer id = Integer.parseInt(povertyPeopleVO.getId());
-        PovertyPeopleVO result = povertyPeopleDao.search(id);
+        PovertyPeopleVO result = povertyPeopleDao.search(povertyPeopleVO);
         return result;
     }
 

@@ -151,6 +151,16 @@
         <include refid="ALL_IF_SELECT"/>
     </select>
 
+    <select id="search" resultMap="PovertyPeopleVOMap">
+        select
+        <include refid="ALL_COLUMN"/>
+        FROM
+        t_poverty_people
+        WHERE
+        1=1
+        <include refid="ALL_IF_SELECT"/>
+    </select>
+
     <select id="selectPovertyPeoplePage" resultMap="PovertyPeopleVOMap">
         select
         <include refid="ALL_COLUMN"/>
