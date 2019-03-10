@@ -23,7 +23,7 @@ public interface PovertyPeopleDao {
     void updateById(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
 
     //查询详细信息
-    public  PovertyPeopleVO  search(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
+    public  PovertyPeoplePO  search(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
 
     List<PovertyPeopleVO> selectPovertyPeopleVO(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
 
