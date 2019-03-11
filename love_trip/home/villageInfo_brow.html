@@ -259,7 +259,7 @@
 		
 		function checkIsEmpty(data) {
 			if(data.povertyName == "") {
-				mui.toast("平困户姓名不能为空！");
+				mui.toast("贫困户姓名不能为空！");
 				return false;
 			}
 			
@@ -352,7 +352,6 @@
 			img.setAttribute("src",p.value);
 			btn.setAttribute("class","mui-icon mui-icon-close-filled");
 			btn.setAttribute("style","position: relative;bottom: 70px;right:25px;margin-right: -20px;");
-			mui.toast(index);
 			btn.onclick=function(){removeFile(div,p.key)};
 			div.appendChild(img);
 			div.appendChild(btn);
