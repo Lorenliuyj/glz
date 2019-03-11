@@ -1,6 +1,7 @@
 package com.newtouch.glzdept.service;
 
 import com.newtouch.common.entity.base.Page;
+import com.newtouch.glzdept.entity.PO.PovertyPeoplePO;
 import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
 
 /**
@@ -20,7 +21,7 @@ public interface PovertyPeopleService {
      * 查询贫困户详细信息
      * @param povertyPeopleVO
      */
-    PovertyPeopleVO searchPovertyPeople(PovertyPeopleVO povertyPeopleVO);
+    PovertyPeoplePO povertyInfo(PovertyPeopleVO povertyPeopleVO);
 
     /**
      * 修改一个贫困户信息

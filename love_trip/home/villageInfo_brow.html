@@ -293,11 +293,11 @@
                         var expectWidth = this.naturalWidth;
                         var expectHeight = this.naturalHeight;
 
-                        if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 800) {
-                            expectWidth = 800;
+                        if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 300) {
+                            expectWidth = 150;
                             expectHeight = expectWidth * this.naturalHeight / this.naturalWidth;
-                        } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 1200) {
-                            expectHeight = 1200;
+                        } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 300) {
+                            expectHeight = 200;
                             expectWidth = expectHeight * this.naturalWidth / this.naturalHeight;
                         }
 
@@ -310,12 +310,12 @@
                         var base64 = null;
                         var mpImg = new MegaPixImage(image);
                         mpImg.render(canvas, {
-                            maxWidth: 800,
-                            maxHeight: 1200,
-                            quality: 0.8,
+                            maxWidth: 150,
+                            maxHeight: 200,
+                            quality: 0.3,
                             orientation: Orientation
                         });
-                        base64 = canvas.toDataURL("image/png", 0.8);
+                        base64 = canvas.toDataURL("image/png", 0.3);
 						var zz = {key:"image"+index,value:base64};
                         appendFile(zz);
                     };

@@ -24,10 +24,9 @@ public interface PovertyPeopleDao {
     void updateById(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
 
     //查询详细信息
-    public  PovertyPeoplePO  search(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
+    PovertyPeoplePO povertyInfo(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
 
     List<PovertyPeopleVO> selectPovertyPeopleVO(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
-
     /**
      *  分頁查詢d
      * @param povertyPeoplePO
@@ -35,8 +34,5 @@ public interface PovertyPeopleDao {
      * @return
      */
     List<PovertyPeopleVO> selectPovertyPeoplePage(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO, @Param("page") Page page);
-
     int total(Map<String,PovertyPeopleVO> povertyPeoplePO);
-
-
 }

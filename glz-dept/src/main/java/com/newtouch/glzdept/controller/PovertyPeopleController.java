@@ -4,6 +4,7 @@ package com.newtouch.glzdept.controller;
 import com.newtouch.common.entity.base.Page;
 import com.newtouch.common.entity.base.ResponseVO;
 import com.newtouch.common.util.ResponseUtil;
+import com.newtouch.glzdept.entity.PO.PovertyPeoplePO;
 import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
 import com.newtouch.glzdept.service.PovertyPeopleService;
 import org.springframework.stereotype.Controller;
@@ -31,11 +32,11 @@ public class PovertyPeopleController {
     }
 
     //查询贫困户详细信息
-    @PostMapping(value="/search")
+    @RequestMapping(value="/povertyInfo",method=RequestMethod.POST)
     @ResponseBody
-    public ResponseVO searchPovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){
-        PovertyPeopleVO list  = povertyUserService.searchPovertyPeople(povertyPeopleVO);
-        return ResponseUtil.successResponse(list);
+    public ResponseVO povertyInfo(@RequestBody PovertyPeopleVO povertyPeopleVO){
+        PovertyPeoplePO  povertyInfo = povertyUserService.povertyInfo(povertyPeopleVO);
+        return ResponseUtil.successResponse(povertyInfo);
     }
 
     @PostMapping(value="/update")
