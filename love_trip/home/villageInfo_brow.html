@@ -62,11 +62,11 @@
 		<div class="mui-content mui-content-padded" style="margin-bottom:20px;">
 			<form class="mui-input-group">
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">*姓名</label>
-					<input id="povertyName" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入姓名"/>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;姓名</label>
+					<input id="povertyName" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入姓名" maxlength='10'/>
 				</div>
                 <div class="mui-input-row">
-                    <label style="width: 40%;">*性别</label>
+                    <label style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;性别</label>
                     <div class="radio_inline mui-radio mui-pull-right" style="width: 60%;" >
                         <input name="sex" type="radio" value="0">
                         <label class="radio-inline"  style="width: 90px;">男</label>
@@ -75,38 +75,38 @@
                     </div>
                 </div>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">*身份证号</label>
-					<input id="idcardNo" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入身份证号码"/>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;身份证号</label>
+					<input id="idcardNo" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入身份证号码" maxlength="21"/>
 				</div>
 				<ul class="mui-table-view mui-table-view-chevron u">
 					<li class="mui-table-view-cell" id="timePicker">
-						<label class="mui-pull-left" style="width: 40%;">*出生年月</label>
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;出生年月</label>
 						<p id="birthday" class="mui-pull-right">请选择  </p>
 					</li>
 					<li class="mui-table-view-cell" id="forcountryPicker">
-						<label class="mui-pull-left" style="width: 40%;">*所属村居</label>
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;所属村居</label>
 						<p id="village" class="mui-pull-right">请选择</p>
 					</li>
 					<li class="mui-table-view-cell" id="forhardPicker">
-						<label class="mui-pull-left" style="width: 40%;">*困难类型</label>
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;困难类型</label>
 						<p id="povertyType" class="mui-pull-right">请选择</p>
 					</li>
 				</ul>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">*住址</label>
-					<input id="address" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入住址"/>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;住址</label>
+					<input id="address" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入住址" maxlength="30"/>
 				</div>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">*联系电话</label>
-					<input id="phone" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入联系电话"/>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;联系电话</label>
+					<input id="phone" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入联系电话" maxlength="11" onkeyup="value=value.replace(/[^\d]/g,'')"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">家庭情况</label>
-					<input id="familyDetail" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入家庭情况"/>
+					<input id="familyDetail" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入家庭情况" maxlength="50"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">主要困难</label>
-					<input id="trouble" type="text" class="mui-pull-right" style="width: 60%;" placeholder="请输入主要困难"/>
+					<input id="trouble" type="text" class="mui-pull-right" style="width: 60%;" placeholder="请输入主要困难" maxlength="50"/>
 				</div>
 				<p style="margin-left: 5px;">个人图片</p>
 				<div class="mui-input-row" style="background-color: white;padding-bottom: 100px">
@@ -121,11 +121,11 @@
 				</div>
 				<div class="mui-input-row">
 					<p style="margin-left: 5px;">家庭月收入</p>
-					<textarea id="income" type="textarea" rows="2" placeholder="请输入家庭月收入" class="mui-input-speech mui-input-clear"></textarea>
+					<textarea id="income" type="textarea" rows="2" placeholder="请输入家庭月收入" class="mui-input-speech mui-input-clear" maxlength="50"></textarea>
 				</div>
 				<div class="mui-input-row" style="margin-top: 10px;">
 					<p style="margin-bottom: -2px;">备注</p>
-					<textarea id="comments" type="textarea" rows="3" placeholder="请填写备注" class="mui-input-speech mui-input-clear"></textarea>
+					<textarea id="comments" type="textarea" rows="3" placeholder="请填写备注" class="mui-input-speech mui-input-clear" maxlength="200"></textarea>
 				</div>
 			</form>
 			<button id="submitBtn" class="mui-btn mui-btn-block btn-blue" style="margin-top: 5px;">提交</button>
@@ -150,6 +150,7 @@
 		var image1 = "";
 		var image2 = "";
 		var image3 = "";
+		var difficultTypeId= "";
         var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
         var forcountryPicker = new mui.PopPicker();
         var forhardPicker = new mui.PopPicker({layer: 2});
@@ -159,10 +160,10 @@
             {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
             {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
         var forhardData=[{value:"",text:"请选择",children:[{value:"",text:" "}]},
-			{value:"0",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
-			{value:"1",text:"组织办",children:[{value:"10",text:"困难党员"}]},
-            {value:"2",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
-			{value:"3",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
+			{value:"001",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
+			{value:"002",text:"组织办",children:[{value:"10",text:"困难党员"}]},
+            {value:"003",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
+			{value:"004",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
 
         mui.init();
 		mui.ready(function() {
@@ -205,7 +206,9 @@
                         $("#povertyType").removeClass("mui-pull-right");
 						gbid("povertyType").innerHTML=items[0].text+"-"+items[1].text;
                     }
-					
+					difficultTypeId = povertyType1;
+					povertyType1 = items[0].text;
+					povertyType2 = items[1].text;
 				});
 			});
 			gbid('submitBtn').addEventListener('tap', function(event) {
@@ -219,7 +222,7 @@
 			//给图片设置值
 			setImage();
 			var data = {povertyName:gbid('povertyName').value,sex:$("input[name='sex']:checked").val(),idcardNo:gbid('idcardNo').value,birthday:birthday,
-                village:village,povertyType1:povertyType1,povertyType2:povertyType2,address:gbid('address').value,phone:gbid('phone').value,
+                village:village,difficultTypeId:difficultTypeId,povertyType1:povertyType1,povertyType2:povertyType2,address:gbid('address').value,phone:gbid('phone').value,
                 familyDetail:gbid('familyDetail').value,trouble:gbid('trouble').value,income:$("#income").val(),comments:$("#comments").val(),
 				image1:image1,image2:image2,image3:image3
 			};
@@ -230,8 +233,9 @@
 			}
             appajax.SendRequestByPost("poverty/add",JSON.stringify(data),function (response) {;
 				if("0000" == response.code) {
-					window.location.reload(true);
+					// window.location.reload(true);
 					mui.toast("贫困户录入成功");
+					openUrl("../menu.html");
 				}else{
 					mui.toast("贫困户录入失败！");
 				}

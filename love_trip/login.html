@@ -89,7 +89,7 @@
 	    	var msg = JSON.stringify(data);
 			console.info(msg);
 	    	appajax.SendRequestByPost("user/login",msg,function(resultMsg){
-				if(resultMsg.result == 0){
+				if(resultMsg.code == '0000'){
 				             //登录成功
 				            openUrl("menu.html");
 				             

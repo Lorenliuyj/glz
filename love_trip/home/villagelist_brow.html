@@ -185,8 +185,7 @@
 		var table = gbid("villageInfolist");
 		function getData(upAndDown) {
 			pageNum++;
-			var povertyPeopleVO = {difficultTypeId:"2"};
-			var data = {povertyPeopleVO:povertyPeopleVO,pageNum:pageNum,pageSize:pageSize};
+			var data = {pageNum:pageNum,pageSize:pageSize};
 			appajax.SendRequestByPost("poverty/selectPovertyPeoplePage",JSON.stringify(data),function(response) {
 				if(response.code == "0000") {
 					var rtnData = response.result;
@@ -207,7 +206,7 @@
 										'</div>'+
 										'<div class="mui-slider-handle">'+
 											'<a href="javascript:;" onclick="">'+
-												'<img class="mui-media-object mui-pull-left" src="../images/shuijiao.png">'+
+												'<img class="mui-media-object mui-pull-left" src="data:image/png;base64,'+list[i].image1+'">'+
 												'<div class="mui-media-body">'+
 													'<div class="mui-ellipsis-2">'+list[i].povertyName+'</div>'+
 												'</div>'+
