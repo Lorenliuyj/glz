@@ -146,7 +146,8 @@
         var village = "";
         var hardType = "";
 		var povertyType1 = "";
-		var povertyType2 = ";"
+		var povertyType2 = "";
+		var difficultTypeId = "";
 		var image1 = "";
 		var image2 = "";
 		var image3 = "";
@@ -159,10 +160,10 @@
             {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
             {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
         var forhardData=[{value:"",text:"请选择",children:[{value:"",text:" "}]},
-			{value:"0",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
-			{value:"1",text:"组织办",children:[{value:"10",text:"困难党员"}]},
-            {value:"2",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
-			{value:"3",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
+			{value:"001",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
+			{value:"002",text:"组织办",children:[{value:"10",text:"困难党员"}]},
+            {value:"003",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
+			{value:"0005",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}]; 
 
         mui.init();
 		mui.ready(function() {
@@ -196,6 +197,7 @@
 				forhardPicker.show(function(items) {
 					povertyType1 = items[0].value;
 					povertyType2 = items[1].value;
+					difficultTypeId = povertyType1+povertyType2;
 					if(povertyType1 == "") {
                         $("#povertyType").removeClass("mui-navigate-right");
                         $("#povertyType").addClass("mui-pull-right");
@@ -219,7 +221,7 @@
 			//给图片设置值
 			setImage();
 			var data = {povertyName:gbid('povertyName').value,sex:$("input[name='sex']:checked").val(),idcardNo:gbid('idcardNo').value,birthday:birthday,
-                village:village,povertyType1:povertyType1,povertyType2:povertyType2,address:gbid('address').value,phone:gbid('phone').value,
+                village:village,difficultTypeId:difficultTypeId,povertyType1:povertyType1,povertyType2:povertyType2,address:gbid('address').value,phone:gbid('phone').value,
                 familyDetail:gbid('familyDetail').value,trouble:gbid('trouble').value,income:$("#income").val(),comments:$("#comments").val(),
 				image1:image1,image2:image2,image3:image3
 			};

@@ -185,8 +185,7 @@
 		var table = gbid("villageInfolist");
 		function getData(upAndDown) {
 			pageNum++;
-			var povertyPeopleVO = {difficultTypeId:"2"};
-			var data = {povertyPeopleVO:povertyPeopleVO,pageNum:pageNum,pageSize:pageSize};
+			var data = {pageNum:pageNum,pageSize:pageSize};
 			appajax.SendRequestByPost("poverty/selectPovertyPeoplePage",JSON.stringify(data),function(response) {
 				if(response.code == "0000") {
 					var rtnData = response.result;
@@ -255,6 +254,7 @@
         });
 
         $("#villageInfolist").on('tap','.mui-slider-handle',function () {
+			localStorage.setItem("vid",this.id);
 			openUrl("villageInfoDetail_brow.html");
         });
 
