@@ -113,12 +113,33 @@ function fmDay(dstr) {
 
 
 function getDictJsonText(dictJson, dictId) {
+	console.log(dictJson);
     if (dictJson == null || dictJson.length == 0) {
         return "";
     }
     for (var i=0; i<dictJson.length; i++) {
-        if (dictJson[i].id == dictId) {
+        if (dictJson[i].value == dictId) {
             return dictJson[i].text;
+        }
+    }
+    return "";
+}
+
+function getTwoDictJsonText(dictJson, dictId1,dictId2) {
+	var dictText = "";
+    if (dictJson == null || dictJson.length == 0) {
+        return "";
+    }
+    for (var i=0; i<dictJson.length; i++) {
+        if (dictJson[i].value == dictId1) {
+			dictText = dictJson[i].text;
+			var dict = dictJson[i].children;
+			for(var j=0;j<dict.length;j++) {
+				if(dict[j].value == dictId2) {
+					dictText = dictText + "-" + dict[j].text;
+				}
+			}
+            return dictText;
         }
     }
     return "";
