@@ -142,12 +142,9 @@
 	<script src="../js/app.js"></script>
 	<script src="../js/appajax.js"></script>
 	<script type="text/javascript">
-		//本地缓存
-		var state=app.getUserState();
         //数据初始化
-        var birthday = "";
-        var village = "";
-        var hardType = "";
+        //var birthday = "";
+        //var village = "";
         var povertyType1 = "";
         var povertyType2 = ";"
         var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
@@ -159,48 +156,98 @@
             {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
             {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
         var forhardData=[{value:"",text:"请选择",children:[{value:"",text:" "}]},
-			{value:"0",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
-			{value:"1",text:"组织办",children:[{value:"10",text:"困难党员"}]},
-            {value:"2",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
-			{value:"3",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
+			{value:"001",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
+			{value:"002",text:"组织办",children:[{value:"10",text:"困难党员"}]},
+            {value:"003",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
+			{value:"004",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
 
         mui.init();
 		mui.ready(function() {
-			var tid = localStorage.getItem("id");
 			forcountryPicker.setData(forcountryData);
 			forhardPicker.setData(forhardData);
-			
-			var data = {id:2};
+			//var id = localStorage.getItem("vid");
+			var data = {id:12};
+			//mui.toast(id);
 			var tabimg = gbid("imgList");
+			console.log(data);
+			//init(data);
+			
+			/* gbid('timePicker').addEventListener('tap', function(event) {
+				timePicker.show(function(items) {
+					birthday=parseDate(items.toString());
+					if(items != null) {;
+                       $("#birthday").addClass("mui-navigate-right");
+                        $("#birthday").removeClass("mui-pull-right");
+					}
+					gbid("birthday").innerHTML=items;
+				});
+			}); */
+			/* gbid('forcountryPicker').addEventListener('tap', function(event) {
+				forcountryPicker.show(function(items) {
+					countryType=items[0].value;
+					village=items[0].value;
+					if(village == "") {
+					    $("#village").removeClass("mui-navigate-right");
+					    $("#village").addClass("mui-pull-right");
+					}else {
+					    $("#village").addClass("mui-navigate-right");
+					    $("#village").removeClass("mui-pull-right");
+					}
+					gbid("village").innerHTML=items[0].text;
+				});
+			}); */
+// 			gbid('forhardPicker').addEventListener('tap', function(event) {
+// 				forhardPicker.show(function(items) {
+// 					povertyType1 = items[0].value;
+// 					povertyType2 = items[1].value;
+// 					if(povertyType1 == "") {
+// 					    $("#povertyType").removeClass("mui-navigate-right");
+// 					    $("#povertyType").addClass("mui-pull-right");
+// 						gbid("povertyType").innerHTML=items[0].text;
+// 					}else {
+// 					    $("#povertyType").addClass("mui-navigate-right");
+// 					    $("#povertyType").removeClass("mui-pull-right");
+// 						gbid("povertyType").innerHTML=items[0].text+"-"+items[1].text;
+// 					}
+// 				});
+// 			});
+// 
+// 			gbid('submitBtn').addEventListener('tap', function(event) {
+// 				submitFun();
+// 			});
+// 		
+		});
+		
+		function init(data) {
 			appajax.SendRequestByPost("poverty/search",JSON.stringify(data),function (response) {
+				console.log(response.result);
 				if("0000" == response.code) {
-					console.log(response.result);
-					
-					birthday = "";
-					village = "";
-					povertyType1 = "";
-					povertyType2 = "";
-					
-					
-					$("#povertyName").val();
-					$("[name='sex'][value='"+a+"']").prop("checked", "checked");
-					$("#idcardNo").val();
-					$("#address").val();
-					$("#phone").val();
-					$("#familyDetail").val();
-					$("#trouble").val();
-					$("#income").val();
-					$("#comments").val();
+					var rtnData = response.result;
+					$("#povertyName").val(rtnData.povertyName);
+					$("[name='sex'][value='"+rtnData.sex+"']").prop("checked", "checked");
+					$("#idcardNo").val(rtnData.idcardNo);
+					$("#address").val(rtnData.address);
+					$("#phone").val(rtnData.address);
+					$("#familyDetail").val(rtnData.address);
+					$("#trouble").val(rtnData.address);
+					$("#income").val(rtnData.address);
+					$("#comments").val(rtnData.address);
 					$("#birthday").html(fmDates());
-					$("#village").html(getDictJsonText(forcountryData, dictId));
+					
 					$("#phone").val();
 					$("#phone").val();
 					$("#phone").val();
 					
+					$("#village").html(getDictJsonText(forcountryData, rtnData.village));
+					$("#village").removeClass("mui-pull-right");
 					
+					$("#birthday").html(rtnData.birthday);
+					$("#birthday").removeClass("mui-pull-right");
 					
+					$("#povertyType").html(getTwoDictJsonText(forhardData,rtnData.povertyType1,rtnData.povertyType2));
+					$("#povertyType").removeClass("mui-pull-right");
 					
-					if(image1!="") {
+					/* if(image1!="") {
 						var img = document.createElement('img');
 						img.setAttribute("data-preview-src","");
 						img.className = "mui-table-view-cell mui-col-sm-4 mui-col-xs-4";
@@ -220,62 +267,17 @@
 						img.className = "mui-table-view-cell mui-col-sm-4 mui-col-xs-4";
 						img.src = "data:image/png;base64,"+image3;
 						gbid("imgList").appendChild(img);
-					}
-					
-					
+					} */
 					
 				}else{
 					mui.toast("查询详情失败！");
+					break;
 				}
 			},function(response) {
 					mui.toast("查询详情失败！");
+					break;
 			});
-			
-			gbid('timePicker').addEventListener('tap', function(event) {
-				timePicker.show(function(items) {
-					birthday=parseDate(items.toString());
-					if(items != null) {;
-                       $("#birthday").addClass("mui-navigate-right");
-                        $("#birthday").removeClass("mui-pull-right");
-					}
-					gbid("birthday").innerHTML=items;
-				});
-			});
-			gbid('forcountryPicker').addEventListener('tap', function(event) {
-				forcountryPicker.show(function(items) {
-					countryType=items[0].value;
-					village=items[0].value;
-					if(village == "") {
-					    $("#village").removeClass("mui-navigate-right");
-					    $("#village").addClass("mui-pull-right");
-					}else {
-					    $("#village").addClass("mui-navigate-right");
-					    $("#village").removeClass("mui-pull-right");
-					}
-					gbid("village").innerHTML=items[0].text;
-				});
-			});
-			gbid('forhardPicker').addEventListener('tap', function(event) {
-				forhardPicker.show(function(items) {
-					povertyType1 = items[0].value;
-					povertyType2 = items[1].value;
-					if(povertyType1 == "") {
-					    $("#povertyType").removeClass("mui-navigate-right");
-					    $("#povertyType").addClass("mui-pull-right");
-						gbid("povertyType").innerHTML=items[0].text;
-					}else {
-					    $("#povertyType").addClass("mui-navigate-right");
-					    $("#povertyType").removeClass("mui-pull-right");
-						gbid("povertyType").innerHTML=items[0].text+"-"+items[1].text;
-					}
-				});
-			});
-
-			gbid('submitBtn').addEventListener('tap', function(event) {
-				submitFun();
-			});
-		
-		});
+		}
 		
 		//提交方法
 		function submitFun() {

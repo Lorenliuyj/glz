@@ -254,6 +254,7 @@
         });
 
         $("#villageInfolist").on('tap','.mui-slider-handle',function () {
+			localStorage.setItem("vid",this.id);
 			openUrl("villageInfoDetail_brow.html");
         });
 
