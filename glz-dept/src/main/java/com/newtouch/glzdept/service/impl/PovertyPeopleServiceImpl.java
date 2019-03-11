@@ -8,6 +8,8 @@ import com.newtouch.glzdept.service.PovertyPeopleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: lgyu6
@@ -65,7 +67,12 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
         if(page == null){
             page.init();
         }
-        page.setTotalNum(povertyPeopleDao.total(povertyPeopleVO));
+        Map<String,PovertyPeopleVO> map = new HashMap<String,PovertyPeopleVO>();
+        if(povertyPeopleVO == null){
+             povertyPeopleVO =new PovertyPeopleVO();
+        }
+        map.put("povertyPeopleVO",povertyPeopleVO);
+        page.setTotalNum(povertyPeopleDao.total(map));
         page.setList(povertyPeopleDao.selectPovertyPeoplePage(povertyPeopleVO,page));
         return page;
 

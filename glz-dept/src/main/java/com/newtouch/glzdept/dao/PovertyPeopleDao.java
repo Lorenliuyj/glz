@@ -6,6 +6,7 @@ import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author: lgyu6
@@ -28,14 +29,14 @@ public interface PovertyPeopleDao {
     List<PovertyPeopleVO> selectPovertyPeopleVO(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
 
     /**
-     *  分頁查詢
+     *  分頁查詢d
      * @param povertyPeoplePO
      * @param page
      * @return
      */
     List<PovertyPeopleVO> selectPovertyPeoplePage(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO, @Param("page") Page page);
 
-    int total(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
+    int total(Map<String,PovertyPeopleVO> povertyPeoplePO);
 
 
 }
