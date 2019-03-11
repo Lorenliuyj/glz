@@ -151,7 +151,6 @@
 		var image1 = "";
 		var image2 = "";
 		var image3 = "";
-		var difficultTypeId= "";
         var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
         var forcountryPicker = new mui.PopPicker();
         var forhardPicker = new mui.PopPicker({layer: 2});
@@ -164,12 +163,7 @@
 			{value:"001",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
 			{value:"002",text:"组织办",children:[{value:"10",text:"困难党员"}]},
             {value:"003",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
-<<<<<<< HEAD
 			{value:"004",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
-=======
-			{value:"0005",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}]; 
->>>>>>> cd949ef51999123baeb8a140b8ceaf40741e379e
-
         mui.init();
 		mui.ready(function() {
 			forcountryPicker.setData(forcountryData);
@@ -201,12 +195,7 @@
 			gbid('forhardPicker').addEventListener('tap', function(event) {
 				forhardPicker.show(function(items) {
 					povertyType1 = items[0].value;
-<<<<<<< HEAD
 					povertyType2 = items[1].value;
-=======
-					povertyType2 = items[1].value;
-					difficultTypeId = povertyType1+povertyType2;
->>>>>>> cd949ef51999123baeb8a140b8ceaf40741e379e
 					if(povertyType1 == "") {
                         $("#povertyType").removeClass("mui-navigate-right");
                         $("#povertyType").addClass("mui-pull-right");

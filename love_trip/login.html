@@ -89,22 +89,12 @@
 	    	var msg = JSON.stringify(data);
 			console.info(msg);
 	    	appajax.SendRequestByPost("user/login",msg,function(resultMsg){
-<<<<<<< HEAD
-				if(resultMsg.code == '0000'){
-				             //登录成功
-				            openUrl("menu.html");
-				             
-				         }else{
-				            	mui.alert('登录出错请重新登录');
-				         }
-=======
 				if(resultMsg.code == 0000){
 					 //登录成功
 					openUrl("menu.html");           
 				 }else{
 					mui.toast('用户名或者密码错误！');
 				 }
->>>>>>> cd949ef51999123baeb8a140b8ceaf40741e379e
 			},function(errorMsg){
 				mui.toast('登录失败！');
 			});
