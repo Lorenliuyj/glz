@@ -36,37 +36,37 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label  class="mui-pull-left" style="width: 40%;">慰问对象姓名</label>
-					<input id="name" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问对象姓名"/>
+					<input id="povertyPeopleName" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问对象姓名"/>
 				</div>
 				<ul class="mui-table-view mui-table-view-chevron u">
-					<li class="mui-table-view-cell" id="timePicker">
+					<li class="mui-table-view-cell">
 						<label class="mui-pull-left" style="width: 40%;">出生年月</label>
 						<p id="birthday" class="mui-pull-right">请选择  </p>
 					</li>
 					<li class="mui-table-view-cell" id="forcountryPicker">
 						<label class="mui-pull-left" style="width: 40%;">所属村居</label>
-						<p id="countryType" class="mui-pull-right">请选择</p>
+						<p id="village" class="mui-pull-right">请选择</p>
 					</li>
 					<li class="mui-table-view-cell" id="timePicker">
 						<label class="mui-pull-left" style="width: 40%;">慰问日期</label>
-						<p id="salutedate" class="mui-pull-right">请选择</p>
+						<p id="condolenceDate" class="mui-pull-right">请选择</p>
 					</li>
 				</ul>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">家庭情况</label>
-					<input id="familyinfo" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写家庭情况"/>
+					<input id="familyDetail" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写家庭情况"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">走访人</label>
-					<input id="visitor" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写走访人"/>
+					<input id="visitorName" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写走访人"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">慰问物品</label>
-					<input id="visgoods" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问物品"/>
+					<input id="condolenceProduct" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问物品"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">群众诉求</label>
-					<input id="appeal" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写群众诉求"/>
+					<input id="massAppeal" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写群众诉求"/>
 				</div>
 				<p style="margin-bottom: -2px;">慰问图片</p>
 				<div class="mui-input-row" style="background-color: white;padding-bottom: 100px">
@@ -81,11 +81,11 @@
 				</div>
 				<div class="mui-input-row" style="margin-top: 5px;">
 					<p style="margin-bottom: -2px;">慰问情况</p>
-					<textarea id="textarea" rows="4" placeholder="请填写慰问情况" class="mui-input-speech mui-input-clear"></textarea>
+					<textarea id="condolenceDetail" rows="4" placeholder="请填写慰问情况" class="mui-input-speech mui-input-clear"></textarea>
 				</div>
 				<div class="mui-input-row">
 					<p style="margin-bottom: -2px;">备注</p>
-					<textarea id="textarea" rows="2" placeholder="请填写备注" class="mui-input-speech mui-input-clear"></textarea>
+					<textarea id="comments" rows="2" placeholder="请填写备注" class="mui-input-speech mui-input-clear"></textarea>
 				</div>
 				<button id="submitBtn" class="mui-btn mui-btn-block btn-blue" style="margin-top: 5px;">提交</button>
 			</form>
@@ -105,30 +105,52 @@
 
 			gbid('timePicker').addEventListener('tap', function(event) {
 				timePicker.show(function(items) {
-					birthday=parseDateTime(items.toString());
-                    if(items != null) {;
-                        $("#birthday").addClass("mui-navigate-right");
-                        $("#birthday").removeClass("mui-pull-right");
-                    }
-					gbid("birthday").innerHTML=items;
+					condolenceDate=parseDate(items.toString());
+						if(items != null) {;
+							$("#condolenceDate").addClass("mui-navigate-right");
+							$("#condolenceDate").removeClass("mui-pull-right");
+						}
+					gbid("condolenceDate").innerHTML=items;
 				});
 			});
 			gbid('forcountryPicker').addEventListener('tap', function(event) {
 				forcountryPicker.show(function(items) {
-					countryType=items[0].value;
-                    if(countryType == "") {
-                        $("#countryType").removeClass("mui-navigate-right");
-                        $("#countryType").addClass("mui-pull-right");
-                    }else {
-                        $("#countryType").addClass("mui-navigate-right");
-                        $("#countryType").removeClass("mui-pull-right");
-                    }
-					gbid("countryType").innerHTML=items[0].text;
+					village=items[0].value;
+									if(village == "") {
+											$("#village").removeClass("mui-navigate-right");
+											$("#village").addClass("mui-pull-right");
+									}else {
+											$("#village").addClass("mui-navigate-right");
+											$("#village").removeClass("mui-pull-right");
+									}
+					gbid("village").innerHTML=items[0].text;
 				});
 			});
 
 			gbid('submitBtn').addEventListener('tap', function(event) {
-
+				debugger;
+				//校验
+				var data = {
+					povertyPeopleName:gbid('povertyPeopleName').value,
+					//待定
+					birthday:"20180222",
+					village:village,
+					condolenceDate:condolenceDate,
+					familyDetail:gbid('familyDetail').value,
+				  visitorName:gbid('visitorName').value,
+					condolenceProduct:gbid("condolenceProduct").value,
+					massAppeal:gbid('massAppeal').value,
+				  condolenceDetail:gbid('condolenceDetail').value,
+					comments:gbid('comments').value
+					//picture:files
+				}
+				mui.toast(JSON.stringify(data));
+				appajax.SendRequestByPost("/visit/save",JSON.stringify(data),function (response) {
+					window.location.reload();
+				},function(response) {
+					alert("失败!");
+				});
+			
 			});
 
 
@@ -137,8 +159,9 @@
       //  $("#addImageBtn").live("change",selectFileImage(this));
 		//数据初始化
 		var birthday = "";
-		var countryType = "";
-		var hardType = "";
+		var condolenceDate = "";
+		var village = "";
+		// var hardType = "";
 		var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
 		var forcountryPicker = new mui.PopPicker();
 		var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
@@ -159,14 +182,14 @@
 
 			gbid('timePicker').addEventListener('tap', function(event) {
 				timePicker.show(function(items) {
-					birthday=parseDateTime(items.toString());
-					gbid("birthday").innerHTML=items;
+					condolenceDate=parseDate(items.toString());
+					gbid("condolenceDate").innerHTML=items;
 				});
 			});
 			gbid('forcountryPicker').addEventListener('tap', function(event) {
 				forcountryPicker.show(function(items) {
-					countryType=items[0].value;
-					gbid("countryType").innerHTML=items[0].text;
+					village=items[0].value;
+					gbid("village").innerHTML=items[0].text;
 				});
 			});
 
