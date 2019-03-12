@@ -194,7 +194,7 @@
 					var total = rtnData.totalNum;
 					if(upAndDown == 0) {
 						//mui('#pullrefresh').pullRefresh().endPullup(false);
-						mui('#pullrefresh').pullRefresh().endPullupToRefresh((pageNum*pageSize)>total);
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh((pageNum*pageSize)>=total);
 					}
 					if(!list) {return;}//为空直接返回
 					for(var i=0;i<list.length;i++) {
@@ -218,14 +218,11 @@
 										'</div>';
 							table.appendChild(li);		
 					}
-					
 				}
 			},function(response) {
 				
 			});
-			
 		}
-		
 		
         //点击更多筛选收起或显示
         mui("body").on('tap','.selectBtn',function(){
