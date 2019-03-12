@@ -163,8 +163,8 @@
         });
         var upAndDown = 0;//0:up,1:down
         function pullupRefresh() {
+		    pageNum++;
             upAndDown = 0;
-            mui.toast("上拉加载");
             setTimeout(function () {
                 //mui('#pullrefresh').pullRefresh().endPullup(true);
                 //mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
@@ -173,7 +173,8 @@
         }
         function pulldownRefresh() {
             upAndDown = 1;
-			pageNum = 0;
+			pageNum = 1;
+			table.innerHTML = "";
             setTimeout(function(){
 				getData(upAndDown)
                 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
@@ -181,10 +182,9 @@
         }
 		
 		var pageNum = 0;
-		var pageSize = 5;
+		var pageSize = 10;
 		var table = gbid("villageInfolist");
 		function getData(upAndDown) {
-			pageNum++;
 			var data = {pageNum:pageNum,pageSize:pageSize};
 			appajax.SendRequestByPost("poverty/selectPovertyPeoplePage",JSON.stringify(data),function(response) {
 				if(response.code == "0000") {
@@ -211,7 +211,7 @@
 													'<div class="mui-ellipsis-2">'+list[i].povertyName+'</div>'+
 												'</div>'+
 												'<div class="meta-info">'+
-													'<div class="author">'+list[i].village+'</div>'+
+													'<div class="author">'+list[i].phone+'</div>'+
 													'<div class="time">'+list[i].povertyType1+'-'+list[i].povertyType2+'</div>'+
 												'</div>'+
 											'</a>'+

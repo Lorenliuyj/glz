@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Page<T> {
 
-    public static final int PAGE_SIZE_DEFAULT = 20;
+    public static final int PAGE_SIZE_DEFAULT = 10;
     /**
      * 当前页码
      */
@@ -103,7 +103,7 @@ public class Page<T> {
 
     public void init() {
         pageNum = pageNum<1?1:pageNum;
-        pageSize = pageSize<=20?PAGE_SIZE_DEFAULT:pageSize;
+        pageSize = pageSize<=0?PAGE_SIZE_DEFAULT:pageSize;
         minNum = pageSize*(pageNum-1);
     }
 }

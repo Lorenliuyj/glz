@@ -41,9 +41,7 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
 
     @Override
     public Page<PovertyPeopleVO> selectPovertyUserPage(PovertyPeopleVO povertyPeopleVO, Page page) {
-        if(page == null){
-            page.init();
-        }
+        page.init();
         Map<String,PovertyPeopleVO> map = new HashMap<String,PovertyPeopleVO>();
         if(povertyPeopleVO == null){
              povertyPeopleVO =new PovertyPeopleVO();

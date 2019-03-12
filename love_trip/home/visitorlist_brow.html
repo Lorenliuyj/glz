@@ -163,22 +163,24 @@
         var upAndDown = 0;//0:up,1:down
         function pullupRefresh() {
             upAndDown = 0;
+			pageNum++;
             setTimeout(function () {
 				getData(upAndDown);
 			},1000);
         }
         function pulldownRefresh() {
             upAndDown = 1;
+			pageNum = 1;
+			table.innerHTML = "";
             setTimeout(function(){
                 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
             },1000);
         }
 		
 		var pageNum = 0;
-		var pageSize = 5;
+		var pageSize = 10;
 		var table = gbid("visitorlist");
 		function getData(upAndDown) {
-			pageNum++;
 			var data = {pageNum:pageNum,pageSize:pageSize};
 			appajax.SendRequestByPost("visit/selectvisitPage",JSON.stringify(data),function(response) {
 				if(response.code = '0000') {
