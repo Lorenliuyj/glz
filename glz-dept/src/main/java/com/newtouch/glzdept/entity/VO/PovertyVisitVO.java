@@ -11,11 +11,11 @@ public class PovertyVisitVO {
     /*慰问对象姓名*/
     private String povertyPeopleName;
     /*出生日期*/
-    private Date birthday;
+    private String birthday;
     /*所属村居*/
     private String village;
     /*慰问日期*/
-    private Date condolenceDate;
+    private String condolenceDate;
     /*家庭情况*/
     private String familyDetail;
     /*走访人id*/
@@ -92,19 +92,19 @@ public class PovertyVisitVO {
         this.povertyPeopleName = povertyPeopleName;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public Date getCondolenceDate() {
+    public String getCondolenceDate() {
         return condolenceDate;
     }
 
-    public void setCondolenceDate(Date condolenceDate) {
+    public void setCondolenceDate(String condolenceDate) {
         this.condolenceDate = condolenceDate;
     }
 
