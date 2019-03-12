@@ -175,8 +175,8 @@
             upAndDown = 1;
 			pageNum = 0;
             setTimeout(function(){
+				getData(upAndDown)
                 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
-                //mui('#pullrefresh').pullRefresh().refresh(true);
             },1000);
         }
 		
@@ -202,7 +202,7 @@
 						li.className = "mui-table-view-cell mui-media";
 						li.id = list[i].id;
 						li.innerHTML = '<div class="mui-slider-right mui-disabled">'+
-											'<a class="mui-btn mui-btn-success" datasrc="'+list[i].id+'">走访</a>'+
+											'<a class="mui-btn mui-btn-success" onclick="setVid(\''+list[i].id+'\',\''+list[i].povertyName+'\',\''+list[i].birthday+'\',\''+list[i].village+'\')">走访</a>'+
 										'</div>'+
 										'<div id="'+list[i].id+'" class="mui-slider-handle">'+
 											'<a href="javascript:;" onclick="">'+
@@ -252,6 +252,14 @@
 			localStorage.setItem("vid",this.id);
 			openUrl("villageInfoDetail_brow.html");
         });
+		
+		function setVid(id,povertyName,birthday,village) {
+			localStorage.setItem("vid",id);
+			localStorage.setItem("povertyName",povertyName);
+			localStorage.setItem("birthday",birthday);
+			localStorage.setItem("village",village);
+			openUrl("visitor_brow.html");
+		}
 
 	</script>
 </html>

@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link href="../css/mui.picker.all.css" rel="stylesheet" />
+		<link href="../css/viewImg.css" rel="stylesheet" />
 		<style>
 			html,body,.mui-content{background-color: white;}
 			.mui-icon.mui-icon-plusempty{font-size: 17px;}
@@ -136,11 +137,12 @@
 	<script src="../js/mobileBUGFix.mini.js"></script>
 	<script src="../js/exif.js" ></script>
 	<script src="../js/jquery2.min.js"></script>
+	<script src="../js/mui.zoom.js"></script>
+	<script src="../js/mui.previewimage.js"></script>
 	<script src="../js/app.js"></script>
 	<script src="../js/appajax.js"></script>
 	<script type="text/javascript">
-		//本地缓存
-		var state=app.getUserState();
+
         //数据初始化
         var birthday = "";
         var village = "";
@@ -151,6 +153,7 @@
 		var image1 = "";
 		var image2 = "";
 		var image3 = "";
+		var image4 = "";
         var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
         var forcountryPicker = new mui.PopPicker();
         var forhardPicker = new mui.PopPicker({layer: 2});
@@ -166,6 +169,7 @@
 			{value:"004",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
         mui.init();
 		mui.ready(function() {
+			mui.previewImage();
 			forcountryPicker.setData(forcountryData);
 			forhardPicker.setData(forhardData);
 
@@ -255,6 +259,8 @@
 					image2 = files[i].value;
 				}
 			}
+			//设置缩略图的值
+			setFileImage(fileObject[0]);
 		}
 		
 		function checkIsEmpty(data) {
@@ -268,7 +274,8 @@
 			return true;
 		}
 		
-        var files=[];      
+        var files=[];   
+		var fileObject=[];
         function selectFileImage(fileObj) {
             var file = fileObj.files['0'];
             var Orientation = null;
@@ -293,14 +300,14 @@
                         var expectWidth = this.naturalWidth;
                         var expectHeight = this.naturalHeight;
 
-                        if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 300) {
-                            expectWidth = 150;
+                        if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 400) {
+                            expectWidth = 200;
                             expectHeight = expectWidth * this.naturalHeight / this.naturalWidth;
-                        } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 300) {
-                            expectHeight = 200;
+                        } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 600) {
+                            expectHeight = 300;
                             expectWidth = expectHeight * this.naturalWidth / this.naturalHeight;
                         }
-
+						//缩略图:60/80
                         var canvas = document.createElement("canvas");
                         var ctx = canvas.getContext("2d");
                         canvas.width = expectWidth;
@@ -310,13 +317,16 @@
                         var base64 = null;
                         var mpImg = new MegaPixImage(image);
                         mpImg.render(canvas, {
-                            maxWidth: 150,
-                            maxHeight: 200,
-                            quality: 0.3,
+                            maxWidth: 200,
+                            maxHeight: 300,
+                            quality: 0.4,
                             orientation: Orientation
                         });
-                        base64 = canvas.toDataURL("image/png", 0.3);
+                        base64 = canvas.toDataURL("image/png", 0.4);
+						console.log("正常压缩图片："+base64);
 						var zz = {key:"image"+index,value:base64};
+						var obj = {key:"image"+index,value:file};
+						fileObject.push(obj);
                         appendFile(zz);
                     };
                 };
@@ -330,11 +340,16 @@
 			$("#addBtn").show();
 			gbid("files").removeChild(div);
 			index--;
-			console.log(files);
 			for (var i=0;i<files.length;i++) {
 				if(files[i].key==p){
 					files.splice(i,1);
-					return;
+					break;
+				}
+			}
+			for(var j=0;j<fileObject.length;j++) {
+				if(fileObject[j].key == p) {
+					fileObject.splice(j,1);
+					break;
 				}
 			}
 		}
@@ -347,6 +362,7 @@
 			var div=document.createElement("div");
 			var img=document.createElement("img");
 			var btn=document.createElement("span");
+			img.setAttribute("data-preview-src","");
 			div.setAttribute("style","display: inline-block;");
 			img.setAttribute("style","height: 90px;width: 90px;margin-left: 5px;");
 			img.setAttribute("src",p.value);
@@ -368,7 +384,61 @@
 			}
             $("#addImageBtn").click();
 		});
-
+		
+		//设置缩略图
+		function setFileImage(file) {
+		    var Orientation = null;
+		    if (file) {
+		        console.log("正在上传,请稍后...");
+		        var rFilter = /^(image\/jpeg|image\/png)$/i; // 检查图片格式
+		        if (!rFilter.test(file.type)) {
+		            return "";
+		        }
+		        //获取照片方向角属性，用户旋转控制
+		        EXIF.getData(file, function() {
+		            EXIF.getAllTags(this);
+		            Orientation = EXIF.getTag(this, 'Orientation');
+		        });
+		        var oReader = new FileReader();
+		        oReader.onload = function(e) {
+		            //var blob = URL.createObjectURL(file);
+		            //_compress(blob, file, basePath);
+		            var image = new Image();
+		            image.src = e.target.result;
+		            image.onload = function() {
+		                var expectWidth = this.naturalWidth;
+		                var expectHeight = this.naturalHeight;
+		
+		                if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 400) {
+		                    expectWidth = 60;
+		                    expectHeight = expectWidth * this.naturalHeight / this.naturalWidth;
+		                } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 600) {
+		                    expectHeight = 80;
+		                    expectWidth = expectHeight * this.naturalWidth / this.naturalHeight;
+		                }
+						//缩略图:60/80
+		                var canvas = document.createElement("canvas");
+		                var ctx = canvas.getContext("2d");
+		                canvas.width = expectWidth;
+		                canvas.height = expectHeight;
+		                ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
+		
+		                var base64 = null;
+		                var mpImg = new MegaPixImage(image);
+		                mpImg.render(canvas, {
+		                    maxWidth: 60,
+		                    maxHeight: 80,
+		                    quality: 0.4,
+		                    orientation: Orientation
+		                });
+		                base64 = canvas.toDataURL("image/png", 0.4);
+						console.log("缩略图压缩图片："+base64);
+						image4 = base64;
+		            };
+		        };
+		        oReader.readAsDataURL(file);
+		    }
+		}
 
 	</script>
 

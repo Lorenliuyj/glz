@@ -100,6 +100,10 @@
 	<script type="text/javascript">
 		//本地缓存
 		mui.init();
+		var id = localStorage.getItem("vid");
+		var povertyName = localStorage.getItem("povertyName");
+		var birthday = localStorage.getItem("birthday");
+		var village = localStorage.getItem("village");
 		mui.ready(function() {
 			forcountryPicker.setData(forcountryData);
 
@@ -174,7 +178,17 @@
             {value:"1",text:"组织办",children:[{value:"10",text:"困难党员"}]},
             {value:"2",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
             {value:"3",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
-
+			
+		function DataInit() {
+			$("#birthday").html(birthday);
+			$("#birthday").removeClass("mui-pull-right");
+			$("#village").html(getDictJsonText(forcountryData, rtnData.village));
+			$("#village").removeClass("mui-pull-right");
+			
+			
+			
+		}
+		
 		//初始化数据设置
 		function plusReady(){
 
