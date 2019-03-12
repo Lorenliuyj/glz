@@ -76,14 +76,47 @@
         </selectKey>
         INSERT INTO
           t_poverty_visit
-        (poverty_people_id,poverty_people_name,birthday,village,condolence_date,family_detail,visitor_id,visitor_name,condolence_product,mass_appeal,condolence_detail,image_1,image_2,image_3,comments,create_id,create_time,isdelete)
+       <trim prefix="(" suffix=")" suffixOverrides=",">
+           <if test="visitVO.povertyPeopleId != null and visitVO.povertyPeopleId != ''">poverty_people_id,</if>
+           <if test="visitVO.povertyPeopleName != null and visitVO.povertyPeopleName != ''">poverty_people_name,</if>
+           <if test="visitVO.birthday != null and visitVO.birthday != ''">birthday,</if>
+          <if test="visitVO.village != null and visitVO.village != ''">village,</if>
+           <if test="visitVO.condolenceDate != null and visitVO.condolenceDate != ''">condolence_date,</if>
+           <if test="visitVO.familyDetail != null and visitVO.familyDetail != ''">family_detail,</if>
+          <if test="visitVO.visitorId != null and visitVO.visitorId != ''">visitor_id,</if>
+          <if test="visitVO.visitorName != null and visitVO.visitorName != ''">visitor_name,</if>
+           <if test="visitVO.condolenceProduct != null and visitVO.condolenceProduct != ''">condolence_product,</if>
+          <if test="visitVO.massAppeal != null and visitVO.massAppeal != ''">mass_appeal,</if>
+          <if test="visitVO.condolenceDetail != null and visitVO.condolenceDetail != ''">condolence_detail,</if>
+          <if test="visitVO.createId != null and visitVO.createId != ''">create_id,</if>
+          <if test="visitVO.image1 != null and visitVO.image1 != ''">image_1, </if>
+           <if test="visitVO.image2 != null and visitVO.image2 != ''">image_2,</if>
+           <if test="visitVO.image3 != null and visitVO.image3 != ''"> image_3,</if>
+          <!--<if test="visitVO.createTime != null and visitVO.createTime != ''">create_time,</if>-->
+          <if test="visitVO.comments != null and visitVO.comments != ''">comments,</if>
+          <if test="visitVO.isdelete != null and visitVO.isdelete != ''">isdelete</if>
+       </trim>
         VALUES
-          (#{visitVO.povertyPeopleId,jdbcType=BIGINT},#{visitVO.povertyPeopleName,jdbcType=VARCHAR},#{visitVO.birthday,jdbcType=DATE}
-          ,#{visitVO.village,jdbcType=VARCHAR},#{visitVO.condolenceDate,jdbcType=DATE},#{visitVO.familyDetail,jdbcType=VARCHAR}
-          ,#{visitVO.visitorId,jdbcType=BIGINT},#{visitVO.visitorName,jdbcType=VARCHAR},#{visitVO.condolenceProduct,jdbcType=VARCHAR}
-          ,#{visitVO.massAppeal,jdbcType=VARCHAR},#{visitVO.condolenceDetail,jdbcType=VARCHAR},#{visitVO.image1,jdbcType=BLOB}
-        ,#{visitVO.image2,jdbcType=BLOB},#{visitVO.image3,jdbcType=BLOB},#{visitVO.comments,jdbcType=VARCHAR}
-          ,#{visitVO.createId,jdbcType=BIGINT},#{visitVO.createTime,jdbcType=TIMESTAMP},#{visitVO.isdelete,jdbcType=CHAR})
+           <trim prefix="(" suffix=")" suffixOverrides=",">
+               <if test="visitVO.povertyPeopleId != null and visitVO.povertyPeopleId != ''">#{visitVO.povertyPeopleId,jdbcType=BIGINT},</if>
+               <if test="visitVO.povertyPeopleName != null and visitVO.povertyPeopleName != ''">#{visitVO.povertyPeopleName,jdbcType=VARCHAR},</if>
+              <if test="visitVO.birthday != null and visitVO.birthday != ''">STR_TO_DATE(#{visitVO.birthday,jdbcType=DATE},'%Y%m%d'),</if>
+              <if test="visitVO.village != null and visitVO.village != ''">#{visitVO.village,jdbcType=VARCHAR},</if>
+              <if test="visitVO.condolenceDate != null and visitVO.condolenceDate != ''">STR_TO_DATE(#{visitVO.condolenceDate,jdbcType=DATE},'%Y%m%d'),</if>
+               <if test="visitVO.familyDetail != null and visitVO.familyDetail != ''">#{visitVO.familyDetail,jdbcType=VARCHAR},</if>
+               <if test="visitVO.visitorId != null and visitVO.visitorId != ''">#{visitVO.visitorId,jdbcType=BIGINT},</if>
+              <if test="visitVO.visitorName != null and visitVO.visitorName != ''">#{visitVO.visitorName,jdbcType=VARCHAR},</if>
+               <if test="visitVO.condolenceProduct != null and visitVO.condolenceProduct != ''"> #{visitVO.condolenceProduct,jdbcType=VARCHAR},</if>
+              <if test="visitVO.massAppeal != null and visitVO.massAppeal != ''">#{visitVO.massAppeal,jdbcType=VARCHAR},</if>
+               <if test="visitVO.condolenceDetail != null and visitVO.condolenceDetail != ''">#{visitVO.condolenceDetail,jdbcType=VARCHAR},</if>
+              <if test="visitVO.createId != null and visitVO.createId != ''">#{visitVO.createId,jdbcType=BIGINT},</if>
+              <if test="visitVO.image1 != null and visitVO.image1 != ''">#{visitVO.image1,jdbcType=BLOB},</if>
+               <if test="visitVO.image2 != null and visitVO.image2 != ''">#{visitVO.image2,jdbcType=BLOB},</if>
+               <if test="visitVO.image3 != null and visitVO.image3 != ''">#{visitVO.image3,jdbcType=BLOB},</if>
+              <!-- <if test="visitVO.createTime != null and visitVO.createTime != ''">#{visitVO.createTime,jdbcType=TIMESTAMP}</if>-->
+               <if test="visitVO.comments != null and visitVO.comments != ''">#{visitVO.comments,jdbcType=VARCHAR},</if>
+              <if test="visitVO.isdelete != null and visitVO.isdelete != ''">#{visitVO.isdelete,jdbcType=CHAR}</if>
+           </trim>
     </insert>
 
     <select id="selectPovertyVisitPage" resultMap="BaseResultMap">
