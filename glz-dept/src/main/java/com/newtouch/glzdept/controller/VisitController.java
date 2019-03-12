@@ -18,7 +18,7 @@ public class VisitController {
     IPovertyVisitService povertyVisitService;
 
     @PostMapping("save")
-    public ResponseVO saveVisitInfo(PovertyVisitVO povertyVisitVO){
+    public ResponseVO saveVisitInfo( @RequestBody PovertyVisitVO povertyVisitVO){
         povertyVisitService.saveVisitInfo(povertyVisitVO);
         return ResponseUtil.successResponse(null);
     }
