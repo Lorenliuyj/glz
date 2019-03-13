@@ -146,7 +146,7 @@
 	
 	<script type="text/javascript">
 	mui.init();
-	var id = localStorage.getItem("vid");
+	var id = localStorage.getItem("pid");
  	mui.ready(function() {
 			mui.previewImage();
 			forcountryPicker.setData(forcountryData);
@@ -182,8 +182,16 @@
 					$("#povertyType").removeClass("mui-pull-right");
 					povertyType1 = rtnData.povertyType1;
 					povertyType2 = rtnData.povertyType2;
-					
-					
+				}
+			},function(response) {
+					mui.toast("查询详情失败！");
+			},true);
+			
+			//同步查询图片
+			appajax.SendRequestByPost("poverty/povertyInfoImgs",JSON.stringify(data),function (response) {
+				console.log(response.result);
+				var rtnData = response.result;
+				if("0000" == response.code) {
 					if(rtnData.image1!="") {
 						var img = document.createElement('img');
 						img.setAttribute("data-preview-src","");
@@ -208,9 +216,8 @@
 					}
 				}
 			},function(response) {
-					mui.toast("查询详情失败！");
+					mui.toast("查询图片失败！");
 			},true);
-			
 			
 			gbid('timePicker').addEventListener('tap', function(event) {
 				timePicker.show(function(items) {
@@ -277,8 +284,6 @@
 			{value:"002",text:"组织办",children:[{value:"10",text:"困难党员"}]},
             {value:"003",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
 			{value:"004",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
-
-        
 		
 		//提交方法
 		function submitFun() {

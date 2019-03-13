@@ -59,6 +59,7 @@
 
     <sql id="ALL_IF_SELECT">
         <if test="povertyVisitVO!= null">
+            <if test="povertyVisitVO.id != null and povertyVisitVO.id != ''"> AND id = #{povertyVisitVO.id} </if>
             <if test="povertyVisitVO.povertyPeopleId != null and povertyVisitVO.povertyPeopleId != ''"> AND poverty_people_id = #{povertyVisitVO.povertyPeopleId} </if>
             <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> AND poverty_people_name = #{povertyVisitVO.povertyPeopleName} </if>
             <if test="povertyVisitVO.birthday != null and povertyVisitVO.birthday != ''"> AND birthday = #{povertyVisitVO.birthday} </if>
@@ -166,7 +167,7 @@
 
     <select id="visitInfoImgs" resultMap="BaseResultMap">
         select
-        <include refid="ALL_COLUMN"/>
+        <include refid="IMGS_COLUMN"/>
         FROM
         t_poverty_visit
         WHERE

@@ -155,6 +155,7 @@
 		var image3 = "";
 		var imageMin = "";
         var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
+		timePicker.setSelectedValue("1980-01-01");
         var forcountryPicker = new mui.PopPicker();
         var forhardPicker = new mui.PopPicker({layer: 2});
         var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
@@ -172,7 +173,19 @@
 			mui.previewImage();
 			forcountryPicker.setData(forcountryData);
 			forhardPicker.setData(forhardData);
-
+			
+			gbid('idcardNo').addEventListener('onblur',function(event) {
+				var tempbirthday = $("#idcardNo").val();
+				if(!checkIdcardNo(tempbirthday)) {
+					return;
+				}
+				var bir = getBirthdayFromIdCard(tempbirthday);
+				birthday = bir;
+				$("#birthday").html(bir);
+				$("#birthday").addClass("mui-navigate-right");
+				$("#birthday").removeClass("mui-pull-right");
+			});
+			
 			gbid('timePicker').addEventListener('tap', function(event) {
 				timePicker.show(function(items) {
 					birthday=parseDate(items.toString());
@@ -219,7 +232,8 @@
 			});
 
 		});
-
+		
+		
 		//提交方法
 		function submitFun() {
 			//给图片设置值
@@ -287,6 +301,7 @@
 				mui.toast("身份证号码有误！");
 				return false;
 			}
+			
 			if(data.birthday == "") {
 				mui.toast("出生日期不能为空！");
 				return false;

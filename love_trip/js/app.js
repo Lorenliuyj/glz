@@ -144,9 +144,9 @@ function checkIdcardNo(idNo) {
 	var temp1 = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
 	var temp2 = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
 	if((temp1.test(idNo)) || temp2.test(idNo)) {
-		mui.toast("身份证号码错误！");
 		return true;
 	}
+	mui.toast("身份证号码错误！");
 	return false;
 }
 
@@ -157,6 +157,19 @@ function checkText(text) {
 		return false;
 	}
 	return true;
+}
+
+function getBirthdayFromIdCard(idCard) {  
+	var birthday = "";  
+	if(idCard != null && idCard != ""){  
+		if(idCard.length == 15){  
+			birthday = "19"+idCard.substr(6,6);  
+		} else if(idCard.length == 18){  
+			birthday = idCard.substr(6,8);  
+		}  
+		birthday = birthday.replace(/(.{4})(.{2})/,"$1-$2-");  
+	}  
+	return birthday;  
 }
 
 function getDictJsonText(dictJson, dictId) {
