@@ -18,6 +18,7 @@
         <result column="image_1" property="image1" jdbcType="BLOB" />
         <result column="image_2" property="image2" jdbcType="BLOB" />
         <result column="image_3" property="image3" jdbcType="BLOB" />
+        <result column="image_min" property="imageMin" jdbcType="BLOB" />
         <result column="comments" property="comments" jdbcType="VARCHAR" />
         <result column="create_id" property="createId" jdbcType="BIGINT" />
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
@@ -40,6 +41,7 @@
         image_1,
         image_2,
         image_3,
+        image_min,
         comments,
         create_id,
         create_time,
@@ -63,6 +65,7 @@
             <if test="povertyVisitVO.image1 != null and povertyVisitVO.image1 != ''"> AND image_1 = #{povertyVisitVO.image1} </if>
             <if test="povertyVisitVO.image2 != null and povertyVisitVO.image2 != ''"> AND image_2 = #{povertyVisitVO.image2} </if>
             <if test="povertyVisitVO.image3 != null and povertyVisitVO.image3 != ''"> AND image_3 = #{povertyVisitVO.image3} </if>
+            <if test="povertyVisitVO.imageMin != null and povertyVisitVO.imageMin != ''"> AND image_min = #{povertyVisitVO.imageMin} </if>
             <if test="povertyVisitVO.createTime != null and povertyVisitVO.createTime != ''"> AND create_time = #{povertyVisitVO.createTime} </if>
             <if test="povertyVisitVO.comments != null and povertyVisitVO.comments != ''"> AND comments = #{povertyVisitVO.comments} </if>
             <if test="povertyVisitVO.isdelete != null and povertyVisitVO.isdelete != ''"> AND isdelete = #{povertyVisitVO.isdelete} </if>
@@ -92,6 +95,7 @@
           <if test="visitVO.image1 != null and visitVO.image1 != ''">image_1, </if>
            <if test="visitVO.image2 != null and visitVO.image2 != ''">image_2,</if>
            <if test="visitVO.image3 != null and visitVO.image3 != ''"> image_3,</if>
+           <if test="visitVO.imageMin != null and visitVO.imageMin != ''"> image_min,</if>
           <!--<if test="visitVO.createTime != null and visitVO.createTime != ''">create_time,</if>-->
           <if test="visitVO.comments != null and visitVO.comments != ''">comments,</if>
           <if test="visitVO.isdelete != null and visitVO.isdelete != ''">isdelete</if>
@@ -113,6 +117,7 @@
               <if test="visitVO.image1 != null and visitVO.image1 != ''">#{visitVO.image1,jdbcType=BLOB},</if>
                <if test="visitVO.image2 != null and visitVO.image2 != ''">#{visitVO.image2,jdbcType=BLOB},</if>
                <if test="visitVO.image3 != null and visitVO.image3 != ''">#{visitVO.image3,jdbcType=BLOB},</if>
+               <if test="visitVO.imageMin != null and visitVO.imageMin != ''">#{visitVO.imageMin,jdbcType=BLOB},</if>
               <!-- <if test="visitVO.createTime != null and visitVO.createTime != ''">#{visitVO.createTime,jdbcType=TIMESTAMP}</if>-->
                <if test="visitVO.comments != null and visitVO.comments != ''">#{visitVO.comments,jdbcType=VARCHAR},</if>
               <if test="visitVO.isdelete != null and visitVO.isdelete != ''">#{visitVO.isdelete,jdbcType=CHAR}</if>
@@ -121,7 +126,8 @@
 
     <select id="selectPovertyVisitPage" resultMap="BaseResultMap">
         select
-        <include refid="ALL_COLUMN"/>
+        <!--<include refid="ALL_COLUMN"/>-->
+        poverty_people_name,village,condolence_date,image_min
         FROM
         t_poverty_visit
         WHERE

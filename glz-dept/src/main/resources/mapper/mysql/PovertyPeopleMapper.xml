@@ -17,9 +17,10 @@
         <result column="phone" property="phone" jdbcType="VARCHAR" />
         <result column="family_detail" property="familyDetail" jdbcType="VARCHAR" />
         <result column="trouble" property="trouble" jdbcType="VARCHAR" />
-        <result column="image_1" property="image1" jdbcType="VARCHAR" />
-        <result column="image_2" property="image2" jdbcType="VARCHAR" />
-        <result column="image_3" property="image3" jdbcType="VARCHAR" />
+        <result column="image_1" property="image1" jdbcType="BLOB" />
+        <result column="image_2" property="image2" jdbcType="BLOB" />
+        <result column="image_3" property="image3" jdbcType="BLOB" />
+        <result column="image_min" property="imageMin" jdbcType="BLOB" />
         <result column="income" property="income" jdbcType="VARCHAR" />
         <result column="comments" property="comments" jdbcType="VARCHAR" />
     </resultMap>
@@ -42,6 +43,7 @@
         image_1,
         image_2,
         image_3,
+        imageMin,
         income,
         comments
     </sql>
@@ -63,6 +65,7 @@
         #{povertyPeoplePO.image1},
         #{povertyPeoplePO.image2},
         #{povertyPeoplePO.image3},
+        #{povertyPeoplePO.imageMin},
         #{povertyPeoplePO.income},
         #{povertyPeoplePO.comments}
     </sql>
@@ -85,6 +88,7 @@
             <if test="povertyPeoplePO.image1 != null and povertyPeoplePO.image1 != ''"> ,image_1 = #{povertyPeoplePO.image1} </if>
             <if test="povertyPeoplePO.image2 != null and povertyPeoplePO.image2 != ''"> ,image_2 = #{povertyPeoplePO.image2} </if>
             <if test="povertyPeoplePO.image3 != null and povertyPeoplePO.image3 != ''"> ,image_3 = #{povertyPeoplePO.image3} </if>
+            <if test="povertyPeoplePO.imageMin != null and povertyPeoplePO.imageMin != ''"> ,image_min = #{povertyPeoplePO.imageMin} </if>
             <if test="povertyPeoplePO.income != null and povertyPeoplePO.income != ''"> ,income = #{povertyPeoplePO.income} </if>
             <if test="povertyPeoplePO.comments != null and povertyPeoplePO.comments != ''"> ,comments = #{povertyPeoplePO.comments} </if>
         </if>
@@ -108,6 +112,7 @@
             <if test="povertyPeoplePO.image1 != null and povertyPeoplePO.image1 != ''"> AND image_1 = #{povertyPeoplePO.image1} </if>
             <if test="povertyPeoplePO.image2 != null and povertyPeoplePO.image2 != ''"> AND image_2 = #{povertyPeoplePO.image2} </if>
             <if test="povertyPeoplePO.image3 != null and povertyPeoplePO.image3 != ''"> AND image_3 = #{povertyPeoplePO.image3} </if>
+            <if test="povertyPeoplePO.imageMin != null and povertyPeoplePO.imageMin != ''"> AND image_min = #{povertyPeoplePO.imageMin} </if>
             <if test="povertyPeoplePO.income != null and povertyPeoplePO.income != ''"> AND income = #{povertyPeoplePO.income} </if>
             <if test="povertyPeoplePO.comments != null and povertyPeoplePO.comments != ''"> AND comments = #{povertyPeoplePO.comments} </if>
        </if>
@@ -169,7 +174,8 @@
 
     <select id="selectPovertyPeoplePage" resultMap="PovertyPeopleVOMap">
         select
-        <include refid="ALL_COLUMN"/>
+        <!--<include refid="ALL_COLUMN"/>-->
+        poverty_Name,village,image_min,poverty_type_1,poverty_type_2
         FROM
         t_poverty_people
         WHERE

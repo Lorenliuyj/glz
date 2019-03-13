@@ -34,6 +34,8 @@ public class PovertyVisitVO {
     private String image2;
     /*图片3*/
     private String image3;
+    /*缩略图*/
+    private String imageMin;
 
     /*备注*/
     private String comments;
@@ -50,30 +52,6 @@ public class PovertyVisitVO {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getImage1() {
-        return image1;
-    }
-
-    public void setImage1(String image1) {
-        this.image1 = image1;
-    }
-
-    public String getImage2() {
-        return image2;
-    }
-
-    public void setImage2(String image2) {
-        this.image2 = image2;
-    }
-
-    public String getImage3() {
-        return image3;
-    }
-
-    public void setImage3(String image3) {
-        this.image3 = image3;
     }
 
     public Integer getPovertyPeopleId() {
@@ -100,20 +78,20 @@ public class PovertyVisitVO {
         this.birthday = birthday;
     }
 
-    public String getCondolenceDate() {
-        return condolenceDate;
-    }
-
-    public void setCondolenceDate(String condolenceDate) {
-        this.condolenceDate = condolenceDate;
-    }
-
     public String getVillage() {
         return village;
     }
 
     public void setVillage(String village) {
         this.village = village;
+    }
+
+    public String getCondolenceDate() {
+        return condolenceDate;
+    }
+
+    public void setCondolenceDate(String condolenceDate) {
+        this.condolenceDate = condolenceDate;
     }
 
     public String getFamilyDetail() {
@@ -162,6 +140,38 @@ public class PovertyVisitVO {
 
     public void setCondolenceDetail(String condolenceDetail) {
         this.condolenceDetail = condolenceDetail;
+    }
+
+    public String getImage1() {
+        return image1;
+    }
+
+    public void setImage1(String image1) {
+        this.image1 = image1;
+    }
+
+    public String getImage2() {
+        return image2;
+    }
+
+    public void setImage2(String image2) {
+        this.image2 = image2;
+    }
+
+    public String getImage3() {
+        return image3;
+    }
+
+    public void setImage3(String image3) {
+        this.image3 = image3;
+    }
+
+    public String getImageMin() {
+        return imageMin;
+    }
+
+    public void setImageMin(String imageMin) {
+        this.imageMin = imageMin;
     }
 
     public String getComments() {

@@ -41,6 +41,8 @@ public class PovertyPeoplePO {
 
     private String image3;
 
+    private String imageMin;
+
     private String income;
 
     private String comments;
@@ -171,6 +173,14 @@ public class PovertyPeoplePO {
 
     public void setImage3(String image3) {
         this.image3 = image3;
+    }
+
+    public String getImageMin() {
+        return imageMin;
+    }
+
+    public void setImageMin(String imageMin) {
+        this.imageMin = imageMin;
     }
 
     public String getIncome() {
