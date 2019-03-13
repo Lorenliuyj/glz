@@ -127,7 +127,7 @@
     <select id="selectPovertyVisitPage" resultMap="BaseResultMap">
         select
         <!--<include refid="ALL_COLUMN"/>-->
-        poverty_people_name,village,condolence_date,image_min
+        id,poverty_people_name,village,condolence_date,image_min
         FROM
         t_poverty_visit
         WHERE
