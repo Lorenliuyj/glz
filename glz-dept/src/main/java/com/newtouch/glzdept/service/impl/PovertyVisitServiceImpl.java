@@ -35,9 +35,7 @@ public class PovertyVisitServiceImpl implements IPovertyVisitService {
 
     @Override
     public Page<PovertyVisitVO> selectPovertyVisitPage(PovertyVisitVO povertyVisitVO, Page page) {
-        if(page == null){
-            page.init();
-        }
+        page.init();
         page.setTotalNum(povertyVisitDao.total(povertyVisitVO));
         page.setList(povertyVisitDao.selectPovertyVisitPage(povertyVisitVO,page));
         return page;
