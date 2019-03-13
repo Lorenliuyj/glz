@@ -53,7 +53,7 @@
         image_1,
         image_2,
         image_3,
-        imageMin
+        image_min
     </sql>
 
     <sql id="ALL_VALUES">
