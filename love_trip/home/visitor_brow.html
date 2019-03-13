@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link href="../css/mui.picker.all.css" rel="stylesheet" />
+		<link href="../css/viewImg.css" rel="stylesheet" />
 		<style>
 			html,body,.mui-content{background-color: white;}
 			.mui-icon.mui-icon-plusempty{font-size: 17px;}
@@ -35,37 +36,37 @@
 		<div class="mui-content mui-content-padded" style="margin-bottom:20px;">
 			<form class="mui-input-group">
 				<div class="mui-input-row">
-					<label  class="mui-pull-left" style="width: 40%;">慰问对象姓名</label>
-					<input id="povertyPeopleName" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问对象姓名"/>
+					<label  class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问对象</label>
+					<input id="povertyPeopleName" type="text" class="mui-pull-right mui-input" style="width: 60%;"/>
 				</div>
 				<ul class="mui-table-view mui-table-view-chevron u">
 					<li class="mui-table-view-cell">
-						<label class="mui-pull-left" style="width: 40%;">出生年月</label>
-						<p id="birthday" class="mui-pull-right">请选择  </p>
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;出生年月</label>
+						<p id="birthday" class="mui-pull-right">请选择</p>
 					</li>
 					<li class="mui-table-view-cell" id="forcountryPicker">
-						<label class="mui-pull-left" style="width: 40%;">所属村居</label>
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;所属村居</label>
 						<p id="village" class="mui-pull-right">请选择</p>
 					</li>
 					<li class="mui-table-view-cell" id="timePicker">
-						<label class="mui-pull-left" style="width: 40%;">慰问日期</label>
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问日期</label>
 						<p id="condolenceDate" class="mui-pull-right">请选择</p>
 					</li>
 				</ul>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">家庭情况</label>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;家庭情况</label>
 					<input id="familyDetail" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写家庭情况"/>
 				</div>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">走访人</label>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;走访人</label>
 					<input id="visitorName" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写走访人"/>
 				</div>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">慰问物品</label>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问物品</label>
 					<input id="condolenceProduct" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问物品"/>
 				</div>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">群众诉求</label>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;群众诉求</label>
 					<input id="massAppeal" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写群众诉求"/>
 				</div>
 				<p style="margin-bottom: -2px;">慰问图片</p>
@@ -93,20 +94,22 @@
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/mui.picker.all.js"></script>
+	<script src="../js/exif.js" ></script>
 	<script src="../js/mobileBUGFix.mini.js"></script>
+	<script src="../js/mui.zoom.js"></script>
+	<script src="../js/mui.previewimage.js"></script>
 	<script src="../js/jquery2.min.js"></script>
 	<script src="../js/app.js"></script>
 	<script src="../js/appajax.js"></script>
 	<script type="text/javascript">
 		//本地缓存
 		mui.init();
-		var id = localStorage.getItem("vid");
-		var povertyName = localStorage.getItem("povertyName");
+		var povertyPeopleId = localStorage.getItem("vid");
+		var povertyPeopleName = localStorage.getItem("povertyName");
 		var birthday = localStorage.getItem("birthday");
 		var village = localStorage.getItem("village");
 		mui.ready(function() {
-			forcountryPicker.setData(forcountryData);
-
+			DataInit();
 			gbid('timePicker').addEventListener('tap', function(event) {
 				timePicker.show(function(items) {
 					condolenceDate=parseDate(items.toString());
@@ -120,73 +123,129 @@
 			gbid('forcountryPicker').addEventListener('tap', function(event) {
 				forcountryPicker.show(function(items) {
 					village=items[0].value;
-									if(village == "") {
-											$("#village").removeClass("mui-navigate-right");
-											$("#village").addClass("mui-pull-right");
-									}else {
-											$("#village").addClass("mui-navigate-right");
-											$("#village").removeClass("mui-pull-right");
-									}
+					if(village == "") {
+							$("#village").removeClass("mui-navigate-right");
+							$("#village").addClass("mui-pull-right");
+					}else {
+							$("#village").addClass("mui-navigate-right");
+							$("#village").removeClass("mui-pull-right");
+					}
 					gbid("village").innerHTML=items[0].text;
 				});
 			});
 
 			gbid('submitBtn').addEventListener('tap', function(event) {
-				debugger;
-				//校验
-				var data = {
-					povertyPeopleName:gbid('povertyPeopleName').value,
-					//待定
-					birthday:"20180222",
-					village:village,
-					condolenceDate:condolenceDate,
-					familyDetail:gbid('familyDetail').value,
-				  visitorName:gbid('visitorName').value,
-					condolenceProduct:gbid("condolenceProduct").value,
-					massAppeal:gbid('massAppeal').value,
-				  condolenceDetail:gbid('condolenceDetail').value,
-					comments:gbid('comments').value
-					//picture:files
-				}
-				mui.toast(JSON.stringify(data));
-				appajax.SendRequestByPost("/visit/save",JSON.stringify(data),function (response) {
-					window.location.reload();
-				},function(response) {
-					alert("失败!");
-				});
-			
+				submitFun();
 			});
-
-
-
 		});
-      //  $("#addImageBtn").live("change",selectFileImage(this));
+		
 		//数据初始化
-		var birthday = "";
 		var condolenceDate = "";
-		var village = "";
-		// var hardType = "";
 		var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
 		var forcountryPicker = new mui.PopPicker();
 		var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
-            {value:"440784202",text:"麦水村"},{value:"440784203",text:"丽水村"},{value:"440784204",text:"茶山村"},
-            {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
-            {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
-            {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
-        var forhardData=[{value:"",text:"请选择"},
+		    {value:"440784202",text:"麦水村"},{value:"440784203",text:"丽水村"},{value:"440784204",text:"茶山村"},
+		    {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
+		    {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
+		    {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
+		var forhardData=[{value:"",text:"请选择"},
 			{value:"0",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
-            {value:"1",text:"组织办",children:[{value:"10",text:"困难党员"}]},
-            {value:"2",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
-            {value:"3",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
+		    {value:"1",text:"组织办",children:[{value:"10",text:"困难党员"}]},
+		    {value:"2",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
+		    {value:"3",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
 			
 		function DataInit() {
+			forcountryPicker.setData(forcountryData);
+			$("#povertyPeopleName").val(povertyPeopleName);
 			$("#birthday").html(birthday);
 			$("#birthday").removeClass("mui-pull-right");
-			$("#village").html(getDictJsonText(forcountryData, rtnData.village));
+			$("#village").html(getDictJsonText(forcountryData, village));
 			$("#village").removeClass("mui-pull-right");
+		}
+		
+		var image1 = "";
+		var image2 = "";
+		var image3 = "";
+		var imageMin = "";
+		function submitFun() {
+			//给图片设置值
+			setImage();
+			var data = {
+				povertyPeopleId:povertyPeopleId,
+				povertyPeopleName:povertyPeopleName,
+				birthday:birthday,
+				village:village,
+				condolenceDate:condolenceDate,
+				familyDetail:gbid('familyDetail').value,
+			    visitorName:gbid('visitorName').value,
+				condolenceProduct:gbid("condolenceProduct").value,
+				massAppeal:gbid('massAppeal').value,
+			    condolenceDetail:gbid('condolenceDetail').value,
+				comments:gbid('comments').value,
+				image1:image1,image2:image2,image3:image3,
+				imageMin:imageMin
+			};
+			if(!checkIsEmpty(data)) {
+				return;
+			}
+			appajax.SendRequestByPost("/visit/save",JSON.stringify(data),function (response) {
+				if(response.code == "0000") {
+					setTimeout(function(){
+						mui.toast("走访录入成功");
+						openUrl("../menu.html");
+					},500);
+				}
+			},function(response) {
+				mui.toast("走访户录入失败！");
+			});
+		}
+		
+		function checkIsEmpty(data) {
+			if(data.condolenceDate == "") {
+				mui.toast("慰问日期不能为空！");
+				return false;
+			}
+			if(data.familyDetail == "") {
+				mui.toast("家庭情况不能为空！");
+				return false;
+			}
+			if(data.visitorName == "") {
+				mui.toast("走访人姓名不能为空！");
+				return false;
+			}
+			if(!checkText(data.visitorName)) {
+				return false;
+			}
 			
-			
-			
+			if(data.condolenceProduct == "") {
+				mui.toast("慰问物品不能为空！");
+				return false;
+			}
+			if(data.massAppeal == "") {
+				mui.toast("群众诉求不能为空！");
+				return false;
+			}
+			return true;
+		}
+		
+		function setImage() {
+			console.log("开始设置图片");
+			for(var i=0;i<files.length;i++) {
+				if(files[i].key == 'image1') {
+					image1 = files[i].value;
+				}
+				if(files[i].key == 'image2') {
+					image2 = files[i].value;
+				}
+				if(files[i].key == 'image2') {
+					image2 = files[i].value;
+				}
+			}
+			//设置缩略图的值
+			if(fileBase.length>0) {
+				var min = fileBase[0].value;
+				imageMin = min.split(",")[1];
+			}
 		}
 		
 		//初始化数据设置
@@ -213,154 +272,174 @@
 
 		}
 
+		var files=[];   
+		var fileBase = [];
+		function selectFileImage(fileObj) {
+		    var file = fileObj.files['0'];
+		    var Orientation = null;
+		    if (file) {
+		        console.log("正在上传,请稍后...");
+		        var rFilter = /^(image\/jpeg|image\/png)$/i; // 检查图片格式
+		        if (!rFilter.test(file.type)) {
+		            return;
+		        }
+				//压缩略图
+				setFileImage(file);
+		        //获取照片方向角属性，用户旋转控制
+		        EXIF.getData(file, function() {
+		            EXIF.getAllTags(this);
+		            Orientation = EXIF.getTag(this, 'Orientation');
+		        });
+		        var oReader = new FileReader();
+		        oReader.onload = function(e) {
+		            //var blob = URL.createObjectURL(file);
+		            //_compress(blob, file, basePath);
+		            var image = new Image();
+		            image.src = e.target.result;
+		            image.onload = function() {
+		                var expectWidth = this.naturalWidth;
+		                var expectHeight = this.naturalHeight;
+		
+		                if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 400) {
+		                    expectWidth = 400;
+		                    expectHeight = expectWidth * this.naturalHeight / this.naturalWidth;
+		                } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 600) {
+		                    expectHeight = 600;
+		                    expectWidth = expectHeight * this.naturalWidth / this.naturalHeight;
+		                }
+						//缩略图:2/3
+		                var canvas = document.createElement("canvas");
+		                var ctx = canvas.getContext("2d");
+		                canvas.width = expectWidth;
+		                canvas.height = expectHeight;
+		                ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
+		
+		                var base64 = null;
+		                var mpImg = new MegaPixImage(image);
+		                mpImg.render(canvas, {
+		                    maxWidth: 400,
+		                    maxHeight: 600,
+		                    quality: 0.3,
+		                    orientation: Orientation
+		                });
+		                base64 = canvas.toDataURL("image/png", 0.3);
+						console.log("正常压缩图片："+base64);
+						var zz = {key:"image"+index,value:base64};
+		                appendFile(zz);
+		            };
+		        };
+		        oReader.readAsDataURL(file);
+		    }
+		    fileObj.value = "";
+		}
+		
+		//删除图片
+		function removeFile(div,p){
+			$("#addBtn").show();
+			gbid("files").removeChild(div);
+			index--;
+			for (var i=0;i<files.length;i++) {
+				if(files[i].key==p){
+					files.splice(i,1);
+					break;
+				}
+			}
+			for(var j=0;j<fileBase.length;j++) {
+				if(fileBase[j].key == p) {
+					fileBase.splice(j,1);
+					break;
+				}
+			}
+		}
+		
+		// 添加文件
+		var index=1;
+		var maxlength=3;
+		function appendFile(p){
+			var fe=document.getElementById("files");
+			var div=document.createElement("div");
+			var img=document.createElement("img");
+			var btn=document.createElement("span");
+			img.setAttribute("data-preview-src","");
+			div.setAttribute("style","display: inline-block;");
+			img.setAttribute("style","height: 90px;width: 90px;margin-left: 5px;");
+			img.setAttribute("src",p.value);
+			btn.setAttribute("class","mui-icon mui-icon-close-filled");
+			btn.setAttribute("style","position: relative;bottom: 70px;right:25px;margin-right: -20px;");
+			btn.onclick=function(){removeFile(div,p.key)};
+			div.appendChild(img);
+			div.appendChild(btn);
+			fe.appendChild(div);
+			var val = p.value;
+			files.push({key:p.key,value:val.split(",")[1]});
+			index++;
+		}
+		
+		gbid('addBtn').addEventListener('tap', function(event) {
+			if(index>maxlength){
+				mui.toast("最多上传"+maxlength+"张图片");
+				return;
+			}
+		    $("#addImageBtn").click();
+		});
+		
+		//设置缩略图
+		function setFileImage(file) {
+			console.log("正在压缩缩略图,请稍后...");
+		    var Orientation = null;
+		    if (file) {
+		        console.log("正在压缩缩略图,请稍后...");
+		        var rFilter = /^(image\/jpeg|image\/png)$/i; // 检查图片格式
+		        if (!rFilter.test(file.type)) {
+		            return "";
+		        }
+		        //获取照片方向角属性，用户旋转控制
+		        EXIF.getData(file, function() {
+		            EXIF.getAllTags(this);
+		            Orientation = EXIF.getTag(this, 'Orientation');
+		        });
+		        var oReader = new FileReader();
+		        oReader.onload = function(e) {
+		            //var blob = URL.createObjectURL(file);
+		            //_compress(blob, file, basePath);
+		            var image = new Image();
+		            image.src = e.target.result;
+		            image.onload = function() {
+		                var expectWidth = this.naturalWidth;
+		                var expectHeight = this.naturalHeight;
+		
+		                if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 400) {
+		                    expectWidth = 60;
+		                    expectHeight = expectWidth * this.naturalHeight / this.naturalWidth;
+		                } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 600) {
+		                    expectHeight = 80;
+		                    expectWidth = expectHeight * this.naturalWidth / this.naturalHeight;
+		                }
+						//缩略图:60/80
+		                var canvas = document.createElement("canvas");
+		                var ctx = canvas.getContext("2d");
+		                canvas.width = expectWidth;
+		                canvas.height = expectHeight;
+		                ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
+		
+		                var base64 = null;
+		                var mpImg = new MegaPixImage(image);
+		                mpImg.render(canvas, {
+		                    maxWidth: 60,
+		                    maxHeight: 80,
+		                    quality: 0.4,
+		                    orientation: Orientation
+		                });
+		                base64 = canvas.toDataURL("image/png", 0.4);
+						var zz = {key:"image"+index,value:base64};
+						fileBase.push(zz);
+		            };
+		        };
+		        oReader.readAsDataURL(file);
+		    }
+		}
 
-
-        var files=[];
-        var fileName=null;
-        var j=0;
-        function upload(){
-            fileName="";
-            for(var i=0;i<files.length;i++){
-                console.log("开始上传：");
-                $.ajax({
-                    url : server,
-                    type : "POST",
-                    data : files[i].value,
-                    async: false,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    dataType: 'text',
-                    success : function(data) {
-                        var responseText = eval('('+data+')');
-                        fileName += (fileName!="" ? "," : "") + responseText.url;
-                        console.log(fileName);
-                        j++;
-                        if(j==files.length){
-                            //
-                        }
-                        console.log("上传成功："+data);
-                    },
-                    error : function(data) {
-                        console.log("上传失败："+data);
-                    }
-                });
-            }
-        }
-
-
-
-        //删除图片
-        function removeFile(div,p){
-            $("#addBtn").show();
-            gbid("files").removeChild(div);
-            index--;
-            for (var i=0;i<files.length;i++) {
-                if(files[i].path==p){
-                    files.splice(i,1);
-                    return;
-                }
-            }
-        }
-
-        function dataURLtoBlob(dataurl) {
-            var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-            while(n--){
-                u8arr[n] = bstr.charCodeAt(n);
-            }
-            return new Blob([u8arr], {type:mime});
-        }
-
-        function selectFileImage(fileObj) {
-            alert(fileObj);
-            debugger;
-            var file = fileObj.files['0'];
-            var Orientation = null;
-            if (file) {
-                console.log("正在上传,请稍后...");
-                var rFilter = /^(image\/jpeg|image\/png)$/i; // 检查图片格式
-                if (!rFilter.test(file.type)) {
-                    return;
-                }
-                //获取照片方向角属性，用户旋转控制
-                EXIF.getData(file, function() {
-                    EXIF.getAllTags(this);
-                    Orientation = EXIF.getTag(this, 'Orientation');
-                });
-                var oReader = new FileReader();
-                oReader.onload = function(e) {
-                    //var blob = URL.createObjectURL(file);
-                    //_compress(blob, file, basePath);
-                    var image = new Image();
-                    image.src = e.target.result;
-                    image.onload = function() {
-                        var expectWidth = this.naturalWidth;
-                        var expectHeight = this.naturalHeight;
-
-                        if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 800) {
-                            expectWidth = 800;
-                            expectHeight = expectWidth * this.naturalHeight / this.naturalWidth;
-                        } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 1200) {
-                            expectHeight = 1200;
-                            expectWidth = expectHeight * this.naturalWidth / this.naturalHeight;
-                        }
-
-                        var canvas = document.createElement("canvas");
-                        var ctx = canvas.getContext("2d");
-                        canvas.width = expectWidth;
-                        canvas.height = expectHeight;
-                        ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
-
-                        var base64 = null;
-                        var mpImg = new MegaPixImage(image);
-                        mpImg.render(canvas, {
-                            maxWidth: 800,
-                            maxHeight: 1200,
-                            quality: 0.8,
-                            orientation: Orientation
-                        });
-                        base64 = canvas.toDataURL("image/png", 0.8);
-                        appendFile(base64);
-                    };
-                };
-                oReader.readAsDataURL(file);
-            }
-        }
-
-        // 添加文件
-        var index=1;
-        var maxlength=3;
-        function appendFile(p){
-            var fe=document.getElementById("files");
-            var div=document.createElement("div");
-            var img=document.createElement("img");
-            var btn=document.createElement("span");
-            div.setAttribute("style","display: inline-block;");
-            img.setAttribute("style","height: 90px;width: 90px;margin-left: 5px;");
-            img.setAttribute("src",p);
-            btn.setAttribute("class","mui-icon mui-icon-close-filled");
-            btn.setAttribute("style","position: relative;bottom: 70px;right:25px;margin-right: -20px;");
-            btn.onclick=function(){removeFile(div,"uploadkey"+index);};
-            div.appendChild(img);
-            div.appendChild(btn);
-            fe.appendChild(div);
-            var formData = new FormData();
-            var blob = dataURLtoBlob(p);
-            var file = new File([blob], new Date().getTime()+".png",{type:"image/png"});//创建新的文件对象用于上传
-            formData.append("uploadkey"+index,file);
-            files.push({key:"uploadkey"+index,value:formData});
-            index++;
-        }
-
-        gbid('addBtn').addEventListener('tap', function(event) {
-            if(index>maxlength){
-                mui.toast("最多上传"+maxlength+"张图片");
-                return;
-            }
-            $("#addImageBtn").click();
-        });
-
+        
 
 	</script>
 

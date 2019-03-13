@@ -184,7 +184,12 @@
 		var pageNum = 0;
 		var pageSize = 10;
 		var table = gbid("villageInfolist");
-		function getData(upAndDown) {
+		var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
+		    {value:"440784202",text:"麦水村"},{value:"440784203",text:"丽水村"},{value:"440784204",text:"茶山村"},
+		    {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
+		    {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
+		    {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
+ 		function getData(upAndDown) {
 			var data = {pageNum:pageNum,pageSize:pageSize};
 			appajax.SendRequestByPost("poverty/selectPovertyPeoplePage",JSON.stringify(data),function(response) {
 				if(response.code == "0000") {
@@ -206,13 +211,13 @@
 										'</div>'+
 										'<div id="'+list[i].id+'" class="mui-slider-handle">'+
 											'<a href="javascript:;" onclick="">'+
-												'<img class="mui-media-object mui-pull-left" src="data:image/png;base64,'+list[i].image1+'">'+
+												'<img class="mui-media-object mui-pull-left" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
 													'<div class="mui-ellipsis-2">'+list[i].povertyName+'</div>'+
 												'</div>'+
 												'<div class="meta-info">'+
-													'<div class="author">'+list[i].phone+'</div>'+
-													'<div class="time">'+list[i].povertyType1+'-'+list[i].povertyType2+'</div>'+
+													'<div class="author">'+getDictJsonText(forcountryData, list[i].village)+'</div>'+
+													'<div class="time">'+list[i].povertyType2+'</div>'+
 												'</div>'+
 											'</a>'+
 										'</div>';
@@ -222,12 +227,13 @@
 			},function(response) {
 				
 			});
-		}
+		} 
 		
         //点击更多筛选收起或显示
-        mui("body").on('tap','.selectBtn',function(){
+         mui("body").on('tap','.selectBtn',function(){
             $('#selectMenu').slideToggle();
-        });
+        }); 
+		
         //点击取消筛选
         mui("#selectMenu").on('tap','#cancelBtn',function(){
             $("a").toggleClass("active",false);
@@ -254,6 +260,7 @@
         });
 		
 		function setVid(id,povertyName,birthday,village) {
+			mui.toast("走访！！！！");
 			localStorage.setItem("vid",id);
 			localStorage.setItem("povertyName",povertyName);
 			localStorage.setItem("birthday",birthday);
