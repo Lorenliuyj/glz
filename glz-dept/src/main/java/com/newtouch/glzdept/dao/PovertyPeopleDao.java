@@ -26,6 +26,8 @@ public interface PovertyPeopleDao {
     //查询详细信息
     PovertyPeoplePO povertyInfo(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
 
+    PovertyPeoplePO povertyInfoImgs(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
+
     List<PovertyPeopleVO> selectPovertyPeopleVO(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
     /**
      *  分頁查詢d

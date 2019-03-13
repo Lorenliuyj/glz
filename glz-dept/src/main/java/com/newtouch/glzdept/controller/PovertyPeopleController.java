@@ -39,6 +39,14 @@ public class PovertyPeopleController {
         return ResponseUtil.successResponse(povertyInfo);
     }
 
+    //查询贫困户详细信息
+    @PostMapping(value="/povertyInfoImgs")
+    @ResponseBody
+    public ResponseVO povertyInfoImgs(@RequestBody PovertyPeopleVO povertyPeopleVO){
+        PovertyPeoplePO  povertyInfo = povertyUserService.povertyInfoImgs(povertyPeopleVO);
+        return ResponseUtil.successResponse(povertyInfo);
+    }
+
     @PostMapping(value="/update")
     @ResponseBody
     public ResponseVO updatePovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){

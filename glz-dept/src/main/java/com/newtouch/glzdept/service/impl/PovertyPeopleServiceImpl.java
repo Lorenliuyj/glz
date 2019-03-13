@@ -35,6 +35,11 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
     }
 
     @Override
+    public PovertyPeoplePO povertyInfoImgs(PovertyPeopleVO povertyPeopleVO) {
+        return povertyPeopleDao.povertyInfoImgs(povertyPeopleVO);
+    }
+
+    @Override
     public void updatePovertyUser(PovertyPeopleVO povertyPeopleVO) {
         povertyPeopleDao.updateById(povertyPeopleVO);
     }
@@ -52,5 +57,6 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
         return page;
 
     }
+
 
 }

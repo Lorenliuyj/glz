@@ -42,4 +42,14 @@ public class PovertyVisitServiceImpl implements IPovertyVisitService {
         page.setList(povertyVisitDao.selectPovertyVisitPage(povertyVisitVO,page));
         return page;
     }
+
+    @Override
+    public PovertyVisitVO visitInfo(PovertyVisitVO povertyVisitVO) {
+        return povertyVisitDao.visitInfo(povertyVisitVO);
+    }
+
+    @Override
+    public PovertyVisitVO visitInfoImgs(PovertyVisitVO povertyVisitVO) {
+        return povertyVisitDao.visitInfo(povertyVisitVO);
+    }
 }

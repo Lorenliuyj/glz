@@ -35,4 +35,18 @@ public class VisitController {
         Page<PovertyVisitVO> list  =  povertyVisitService.selectPovertyVisitPage(page.getPovertyVisitVO(),page);
         return ResponseUtil.successResponse(list);
     }
+
+    @PostMapping(value="/visitInfo")
+    @ResponseBody
+    public ResponseVO visitInfo(@RequestBody PovertyVisitVO povertyVisitVO){
+        PovertyVisitVO resultVO  =  povertyVisitService.visitInfo(povertyVisitVO);
+        return ResponseUtil.successResponse(resultVO);
+    }
+
+    @PostMapping(value="/visitInfoImgs")
+    @ResponseBody
+    public ResponseVO visitInfoImgs(@RequestBody PovertyVisitVO povertyVisitVO){
+        PovertyVisitVO resultVO  =  povertyVisitService.visitInfoImgs(povertyVisitVO);
+        return ResponseUtil.successResponse(resultVO);
+    }
 }

@@ -12,8 +12,12 @@ public interface IPovertyVisitService {
 
     /**
      * 分页查询数据
-     * @param povertyPeopleVO
+     * @param povertyVisitVO
      * @param page
      */
     Page<PovertyVisitVO> selectPovertyVisitPage(PovertyVisitVO povertyVisitVO, Page page);
+
+    PovertyVisitVO visitInfo(PovertyVisitVO povertyVisitVO);
+
+    PovertyVisitVO visitInfoImgs(PovertyVisitVO povertyVisitVO);
 }

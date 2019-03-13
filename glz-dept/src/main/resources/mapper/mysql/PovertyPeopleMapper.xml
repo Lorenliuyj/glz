@@ -27,6 +27,11 @@
 
 
     <sql id="ALL_COLUMN">
+        <include refid="BASE_COLUMN"/>
+        ,
+        <include refid="IMGS_COLUMN"/>
+    </sql>
+    <sql id="BASE_COLUMN">
         id,
         difficult_type_id,
         poverty_name,
@@ -40,12 +45,15 @@
         phone,
         family_detail,
         trouble,
+        income,
+        comments
+    </sql>
+
+    <sql id="IMGS_COLUMN">
         image_1,
         image_2,
         image_3,
-        imageMin,
-        income,
-        comments
+        imageMin
     </sql>
 
     <sql id="ALL_VALUES">
@@ -164,7 +172,17 @@
 
     <select id="povertyInfo" resultMap="PovertyPeopleVOMap">
         select
-        <include refid="ALL_COLUMN"/>
+        <include refid="BASE_COLUMN"/>
+        FROM
+        t_poverty_people
+        WHERE
+        1=1
+        <include refid="ALL_IF_SELECT"/>
+    </select>
+
+    <select id="povertyInfoImgs" resultMap="PovertyPeopleVOMap">
+        select
+        <include refid="IMGS_COLUMN"/>
         FROM
         t_poverty_people
         WHERE

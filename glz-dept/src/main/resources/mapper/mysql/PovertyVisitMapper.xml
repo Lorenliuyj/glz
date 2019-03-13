@@ -26,6 +26,12 @@
     </resultMap>
 
     <sql id="ALL_COLUMN">
+        <include refid="BASE_COLUMN"/>
+        ,
+        <include refid="IMGS_COLUMN"/>
+    </sql>
+
+    <sql id="BASE_COLUMN">
         id,
         poverty_people_id,
         poverty_people_name,
@@ -38,14 +44,17 @@
         condolence_product,
         mass_appeal,
         condolence_detail,
-        image_1,
-        image_2,
-        image_3,
-        image_min,
         comments,
         create_id,
         create_time,
         isdelete
+    </sql>
+
+    <sql id="IMGS_COLUMN">
+        image_1,
+        image_2,
+        image_3,
+        image_min
     </sql>
 
     <sql id="ALL_IF_SELECT">
@@ -140,6 +149,26 @@
     <select id="total" resultType="java.lang.Integer">
         select count(*)
         from   t_poverty_visit
+        WHERE
+        1=1
+        <include refid="ALL_IF_SELECT"/>
+    </select>
+
+    <select id="visitInfo" resultMap="BaseResultMap">
+        select
+        <include refid="BASE_COLUMN"/>
+        FROM
+        t_poverty_visit
+        WHERE
+        1=1
+        <include refid="ALL_IF_SELECT"/>
+    </select>
+
+    <select id="visitInfoImgs" resultMap="BaseResultMap">
+        select
+        <include refid="ALL_COLUMN"/>
+        FROM
+        t_poverty_visit
         WHERE
         1=1
         <include refid="ALL_IF_SELECT"/>
