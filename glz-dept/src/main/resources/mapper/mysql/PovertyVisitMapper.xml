@@ -113,7 +113,7 @@
            <trim prefix="(" suffix=")" suffixOverrides=",">
                <if test="visitVO.povertyPeopleId != null and visitVO.povertyPeopleId != ''">#{visitVO.povertyPeopleId,jdbcType=BIGINT},</if>
                <if test="visitVO.povertyPeopleName != null and visitVO.povertyPeopleName != ''">#{visitVO.povertyPeopleName,jdbcType=VARCHAR},</if>
-              <if test="visitVO.birthday != null and visitVO.birthday != ''">STR_TO_DATE(#{visitVO.birthday,jdbcType=DATE},'%Y%m%d'),</if>
+              <if test="visitVO.birthday != null and visitVO.birthday != ''">STR_TO_DATE(#{visitVO.birthday,jdbcType=DATE},'%Y-%m-%d'),</if>
               <if test="visitVO.village != null and visitVO.village != ''">#{visitVO.village,jdbcType=VARCHAR},</if>
               <if test="visitVO.condolenceDate != null and visitVO.condolenceDate != ''">STR_TO_DATE(#{visitVO.condolenceDate,jdbcType=DATE},'%Y%m%d'),</if>
                <if test="visitVO.familyDetail != null and visitVO.familyDetail != ''">#{visitVO.familyDetail,jdbcType=VARCHAR},</if>

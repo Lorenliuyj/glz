@@ -153,7 +153,7 @@
 		var image1 = "";
 		var image2 = "";
 		var image3 = "";
-		var image4 = "";
+		var imageMin = "";
         var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
         var forcountryPicker = new mui.PopPicker();
         var forhardPicker = new mui.PopPicker({layer: 2});
@@ -227,7 +227,7 @@
 			var data = {povertyName:gbid('povertyName').value,sex:$("input[name='sex']:checked").val(),idcardNo:gbid('idcardNo').value,birthday:birthday,
                 village:village,difficultTypeId:difficultTypeId,povertyType1:povertyType1,povertyType2:povertyType2,address:gbid('address').value,phone:gbid('phone').value,
                 familyDetail:gbid('familyDetail').value,trouble:gbid('trouble').value,income:$("#income").val(),comments:$("#comments").val(),
-				image1:image1,image2:image2,image3:image3
+				image1:image1,image2:image2,image3:image3,imageMin:imageMin
 			};
 			//校验
 			console.log(JSON.stringify(data));
@@ -248,6 +248,7 @@
 		}
 		
 		function setImage() {
+			console.log("开始设置图片");
 			for(var i=0;i<files.length;i++) {
 				if(files[i].key == 'image1') {
 					image1 = files[i].value;
@@ -260,7 +261,10 @@
 				}
 			}
 			//设置缩略图的值
-			setFileImage(fileObject[0]);
+			if(fileBase.length>0) {
+				var min = fileBase[0].value;
+				imageMin = min.split(",")[1];
+			}
 		}
 		
 		function checkIsEmpty(data) {
@@ -268,14 +272,50 @@
 				mui.toast("贫困户姓名不能为空！");
 				return false;
 			}
-			
-			
-			
+			if(!checkText(data.povertyName)) {
+				return false;
+			}
+			if(data.sex == "") {
+				mui.toast("性别不能为空！");
+				return false;
+			}
+			if(data.idcardNo == "") {
+				mui.toast("身份证号码不能为空！");
+				return false;
+			}
+			if(!checkIdcardNo(data.idcardNo)) {
+				mui.toast("身份证号码有误！");
+				return false;
+			}
+			if(data.birthday == "") {
+				mui.toast("出生日期不能为空！");
+				return false;
+			}
+			if(data.village == "") {
+				mui.toast("所属村居不能为空！");
+				return false;
+			}
+			if(data.difficultTypeId == "") {
+				mui.toast("困难类型不能为空！");
+				return false;
+			}
+			if(data.address == "") {
+				mui.toast("住址不能为空！");
+				return false;
+			}
+			if(data.phone == "") {
+				mui.toast("联系电话不能为空！");
+				return false;
+			}
+			if(!checkPhone(data.phone)) {
+				mui.toast("联系方式有误，请重填!");
+				return false;
+			}
 			return true;
 		}
 		
         var files=[];   
-		var fileObject=[];
+		var fileBase = [];
         function selectFileImage(fileObj) {
             var file = fileObj.files['0'];
             var Orientation = null;
@@ -285,6 +325,8 @@
                 if (!rFilter.test(file.type)) {
                     return;
                 }
+				//压缩略图
+				setFileImage(file);
                 //获取照片方向角属性，用户旋转控制
                 EXIF.getData(file, function() {
                     EXIF.getAllTags(this);
@@ -325,8 +367,6 @@
                         base64 = canvas.toDataURL("image/png", 0.3);
 						console.log("正常压缩图片："+base64);
 						var zz = {key:"image"+index,value:base64};
-						var obj = {key:"image"+index,value:file};
-						fileObject.push(obj);
                         appendFile(zz);
                     };
                 };
@@ -346,9 +386,9 @@
 					break;
 				}
 			}
-			for(var j=0;j<fileObject.length;j++) {
-				if(fileObject[j].key == p) {
-					fileObject.splice(j,1);
+			for(var j=0;j<fileBase.length;j++) {
+				if(fileBase[j].key == p) {
+					fileBase.splice(j,1);
 					break;
 				}
 			}
@@ -387,9 +427,10 @@
 		
 		//设置缩略图
 		function setFileImage(file) {
+			console.log("正在压缩缩略图,请稍后...");
 		    var Orientation = null;
 		    if (file) {
-		        console.log("正在上传,请稍后...");
+		        console.log("正在压缩缩略图,请稍后...");
 		        var rFilter = /^(image\/jpeg|image\/png)$/i; // 检查图片格式
 		        if (!rFilter.test(file.type)) {
 		            return "";
@@ -432,8 +473,8 @@
 		                    orientation: Orientation
 		                });
 		                base64 = canvas.toDataURL("image/png", 0.4);
-						console.log("缩略图压缩图片："+base64);
-						image4 = base64;
+						var zz = {key:"image"+index,value:base64};
+						fileBase.push(zz);
 		            };
 		        };
 		        oReader.readAsDataURL(file);

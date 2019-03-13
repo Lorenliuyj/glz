@@ -111,6 +111,53 @@ function fmDay(dstr) {
     }
 }
 
+//校验手机
+function checkMphone(mphone) {
+	var temp = /^1(3|4|5|7|8)\d{9}$/;
+	if(!(temp.test(mphone))){ 
+        mui.toast("手机号码有误，请重填!");  
+        return false; 
+    } 
+	return true;
+}
+
+//校验电话号码
+function checkTel(tel) {
+	var temp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+	if(!(temp.test(tel))){
+		mui.toast('固定电话有误，请重填!');
+		return false;
+	}
+	return true;
+}
+
+function checkPhone(phone) {
+	var temp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
+	if(!(temp.test(phone))) {
+		mui.toast('联系方式有误，请重填!');
+		return false;
+	}
+	return true;
+}
+
+function checkIdcardNo(idNo) {
+	var temp1 = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+	var temp2 = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
+	if((temp1.test(idNo)) || temp2.test(idNo)) {
+		mui.toast("身份证号码错误！");
+		return true;
+	}
+	return false;
+}
+
+function checkText(text) {
+	var temp = /^[\u4E00-\u9FA5A-Za-z0-9]+$/;
+	if(!(temp.test(text))) {
+		mui.toast("请输入正确的字符！");
+		return false;
+	}
+	return true;
+}
 
 function getDictJsonText(dictJson, dictId) {
 	console.log(dictJson);

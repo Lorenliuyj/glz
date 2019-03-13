@@ -55,13 +55,13 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-blue"></a>
 			<h1 class="mui-title color-blue">贫困户信息详情</h1>
-			<a class="mui-pull-right color-blue" style="margin-top: 11px;font-size: 16px;" onclick="openUrl('visitor_brow.html');">走访录入</a>
+			<a class="mui-pull-right color-blue" style="margin-top: 11px;font-size: 16px;" onclick="visitor();">走访录入</a>
 		</header>
 		<div class="mui-content mui-content-padded" style="margin-bottom:20px;">
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">姓名</label>
-					<input id="povertyName" type="text" class="mui-input mui-pull-right"  style="width: 60%;" placeholder="请输入姓名"/>
+					<input id="povertyName" type="text" class="mui-input mui-pull-right"  style="width: 60%;"/>
 				</div>
                 <div class="mui-input-row">
                     <label style="width: 40%;">性别</label>
@@ -74,7 +74,7 @@
                 </div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">身份证号</label>
-					<input id="idcardNo" type="text" class="mui-input mui-pull-right" readonly="readonly" style="width: 60%;" placeholder="请输入身份证号码"/>
+					<input id="idcardNo" type="text" class="mui-input mui-pull-right" readonly="readonly" style="width: 60%;"/>
 				</div>
 				<ul class="mui-table-view mui-table-view-chevron u">
 					<li class="mui-table-view-cell" id="timePicker">
@@ -286,6 +286,9 @@
 			var data = {id:id,birthday:birthday,
 		        village:village,povertyType1:povertyType1,povertyType2:povertyType2,address:gbid('address').value,phone:gbid('phone').value,
 		        familyDetail:gbid('familyDetail').value,trouble:gbid('trouble').value,income:$("#income").val(),comments:$("#comments").val()
+			};
+			if(!checkIsEmpty(data)) {
+				return;
 			}
 		    appajax.SendRequestByPost("poverty/update",JSON.stringify(data),function (response) {
 				if("0000" == response.code) {
@@ -300,7 +303,35 @@
 					mui.toast("修改失败！");
 		    });
 		}
-
+		
+		function checkIsEmpty(data) {
+			if(data.birthday == "") {
+				mui.toast("出生日期不能为空！");
+				return false;
+			}
+			if(data.village == "") {
+				mui.toast("所属村居不能为空！");
+				return false;
+			}
+			if(data.difficultTypeId == "") {
+				mui.toast("困难类型不能为空！");
+				return false;
+			}
+			if(data.address == "") {
+				mui.toast("住址不能为空！");
+				return false;
+			}
+			if(data.phone == "") {
+				mui.toast("联系电话不能为空！");
+				return false;
+			}
+			if(!checkPhone(data.phone)) {
+				mui.toast("联系方式有误，请重填!");
+				return false;
+			}
+			return true;
+		}
+		
         var files=[];
         var fileName=null;
         var j=0;
@@ -443,7 +474,13 @@
 			}
             $("#addImageBtn").click();
 		});
-
+		
+		function visitor() {
+			localStorage.setItem("povertyName",$("#povertyName").val());
+			localStorage.setItem("birthday",birthday);
+			localStorage.setItem("village",village);
+			openUrl('visitor_brow.html');
+		}
 
 	</script>
 
