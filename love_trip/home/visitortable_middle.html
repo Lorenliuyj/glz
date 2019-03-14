@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>贫困户列表</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			html,body,.mui-content {background-color: #F6F9FC;}
+			.mui-bar-nav{background-color: white;box-shadow :0 0 0.5px rgba(0,0,0,0.1)}
+			#done.mui-disabled{color: gray;}
+			.color-blue{color: #12B6F6 !important;}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" >
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title color-blue">贫困户列表</h1>
+		</header>
+		
+		<div class="mui-content" style="background-color: #F6F9FC;">
+			<div class="mui-content">
+				<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin: 0px;">
+					<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="text-align: left;border-bottom: 0px;" onclick="openUrl('visitortable_list.html')">
+						<img src="../images/pkhcx.png" style="width: 10%;height: 10%;float: left;margin-left: 25px;"/>
+						<span class="mui-navigate-right" style="display:inline-block;float:left;margin-top: 2px;margin-left: 5px;line-height: 32px;">请选择贫困户</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div style="line-height: 20px;padding-left: 20px;margin-top: 5px;padding-right: 15px;">
+				<p style="font-size: 14px;">若要对贫困户进行走访录入，请先选择贫困户。</p>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		</script>
+	</body>
+
+</html>

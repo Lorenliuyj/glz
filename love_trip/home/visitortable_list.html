@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>贫困户查询</title>
+		<title>贫困户走访选择</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -71,7 +71,7 @@
 			#selectMenu .mui-btn{display: inline-block;width: 45%;}
 			#selectMenu .mui-table-view{padding: 0px;}
 			#selectMenu .mui-table-view-cell{padding: 11px 5px;}
-			#selectMenu .mui-table-view-cell>a{background-color: #F2F2F2;border-radius: 20px; margin:-10px 5px 0px;font-size: 14px;padding: 2px 0px;}
+			#selectMenu .mui-table-view-cell>a{background-color:#F2F2F2;border-radius: 20px;margin:-10px 5px 0px;font-size: 14px;padding: 2px 0px;}
 			.active{background-color: #D3D3D3 !important;color: white !important;}
 			.btn-blue{background-color: skyblue;color: white;padding:6px 0;border-radius: 6px;margin-bottom: 10px;border: 0px;}
 			#selectMenu{display:none ;position:fixed;top:88px;z-index: 3;background-color: white;width: 100%;height:100%;padding: 0px 5px;}
@@ -81,7 +81,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-blue"></a>
-			<h1 class="mui-title color-blue">贫困户查询</h1>
+			<h1 class="mui-title color-blue">贫困户选择</h1>
 		</header>
 		<div class="mui-content">
 			<div id="searchBar" class="mui-table-view mui-grid-view" style="position: fixed;margin-top:0px;z-index: 2;background-color: gray;padding-left:15px;padding-right: 1px;height: 45px;">
@@ -166,8 +166,6 @@
 		    pageNum++;
             upAndDown = 0;
             setTimeout(function () {
-                //mui('#pullrefresh').pullRefresh().endPullup(true);
-                //mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 				getData(upAndDown);
 			},1000);
         }
@@ -208,10 +206,7 @@
 						var li = document.createElement('li');
 						li.className = "mui-table-view-cell mui-media";
 						li.id = list[i].id;
-						li.innerHTML = '<div class="mui-slider-right mui-disabled">'+
-											'<a class="mui-btn mui-btn-success" onclick="setVid(\''+list[i].id+'\',\''+list[i].povertyName+'\',\''+list[i].birthday+'\',\''+list[i].village+'\')">走访</a>'+
-										'</div>'+
-										'<div id="'+list[i].id+'" class="mui-slider-handle">'+
+						li.innerHTML = '<div class="mui-slider-handle" onclick="setVid(\''+list[i].id+'\',\''+list[i].povertyName+'\',\''+list[i].birthday+'\',\''+list[i].village+'\')">'+
 											'<a href="javascript:;" onclick="">'+
 												'<img class="mui-media-object mui-pull-left" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
@@ -223,7 +218,7 @@
 												'</div>'+
 											'</a>'+
 										'</div>';
-							table.appendChild(li);		
+						table.appendChild(li);		
 					}
 				}
 			},function(response) {
@@ -262,18 +257,18 @@
 			pullupRefresh();
 		}
 		
-        //点击更多筛选收起或显示
-         mui("body").on('tap','.selectBtn',function(){
-            $('#selectMenu').slideToggle();
-        }); 
+		//点击更多筛选收起或显示
+		 mui("body").on('tap','.selectBtn',function(){
+		    $('#selectMenu').slideToggle();
+		}); 
 		
-        //点击取消筛选
-        mui("#selectMenu").on('tap','#cancelBtn',function(){
-            $("a").toggleClass("active",false);
-            $('#selectMenu').slideToggle();
-            //清空列表
+		//点击取消筛选
+		mui("#selectMenu").on('tap','#cancelBtn',function(){
+		    $("a").toggleClass("active",false);
+		    $('#selectMenu').slideToggle();
+		    //清空列表
 			clear();
-        });
+		});
 		
 		mui("#selectMenu").on('tap','#confirmBtn',function() {
 			$('#selectMenu').slideToggle();
@@ -295,33 +290,27 @@
 		    }
 		});
 		
-		
-        mui("body").on("tap", ".mui-icon-clear", function() {
-            //清空列表
+		mui("body").on("tap", ".mui-icon-clear", function() {
+		    //清空列表
 			clear();
-        });
-        $("#forcountryRow").on('tap','a',function(){
-            $(this).toggleClass('active');
-        });
-        $("#hardRow1").on('tap','a',function(){
-            $(this).toggleClass('active');
-        });
-        $("#hardRow2").on('tap','a',function(){
-            $(this).toggleClass('active');
-        });
+		});
+		$("#forcountryRow").on('tap','a',function(){
+		    $(this).toggleClass('active');
+		});
+		$("#hardRow1").on('tap','a',function(){
+		    $(this).toggleClass('active');
+		});
+		$("#hardRow2").on('tap','a',function(){
+		    $(this).toggleClass('active');
+		});
 
-        $("#villageInfolist").on('tap','.mui-slider-handle',function () {
-			localStorage.setItem("pid",this.id);
-			openUrl("villageInfoDetail_brow.html");
-        });
-		
-		function setVid(id,povertyName,birthday,village) {
+       function setVid(id,povertyName,birthday,village) {
 			localStorage.setItem("pid",id);
 			localStorage.setItem("povertyName",povertyName);
 			localStorage.setItem("birthday",birthday);
 			localStorage.setItem("village",village);
 			openUrl("visitor_brow.html");
-		}
+        }
 		
 	</script>
 </html>
