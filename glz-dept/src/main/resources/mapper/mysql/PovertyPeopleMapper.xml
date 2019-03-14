@@ -70,12 +70,12 @@
         #{PovertyPeopleObj.phone},
         #{PovertyPeopleObj.familyDetail},
         #{PovertyPeopleObj.trouble},
+        #{PovertyPeopleObj.income},
+        #{PovertyPeopleObj.comments},
         #{PovertyPeopleObj.image1},
         #{PovertyPeopleObj.image2},
         #{PovertyPeopleObj.image3},
-        #{PovertyPeopleObj.imageMin},
-        #{PovertyPeopleObj.income},
-        #{PovertyPeopleObj.comments}
+        #{PovertyPeopleObj.imageMin}
     </sql>
 
     <sql id="ALL_IF_UPDATE">

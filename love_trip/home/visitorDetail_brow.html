@@ -108,7 +108,7 @@
 					var rtnData = response.result;
 					$("#povertyPeopleName").val(rtnData.povertyPeopleName);
 					$("#birthday").html(rtnData.birthday);
-					$("#village").val(rtnData.village);
+					$("#village").html(getDictJsonText(forcountryData, rtnData.village));
 					$("#condolenceDate").html(rtnData.condolenceDate);
 					$("#familyDetail").val(rtnData.familyDetail);
 					$("#visitorName").val(rtnData.visitorName);

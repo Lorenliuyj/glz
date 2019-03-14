@@ -16,18 +16,18 @@
     // };
 
     appajax.SendRequestByGet=function(action,data,successCallback, errorCallback) {
-        if (appajax.checkNetworkStatus(true)) {
-            plus.nativeUI.closeWaiting();
-            plus.nativeUI.showWaiting();
+        //if (appajax.checkNetworkStatus(true)) {
+            //plus.nativeUI.closeWaiting();
+            //plus.nativeUI.showWaiting();
             mui.getJSON(appajax.SERVER_URL+action, data, function (response) {
-                if (response.info == "success") {
+                if (response.code == "0000") {
                     successCallback && successCallback(response);
                 } else {
-                    plus.nativeUI.toast(response.message);
+                    //plus.nativeUI.toast(response.message);
                     errorCallback&&errorCallback(response);
                 }
             });
-        }
+        //}
     };
     appajax.SendRequestByPost=function(action,data,successCallback,errorCallback,isAsync) {
 //         if (!appajax.checkNetworkStatus(true)) {
