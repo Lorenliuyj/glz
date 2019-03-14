@@ -128,7 +128,7 @@
 					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="五保户">五保户</a></li>
 					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="困难残疾人">困难残疾人</a></li>
 					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="困难党员">困难党员</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="精准扶贫对象">精准扶贫对象</a></li>
+					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="精准扶贫对象">精准扶贫</a></li>
 					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="单亲家庭">单亲家庭</a></li>
 				</ul>
 				<div style="position: relative;left: 0px;width: 100%;padding: 0 5px;text-align: center;">
@@ -206,7 +206,7 @@
 						var li = document.createElement('li');
 						li.className = "mui-table-view-cell mui-media";
 						li.id = list[i].id;
-						li.innerHTML = '<div class="mui-slider-handle" onclick="setVid(\''+list[i].id+'\',\''+list[i].povertyName+'\',\''+list[i].birthday+'\',\''+list[i].village+'\')">'+
+						li.innerHTML = '<div class="mui-slider-handle" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" village="'+list[i].village+'">'+
 											'<a href="javascript:;" onclick="">'+
 												'<img class="mui-media-object mui-pull-left" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
@@ -304,13 +304,13 @@
 		    $(this).toggleClass('active');
 		});
 
-       function setVid(id,povertyName,birthday,village) {
-			localStorage.setItem("pid",id);
-			localStorage.setItem("povertyName",povertyName);
-			localStorage.setItem("birthday",birthday);
-			localStorage.setItem("village",village);
+       $("#villageInfolist").on('tap','.mui-slider-handle',function () {
+			localStorage.setItem("pid",this.id);
+			localStorage.setItem("povertyName",this.getAttribute('povertyName'));
+			localStorage.setItem("birthday",this.getAttribute('birthday'));
+			localStorage.setItem("village",this.getAttribute('village'));
 			openUrl("visitor_brow.html");
-        }
+        });
 		
 	</script>
 </html>
