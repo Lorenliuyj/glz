@@ -79,7 +79,7 @@
             <if test="povertyVisitVO.createTime != null and povertyVisitVO.createTime != ''"> AND create_time = #{povertyVisitVO.createTime} </if>
             <if test="povertyVisitVO.comments != null and povertyVisitVO.comments != ''"> AND comments = #{povertyVisitVO.comments} </if>
             <if test="povertyVisitVO.isdelete != null and povertyVisitVO.isdelete != ''"> AND isdelete = #{povertyVisitVO.isdelete} </if>
-            <if test="PovertyPeopleObj.villages != null and PovertyPeopleObj.villages.size() > 0">
+            <if test="povertyVisitVO.villages != null and povertyVisitVO.villages.size() > 0">
                 AND
                 <choose>
                     <when test="povertyVisitVO.villages.size() == 1">
