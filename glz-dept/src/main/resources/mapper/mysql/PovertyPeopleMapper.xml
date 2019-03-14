@@ -111,8 +111,8 @@
             <if test="PovertyPeopleObj.idcardNo != null and PovertyPeopleObj.idcardNo != ''"> AND idcar_no = #{PovertyPeopleObj.idcardNo} </if>
             <if test="PovertyPeopleObj.birthday != null and PovertyPeopleObj.birthday != ''"> AND birthday = #{PovertyPeopleObj.birthday} </if>
             <if test="PovertyPeopleObj.village != null and PovertyPeopleObj.village != ''"> AND village = #{PovertyPeopleObj.village} </if>
-            <if test="PovertyPeopleObj.povertyType1 != null and PovertyPeopleObj.povertyType1 != ''"> AND provert_type_1 = #{PovertyPeopleObj.povertyType1} </if>
-            <if test="PovertyPeopleObj.povertyType2 != null and PovertyPeopleObj.povertyType2 != ''"> AND provert_type_2 = #{PovertyPeopleObj.povertyType2} </if>
+            <if test="PovertyPeopleObj.povertyType1 != null and PovertyPeopleObj.povertyType1 != ''"> AND poverty_type_1 = #{PovertyPeopleObj.povertyType1} </if>
+            <if test="PovertyPeopleObj.povertyType2 != null and PovertyPeopleObj.povertyType2 != ''"> AND poverty_type_2 = #{PovertyPeopleObj.povertyType2} </if>
             <if test="PovertyPeopleObj.address != null and PovertyPeopleObj.address != ''"> AND address = #{PovertyPeopleObj.address} </if>
             <if test="PovertyPeopleObj.phone != null and PovertyPeopleObj.phone != ''"> AND phone = #{PovertyPeopleObj.phone} </if>
             <if test="PovertyPeopleObj.familyDetail != null and PovertyPeopleObj.familyDetail != ''"> AND family_detail = #{PovertyPeopleObj.familyDetail} </if>
@@ -146,10 +146,10 @@
               AND
               <choose>
                   <when test="PovertyPeopleObj.povertyType1s.size() == 1">
-                      village = #{PovertyPeopleObj.povertyType1s[0]}
+                      poverty_type_1 = #{PovertyPeopleObj.povertyType1s[0]}
                   </when>
                   <otherwise>
-                      village IN
+                      poverty_type_1 IN
                       <foreach collection="PovertyPeopleObj.povertyType1s" item="item" open="(" separator="," close=")">
                           #{item}
                       </foreach>
@@ -160,10 +160,10 @@
               AND
               <choose>
                   <when test="PovertyPeopleObj.povertyType2s.size() == 1">
-                      village = #{PovertyPeopleObj.povertyType2s[0]}
+                      poverty_type_2 = #{PovertyPeopleObj.povertyType2s[0]}
                   </when>
                   <otherwise>
-                      village IN
+                      poverty_type_2 IN
                       <foreach collection="PovertyPeopleObj.povertyType2s" item="item" open="(" separator="," close=")">
                           #{item}
                       </foreach>
