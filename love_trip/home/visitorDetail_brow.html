@@ -9,6 +9,7 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link href="../css/mui.picker.all.css" rel="stylesheet" />
+		<link href="../css/viewImg.css" rel="stylesheet" />
 		<style>
 			html,body,.mui-content{background-color: white;}
 			.mui-icon.mui-icon-plusempty{font-size: 17px;}
@@ -35,8 +36,8 @@
 		<div class="mui-content mui-content-padded" style="margin-bottom:20px;">
 			<form class="mui-input-group">
 				<div class="mui-input-row">
-					<label  class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问对象姓名</label>
-					<input id="povertyPeopleName" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问对象姓名"/>
+					<label  class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问对象</label>
+					<input id="povertyPeopleName" type="text" class="mui-pull-right mui-input" style="width: 60%;" readonly="readonly"/>
 				</div>
 				<ul class="mui-table-view mui-table-view-chevron u">
 					<li class="mui-table-view-cell" id="timePicker">
@@ -45,7 +46,7 @@
 					</li>
 					<li class="mui-table-view-cell" id="forcountryPicker">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;所属村居</label>
-						<p id="countryType">请选择</p>
+						<p id="village">请选择</p>
 					</li>
 					<li class="mui-table-view-cell" id="timePicker">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问日期</label>
@@ -54,19 +55,19 @@
 				</ul>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;家庭情况</label>
-					<input id="familyDetail" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写家庭情况"/>
+					<input id="familyDetail" type="text" class="mui-pull-right mui-input" style="width: 60%;" readonly="readonly" placeholder="请填写家庭情况"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;走访人</label>
-					<input id="visitorName" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写走访人"/>
+					<input id="visitorName" type="text" class="mui-pull-right mui-input" style="width: 60%;" readonly="readonly" placeholder="请填写走访人"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问物品</label>
-					<input id="condolenceProduct" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问物品"/>
+					<input id="condolenceProduct" type="text" class="mui-pull-right mui-input" style="width: 60%;" readonly="readonly" placeholder="请填写慰问物品"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;群众诉求</label>
-					<input id="massAppeal" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写群众诉求"/>
+					<input id="massAppeal" type="text" class="mui-pull-right mui-input" style="width: 60%;" readonly="readonly" placeholder="请填写群众诉求"/>
 				</div>
 				<p style="margin-left: 5px;">慰问图片</p>
 				<div class="mui-input-row" style="height: 100px;">
@@ -75,27 +76,82 @@
 				</div>
 				</div>
 				<div class="mui-input-row" style="margin-top: 5px;">
-					<p style="margin-bottom: -2px;">慰问情况</p>
-					<textarea id="condolenceDetail" rows="4" placeholder="请填写慰问情况" class="mui-input-speech mui-input-clear"></textarea>
+					<p style="margin-left: 5px;">慰问情况</p>
+					<textarea id="condolenceDetail" rows="4" placeholder="请填写慰问情况" readonly="readonly" class="mui-input-speech mui-input-clear"></textarea>
 				</div>
 				<div class="mui-input-row">
 					<p style="margin-bottom: -2px;">备注</p>
-					<textarea id="comments" rows="2" placeholder="请填写备注" class="mui-input-speech mui-input-clear"></textarea>
+					<textarea id="comments" rows="2" placeholder="请填写备注" readonly="readonly" class="mui-input-speech mui-input-clear"></textarea>
 				</div>
 			</form>
 		</div>
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script src="../js/mui.picker.all.js"></script>
-	<script src="../js/mobileBUGFix.mini.js"></script>
 	<script src="../js/jquery2.min.js"></script>
+	<script src="../js/mui.zoom.js"></script>
+	<script src="../js/mui.previewimage.js"></script>
 	<script src="../js/app.js"></script>
 	<script src="../js/appajax.js"></script>
 	<script type="text/javascript">
 		//本地缓存
-		
+		var id = localStorage.getItem("vid");
 		mui.init();
 		mui.ready(function() {
+			mui.previewImage();
+			var data = {id:id};
+			var tabimg = gbid("imgList");
+			console.log(data);
+			appajax.SendRequestByPost("visit/visitInfo",JSON.stringify(data),function (response) {
+				console.log(response.result);
+				if("0000" == response.code) {
+					var rtnData = response.result;
+					$("#povertyPeopleName").val(rtnData.povertyPeopleName);
+					$("#birthday").html(rtnData.birthday);
+					$("#village").val(rtnData.village);
+					$("#condolenceDate").html(rtnData.condolenceDate);
+					$("#familyDetail").val(rtnData.familyDetail);
+					$("#visitorName").val(rtnData.visitorName);
+					$("#condolenceProduct").val(rtnData.condolenceProduct);
+					$("#massAppeal").val(rtnData.massAppeal);
+					$("#condolenceDetail").val(rtnData.condolenceDetail);
+					$("#comments").val(rtnData.comments);
+				}
+			},function(response) {
+					mui.toast("查询详情失败！");
+			},true);
+			
+			//同步查询图片
+			appajax.SendRequestByPost("visit/visitInfoImgs",JSON.stringify(data),function (response) {
+				console.log(response.result);
+				var rtnData = response.result;
+				if("0000" == response.code) {
+					if(rtnData.image1!=null) {
+						var img = document.createElement('img');
+						img.setAttribute("data-preview-src","");
+						
+						img.className = "mui-table-view-cell mui-col-sm-4 mui-col-xs-4";
+						img.src = "data:image/png;base64,"+rtnData.image1;
+						gbid("imgList").appendChild(img);
+					}
+					if(rtnData.image2!=null) {
+						var img = document.createElement('img');
+						img.setAttribute("data-preview-src","");
+						img.className = "mui-table-view-cell mui-col-sm-4 mui-col-xs-4";
+						img.src = "data:image/png;base64,"+rtnData.image2;
+						gbid("imgList").appendChild(img);
+					}
+					if(rtnData.image3!=null) {
+						var img = document.createElement('img');
+						img.setAttribute("data-preview-src","");
+						img.className = "mui-table-view-cell mui-col-sm-4 mui-col-xs-4";
+						img.src = "data:image/png;base64,"+rtnData.image3;
+						gbid("imgList").appendChild(img);
+					}
+				}
+			},function(response) {
+					mui.toast("查询图片失败！");
+			},true);
 			
 
 		});
@@ -110,22 +166,7 @@
 
 			forcountryPicker.setData(forcountryData);
 
-			gbid('timePicker').addEventListener('tap', function(event) {
-				timePicker.show(function(items) {
-					birthday=parseDateTime(items.toString());
-					gbid("birthday").innerHTML=items;
-				});
-			});
-			gbid('forcountryPicker').addEventListener('tap', function(event) {
-				forcountryPicker.show(function(items) {
-					countryType=items[0].value;
-					gbid("countryType").innerHTML=items[0].text;
-				});
-			});
-
-			gbid('submitBtn').addEventListener('tap', function(event) {
-
-			});
+		
 
 		}
 

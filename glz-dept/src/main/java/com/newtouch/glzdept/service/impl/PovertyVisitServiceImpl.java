@@ -48,6 +48,6 @@ public class PovertyVisitServiceImpl implements IPovertyVisitService {
 
     @Override
     public PovertyVisitVO visitInfoImgs(PovertyVisitVO povertyVisitVO) {
-        return povertyVisitDao.visitInfo(povertyVisitVO);
+        return povertyVisitDao.visitInfoImgs(povertyVisitVO);
     }
 }

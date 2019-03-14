@@ -72,8 +72,8 @@
 			#selectMenu .mui-table-view{padding: 0px;}
 			#selectMenu .mui-table-view-cell{padding: 11px 5px;}
 			#selectMenu .mui-table-view-cell>a{border: 1px solid #12B6F6;margin:-10px 5px 0px;font-size: 14px;padding: 2px 0px;}
-			.active{background-color: #12B6F6;color: white !important;}
-			.btn-blue{background-color: #12B6F6;color: white;padding:6px 0;border-radius: 6px;margin-bottom: 10px;border: 0px;}
+			.active{background-color: gray;color: white !important;}
+			.btn-blue{background-color: #2AC845;color: white;padding:6px 0;border-radius: 6px;margin-bottom: 10px;border: 0px;}
 			#selectMenu{display:none ;position:fixed;top:88px;z-index: 3;background-color: white;width: 100%;height:100%;padding: 0px 5px;}
 		</style>
 	</head>
@@ -84,7 +84,7 @@
 			<h1 class="mui-title color-blue">走访查询</h1>
 		</header>
 		<div class="mui-content">
-			<div id="searchBar" class="mui-table-view mui-grid-view" style="position: fixed;margin-top:0px;z-index: 2;background-color: #12B6F6;padding-left:15px;padding-right: 1px;height: 45px;">
+			<div id="searchBar" class="mui-table-view mui-grid-view" style="position: fixed;margin-top:0px;z-index: 2;background-color: gray;padding-left:15px;padding-right: 1px;height: 45px;">
 				<div class="mui-input-row mui-search mui-col-sm-9 mui-col-xs-9" style="display: inline-block;margin-top: 5px;">
 					<input id="sName" type="search" class="mui-input-clear" placeholder="搜索贫困户姓名" style="background-color: white;"/>
 				</div>
@@ -202,7 +202,7 @@
 						var li = document.createElement('li');
 						li.className = "mui-table-view-cell mui-media";
 						li.id = list[i].id;
-						li.innerHTML = '<a href="javascript:;" onclick="">'+
+						li.innerHTML = '<a href="javascript:;" datasrc="'+list[i].id+'">'+
 												'<img class="mui-media-object mui-pull-left" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
 													'<div class="mui-ellipsis-2">'+list[i].povertyPeopleName+'</div>'+
@@ -244,7 +244,8 @@
             $(this).toggleClass('active');
         });
 
-        $("#villageInfolist").on('tap','.mui-slider-handle',function () {
+        $("#visitorlist").on('tap','a',function () {
+			localStorage.setItem("vid",this.getAttribute("datasrc"));
 			openUrl("visitorDetail_brow.html");
         });
 
