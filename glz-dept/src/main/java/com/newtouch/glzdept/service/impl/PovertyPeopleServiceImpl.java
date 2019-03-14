@@ -47,12 +47,7 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
     @Override
     public Page<PovertyPeopleVO> selectPovertyUserPage(PovertyPeopleVO povertyPeopleVO, Page page) {
         page.init();
-        Map<String,PovertyPeopleVO> map = new HashMap<String,PovertyPeopleVO>();
-        if(povertyPeopleVO == null){
-             povertyPeopleVO =new PovertyPeopleVO();
-        }
-        map.put("povertyPeopleVO",povertyPeopleVO);
-        page.setTotalNum(povertyPeopleDao.total(map));
+        page.setTotalNum(povertyPeopleDao.total(povertyPeopleVO));
         page.setList(povertyPeopleDao.selectPovertyPeoplePage(povertyPeopleVO,page));
         return page;
 

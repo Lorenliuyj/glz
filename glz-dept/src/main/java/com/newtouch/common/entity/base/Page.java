@@ -33,17 +33,6 @@ public class Page<T> {
      */
     private List<T> list;
 
-    PovertyPeopleVO povertyPeopleVO;
-    PovertyVisitVO povertyVisitVO;
-
-    public PovertyVisitVO getPovertyVisitVO() {
-        return povertyVisitVO;
-    }
-
-    public void setPovertyVisitVO(PovertyVisitVO povertyVisitVO) {
-        this.povertyVisitVO = povertyVisitVO;
-    }
-
     public Page() {
     }
 
@@ -91,14 +80,6 @@ public class Page<T> {
 
     public void setList(List<T> list) {
         this.list = list;
-    }
-
-    public PovertyPeopleVO getPovertyPeopleVO() {
-        return this.povertyPeopleVO;
-    }
-
-    public void setPovertyPeopleVO(final PovertyPeopleVO povertyPeopleVO) {
-        this.povertyPeopleVO = povertyPeopleVO;
     }
 
     public void init() {

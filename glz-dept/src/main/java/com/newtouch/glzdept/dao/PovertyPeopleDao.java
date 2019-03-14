@@ -15,26 +15,27 @@ import java.util.Map;
  */
 public interface PovertyPeopleDao {
 
-    void insert(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
+    void insert(@Param("PovertyPeopleObj") PovertyPeoplePO povertyPeoplePO);
 
-    void insertBatch (@Param("povertyPeoples") List<PovertyPeoplePO> povertyPeoples);
+    void insertBatch (@Param("PovertyPeopleObj") List<PovertyPeoplePO> povertyPeoples);
 
-    void deleteById(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
+    void deleteById(@Param("PovertyPeopleObj")PovertyPeoplePO povertyPeoplePO);
 
-    void updateById(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
+    void updateById(@Param("PovertyPeopleObj")PovertyPeoplePO povertyPeoplePO);
 
     //查询详细信息
-    PovertyPeoplePO povertyInfo(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
+    PovertyPeoplePO povertyInfo(@Param("PovertyPeopleObj") PovertyPeoplePO povertyPeoplePO);
 
-    PovertyPeoplePO povertyInfoImgs(@Param("povertyPeoplePO") PovertyPeoplePO povertyPeoplePO);
+    PovertyPeoplePO povertyInfoImgs(@Param("PovertyPeopleObj") PovertyPeoplePO povertyPeoplePO);
 
-    List<PovertyPeopleVO> selectPovertyPeopleVO(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO);
+    List<PovertyPeopleVO> selectPovertyPeopleVO(@Param("PovertyPeopleObj")PovertyPeoplePO povertyPeoplePO);
     /**
      *  分頁查詢d
-     * @param povertyPeoplePO
+     * @param povertyPeopleVO
      * @param page
      * @return
      */
-    List<PovertyPeopleVO> selectPovertyPeoplePage(@Param("povertyPeoplePO")PovertyPeoplePO povertyPeoplePO, @Param("page") Page page);
-    int total(Map<String,PovertyPeopleVO> povertyPeoplePO);
+    List<PovertyPeopleVO> selectPovertyPeoplePage(@Param("PovertyPeopleObj")PovertyPeopleVO povertyPeopleVO, @Param("page") Page page);
+
+    int total(@Param("PovertyPeopleObj") PovertyPeopleVO povertyPeopleVO);
 }

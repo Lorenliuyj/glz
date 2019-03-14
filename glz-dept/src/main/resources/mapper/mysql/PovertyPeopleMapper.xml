@@ -57,73 +57,119 @@
     </sql>
 
     <sql id="ALL_VALUES">
-        #{povertyPeoplePO.id},
-        #{povertyPeoplePO.difficultTypeId},
-        #{povertyPeoplePO.povertyName},
-        #{povertyPeoplePO.sex},
-        #{povertyPeoplePO.idcardNo},
-        #{povertyPeoplePO.birthday},
-        #{povertyPeoplePO.village},
-        #{povertyPeoplePO.povertyType1},
-        #{povertyPeoplePO.povertyType2},
-        #{povertyPeoplePO.address},
-        #{povertyPeoplePO.phone},
-        #{povertyPeoplePO.familyDetail},
-        #{povertyPeoplePO.trouble},
-        #{povertyPeoplePO.image1},
-        #{povertyPeoplePO.image2},
-        #{povertyPeoplePO.image3},
-        #{povertyPeoplePO.imageMin},
-        #{povertyPeoplePO.income},
-        #{povertyPeoplePO.comments}
+        #{PovertyPeopleObj.id},
+        #{PovertyPeopleObj.difficultTypeId},
+        #{PovertyPeopleObj.povertyName},
+        #{PovertyPeopleObj.sex},
+        #{PovertyPeopleObj.idcardNo},
+        #{PovertyPeopleObj.birthday},
+        #{PovertyPeopleObj.village},
+        #{PovertyPeopleObj.povertyType1},
+        #{PovertyPeopleObj.povertyType2},
+        #{PovertyPeopleObj.address},
+        #{PovertyPeopleObj.phone},
+        #{PovertyPeopleObj.familyDetail},
+        #{PovertyPeopleObj.trouble},
+        #{PovertyPeopleObj.image1},
+        #{PovertyPeopleObj.image2},
+        #{PovertyPeopleObj.image3},
+        #{PovertyPeopleObj.imageMin},
+        #{PovertyPeopleObj.income},
+        #{PovertyPeopleObj.comments}
     </sql>
 
     <sql id="ALL_IF_UPDATE">
-        <if test="povertyPeoplePO != null">
-            <if test="povertyPeoplePO.id != null and povertyPeoplePO.id != ''"> id = #{povertyPeoplePO.id} </if>
-            <if test="povertyPeoplePO.difficultTypeId != null and povertyPeoplePO.difficultTypeId != ''"> difficult_type_id = #{povertyPeoplePO.difficultTypeId} </if>
-            <if test="povertyPeoplePO.povertyName != null and povertyPeoplePO.povertyName != ''"> poverty_name = #{povertyPeoplePO.povertyName} </if>
-            <if test="povertyPeoplePO.sex != null and povertyPeoplePO.sex != ''"> ,sex = #{povertyPeoplePO.sex} </if>
-            <if test="povertyPeoplePO.idcardNo != null and povertyPeoplePO.idcardNo != ''"> ,idcar_no = #{povertyPeoplePO.idcardNo} </if>
-            <if test="povertyPeoplePO.birthday != null and povertyPeoplePO.birthday != ''"> ,birthday = #{povertyPeoplePO.birthday} </if>
-            <if test="povertyPeoplePO.village != null and povertyPeoplePO.village != ''"> ,village = #{povertyPeoplePO.village} </if>
-            <if test="povertyPeoplePO.povertyType1 != null and povertyPeoplePO.povertyType1 != ''"> ,poverty_type_1 = #{povertyPeoplePO.povertyType1} </if>
-            <if test="povertyPeoplePO.povertyType2 != null and povertyPeoplePO.povertyType2 != ''"> ,poverty_type_2 = #{povertyPeoplePO.povertyType2} </if>
-            <if test="povertyPeoplePO.address != null and povertyPeoplePO.address != ''"> ,address = #{povertyPeoplePO.address} </if>
-            <if test="povertyPeoplePO.phone != null and povertyPeoplePO.phone != ''"> ,phone = #{povertyPeoplePO.phone} </if>
-            <if test="povertyPeoplePO.familyDetail != null and povertyPeoplePO.familyDetail != ''"> ,family_detail = #{povertyPeoplePO.familyDetail} </if>
-            <if test="povertyPeoplePO.trouble != null and povertyPeoplePO.trouble != ''"> ,trouble = #{povertyPeoplePO.trouble} </if>
-            <if test="povertyPeoplePO.image1 != null and povertyPeoplePO.image1 != ''"> ,image_1 = #{povertyPeoplePO.image1} </if>
-            <if test="povertyPeoplePO.image2 != null and povertyPeoplePO.image2 != ''"> ,image_2 = #{povertyPeoplePO.image2} </if>
-            <if test="povertyPeoplePO.image3 != null and povertyPeoplePO.image3 != ''"> ,image_3 = #{povertyPeoplePO.image3} </if>
-            <if test="povertyPeoplePO.imageMin != null and povertyPeoplePO.imageMin != ''"> ,image_min = #{povertyPeoplePO.imageMin} </if>
-            <if test="povertyPeoplePO.income != null and povertyPeoplePO.income != ''"> ,income = #{povertyPeoplePO.income} </if>
-            <if test="povertyPeoplePO.comments != null and povertyPeoplePO.comments != ''"> ,comments = #{povertyPeoplePO.comments} </if>
+        <if test="PovertyPeopleObj != null">
+            <if test="PovertyPeopleObj.id != null and PovertyPeopleObj.id != ''"> id = #{PovertyPeopleObj.id} </if>
+            <if test="PovertyPeopleObj.difficultTypeId != null and PovertyPeopleObj.difficultTypeId != ''"> difficult_type_id = #{PovertyPeopleObj.difficultTypeId} </if>
+            <if test="PovertyPeopleObj.povertyName != null and PovertyPeopleObj.povertyName != ''"> poverty_name = #{PovertyPeopleObj.povertyName} </if>
+            <if test="PovertyPeopleObj.sex != null and PovertyPeopleObj.sex != ''"> ,sex = #{PovertyPeopleObj.sex} </if>
+            <if test="PovertyPeopleObj.idcardNo != null and PovertyPeopleObj.idcardNo != ''"> ,idcar_no = #{PovertyPeopleObj.idcardNo} </if>
+            <if test="PovertyPeopleObj.birthday != null and PovertyPeopleObj.birthday != ''"> ,birthday = #{PovertyPeopleObj.birthday} </if>
+            <if test="PovertyPeopleObj.village != null and PovertyPeopleObj.village != ''"> ,village = #{PovertyPeopleObj.village} </if>
+            <if test="PovertyPeopleObj.povertyType1 != null and PovertyPeopleObj.povertyType1 != ''"> ,poverty_type_1 = #{PovertyPeopleObj.povertyType1} </if>
+            <if test="PovertyPeopleObj.povertyType2 != null and PovertyPeopleObj.povertyType2 != ''"> ,poverty_type_2 = #{PovertyPeopleObj.povertyType2} </if>
+            <if test="PovertyPeopleObj.address != null and PovertyPeopleObj.address != ''"> ,address = #{PovertyPeopleObj.address} </if>
+            <if test="PovertyPeopleObj.phone != null and PovertyPeopleObj.phone != ''"> ,phone = #{PovertyPeopleObj.phone} </if>
+            <if test="PovertyPeopleObj.familyDetail != null and PovertyPeopleObj.familyDetail != ''"> ,family_detail = #{PovertyPeopleObj.familyDetail} </if>
+            <if test="PovertyPeopleObj.trouble != null and PovertyPeopleObj.trouble != ''"> ,trouble = #{PovertyPeopleObj.trouble} </if>
+            <if test="PovertyPeopleObj.image1 != null and PovertyPeopleObj.image1 != ''"> ,image_1 = #{PovertyPeopleObj.image1} </if>
+            <if test="PovertyPeopleObj.image2 != null and PovertyPeopleObj.image2 != ''"> ,image_2 = #{PovertyPeopleObj.image2} </if>
+            <if test="PovertyPeopleObj.image3 != null and PovertyPeopleObj.image3 != ''"> ,image_3 = #{PovertyPeopleObj.image3} </if>
+            <if test="PovertyPeopleObj.imageMin != null and PovertyPeopleObj.imageMin != ''"> ,image_min = #{PovertyPeopleObj.imageMin} </if>
+            <if test="PovertyPeopleObj.income != null and PovertyPeopleObj.income != ''"> ,income = #{PovertyPeopleObj.income} </if>
+            <if test="PovertyPeopleObj.comments != null and PovertyPeopleObj.comments != ''"> ,comments = #{PovertyPeopleObj.comments} </if>
         </if>
     </sql>
 
-    <sql id="ALL_IF_SELECT">
-        <if test="povertyPeoplePO != null">
-            <if test="povertyPeoplePO.id!=null and povertyPeoplePO.id!=''">AND id= #{povertyPeoplePO.id}</if>
-            <if test="povertyPeoplePO.difficultTypeId != null and povertyPeoplePO.difficultTypeId != ''"> AND difficult_type_id = #{povertyPeoplePO.difficultTypeId}</if>
-            <if test="povertyPeoplePO.povertyName != null and povertyPeoplePO.povertyName != ''"> AND poverty_name = #{povertyPeoplePO.povertyName} </if>
-            <if test="povertyPeoplePO.sex != null and povertyPeoplePO.sex != ''"> AND sex = #{povertyPeoplePO.sex} </if>
-            <if test="povertyPeoplePO.idcardNo != null and povertyPeoplePO.idcardNo != ''"> AND idcar_no = #{povertyPeoplePO.idcardNo} </if>
-            <if test="povertyPeoplePO.birthday != null and povertyPeoplePO.birthday != ''"> AND birthday = #{povertyPeoplePO.birthday} </if>
-            <if test="povertyPeoplePO.village != null and povertyPeoplePO.village != ''"> AND village = #{povertyPeoplePO.village} </if>
-            <if test="povertyPeoplePO.povertyType1 != null and povertyPeoplePO.povertyType1 != ''"> AND provert_type_1 = #{povertyPeoplePO.povertyType1} </if>
-            <if test="povertyPeoplePO.povertyType2 != null and povertyPeoplePO.povertyType2 != ''"> AND provert_type_2 = #{povertyPeoplePO.povertyType2} </if>
-            <if test="povertyPeoplePO.address != null and povertyPeoplePO.address != ''"> AND address = #{povertyPeoplePO.address} </if>
-            <if test="povertyPeoplePO.phone != null and povertyPeoplePO.phone != ''"> AND phone = #{povertyPeoplePO.phone} </if>
-            <if test="povertyPeoplePO.familyDetail != null and povertyPeoplePO.familyDetail != ''"> AND family_detail = #{povertyPeoplePO.familyDetail} </if>
-            <if test="povertyPeoplePO.trouble != null and povertyPeoplePO.trouble != ''"> AND trouble = #{povertyPeoplePO.trouble} </if>
-            <if test="povertyPeoplePO.image1 != null and povertyPeoplePO.image1 != ''"> AND image_1 = #{povertyPeoplePO.image1} </if>
-            <if test="povertyPeoplePO.image2 != null and povertyPeoplePO.image2 != ''"> AND image_2 = #{povertyPeoplePO.image2} </if>
-            <if test="povertyPeoplePO.image3 != null and povertyPeoplePO.image3 != ''"> AND image_3 = #{povertyPeoplePO.image3} </if>
-            <if test="povertyPeoplePO.imageMin != null and povertyPeoplePO.imageMin != ''"> AND image_min = #{povertyPeoplePO.imageMin} </if>
-            <if test="povertyPeoplePO.income != null and povertyPeoplePO.income != ''"> AND income = #{povertyPeoplePO.income} </if>
-            <if test="povertyPeoplePO.comments != null and povertyPeoplePO.comments != ''"> AND comments = #{povertyPeoplePO.comments} </if>
-       </if>
+    <sql id="PO_IF_SELECT">
+        <if test="PovertyPeopleObj != null">
+            <if test="PovertyPeopleObj.id!=null and PovertyPeopleObj.id!=''">AND id= #{PovertyPeopleObj.id}</if>
+            <if test="PovertyPeopleObj.difficultTypeId != null and PovertyPeopleObj.difficultTypeId != ''"> AND difficult_type_id = #{PovertyPeopleObj.difficultTypeId}</if>
+            <if test="PovertyPeopleObj.povertyName != null and PovertyPeopleObj.povertyName != ''"> AND poverty_name like concat('%',#{PovertyPeopleObj.povertyName},'%')  </if>
+            <if test="PovertyPeopleObj.sex != null and PovertyPeopleObj.sex != ''"> AND sex = #{PovertyPeopleObj.sex} </if>
+            <if test="PovertyPeopleObj.idcardNo != null and PovertyPeopleObj.idcardNo != ''"> AND idcar_no = #{PovertyPeopleObj.idcardNo} </if>
+            <if test="PovertyPeopleObj.birthday != null and PovertyPeopleObj.birthday != ''"> AND birthday = #{PovertyPeopleObj.birthday} </if>
+            <if test="PovertyPeopleObj.village != null and PovertyPeopleObj.village != ''"> AND village = #{PovertyPeopleObj.village} </if>
+            <if test="PovertyPeopleObj.povertyType1 != null and PovertyPeopleObj.povertyType1 != ''"> AND provert_type_1 = #{PovertyPeopleObj.povertyType1} </if>
+            <if test="PovertyPeopleObj.povertyType2 != null and PovertyPeopleObj.povertyType2 != ''"> AND provert_type_2 = #{PovertyPeopleObj.povertyType2} </if>
+            <if test="PovertyPeopleObj.address != null and PovertyPeopleObj.address != ''"> AND address = #{PovertyPeopleObj.address} </if>
+            <if test="PovertyPeopleObj.phone != null and PovertyPeopleObj.phone != ''"> AND phone = #{PovertyPeopleObj.phone} </if>
+            <if test="PovertyPeopleObj.familyDetail != null and PovertyPeopleObj.familyDetail != ''"> AND family_detail = #{PovertyPeopleObj.familyDetail} </if>
+            <if test="PovertyPeopleObj.trouble != null and PovertyPeopleObj.trouble != ''"> AND trouble = #{PovertyPeopleObj.trouble} </if>
+            <if test="PovertyPeopleObj.image1 != null and PovertyPeopleObj.image1 != ''"> AND image_1 = #{PovertyPeopleObj.image1} </if>
+            <if test="PovertyPeopleObj.image2 != null and PovertyPeopleObj.image2 != ''"> AND image_2 = #{PovertyPeopleObj.image2} </if>
+            <if test="PovertyPeopleObj.image3 != null and PovertyPeopleObj.image3 != ''"> AND image_3 = #{PovertyPeopleObj.image3} </if>
+            <if test="PovertyPeopleObj.imageMin != null and PovertyPeopleObj.imageMin != ''"> AND image_min = #{PovertyPeopleObj.imageMin} </if>
+            <if test="PovertyPeopleObj.income != null and PovertyPeopleObj.income != ''"> AND income = #{PovertyPeopleObj.income} </if>
+            <if test="PovertyPeopleObj.comments != null and PovertyPeopleObj.comments != ''"> AND comments = #{PovertyPeopleObj.comments} </if>
+        </if>
+    </sql>
+
+    <sql id="VO_IF_SELECT">
+          <include refid="PO_IF_SELECT"/>
+          <if test="PovertyPeopleObj.villages != null and PovertyPeopleObj.villages.size() > 0">
+              AND
+              <choose>
+                  <when test="PovertyPeopleObj.villages.size() == 1">
+                      village = #{PovertyPeopleObj.villages[0]}
+                  </when>
+                  <otherwise>
+                      village IN
+                      <foreach collection="PovertyPeopleObj.villages" item="item" open="(" separator="," close=")">
+                          #{item}
+                      </foreach>
+                  </otherwise>
+              </choose>
+          </if>
+          <if test="PovertyPeopleObj. povertyType1s != null and PovertyPeopleObj.povertyType1s.size() > 0">
+              AND
+              <choose>
+                  <when test="PovertyPeopleObj.povertyType1s.size() == 1">
+                      village = #{PovertyPeopleObj.povertyType1s[0]}
+                  </when>
+                  <otherwise>
+                      village IN
+                      <foreach collection="PovertyPeopleObj.povertyType1s" item="item" open="(" separator="," close=")">
+                          #{item}
+                      </foreach>
+                  </otherwise>
+              </choose>
+          </if>
+          <if test="PovertyPeopleObj.povertyType2s != null and PovertyPeopleObj.povertyType2s.size() > 0">
+              AND
+              <choose>
+                  <when test="PovertyPeopleObj.povertyType2s.size() == 1">
+                      village = #{PovertyPeopleObj.povertyType2s[0]}
+                  </when>
+                  <otherwise>
+                      village IN
+                      <foreach collection="PovertyPeopleObj.povertyType2s" item="item" open="(" separator="," close=")">
+                          #{item}
+                      </foreach>
+                  </otherwise>
+              </choose>
+          </if>
     </sql>
 
     <insert id="insert">
@@ -140,7 +186,7 @@
         <include refid="ALL_COLUMN"/>
         )
         VALUES
-        <foreach collection="povertyPeoples" item="povertyPeoplePO" separator=",">
+        <foreach collection="povertyPeoples" item="PovertyPeopleObj" separator=",">
             (
             <include refid="ALL_VALUES"/>
             )
@@ -150,14 +196,14 @@
     <delete id="deleteById">
         DELETE FROM t_poverty_people
         WHERE
-          id = #{povertyPeoplePO.id}
+          id = #{PovertyPeopleObj.id}
     </delete>
 
     <update id="updateById">
         UPDATE t_poverty_people SET
           <include refid="ALL_IF_UPDATE"/>
         WHERE
-          id = #{povertyPeoplePO.id}
+          id = #{PovertyPeopleObj.id}
     </update>
 
     <select id="select" resultMap="PovertyPeopleVOMap">
@@ -167,7 +213,7 @@
         t_poverty_people
       WHERE
         1=1
-        <include refid="ALL_IF_SELECT"/>
+        <include refid="PO_IF_SELECT"/>
     </select>
 
     <select id="povertyInfo" resultMap="PovertyPeopleVOMap">
@@ -177,7 +223,7 @@
         t_poverty_people
         WHERE
         1=1
-        <include refid="ALL_IF_SELECT"/>
+        <include refid="PO_IF_SELECT"/>
     </select>
 
     <select id="povertyInfoImgs" resultMap="PovertyPeopleVOMap">
@@ -187,7 +233,7 @@
         t_poverty_people
         WHERE
         1=1
-        <include refid="ALL_IF_SELECT"/>
+        <include refid="PO_IF_SELECT"/>
     </select>
 
     <select id="selectPovertyPeoplePage" resultMap="PovertyPeopleVOMap">
@@ -198,15 +244,15 @@
         t_poverty_people
         WHERE
         1=1
-        <include refid="ALL_IF_SELECT"/>
+        <include refid="VO_IF_SELECT"/>
         limit #{page.minNum},#{page.pageSize}
     </select>
 
     <select id="total" resultType="java.lang.Integer">
-        select count(*)
+        select count(id)
         from t_poverty_people
         WHERE
         1=1
-        <include refid="ALL_IF_SELECT"/>
+        <include refid="VO_IF_SELECT"/>
     </select>
 </mapper>

@@ -29,10 +29,10 @@ public class VisitController {
      * @param page
      * @return
      */
-    @PostMapping(value="/selectvisitPage")
+    @GetMapping(value="/selectvisitPage")
     @ResponseBody
-    public ResponseVO selectVisitPage(@RequestBody Page page){
-        Page<PovertyVisitVO> list  =  povertyVisitService.selectPovertyVisitPage(page.getPovertyVisitVO(),page);
+    public ResponseVO selectVisitPage(Page page,PovertyVisitVO povertyVisitVO){
+        Page<PovertyVisitVO> list  =  povertyVisitService.selectPovertyVisitPage(povertyVisitVO,page);
         return ResponseUtil.successResponse(list);
     }
 

@@ -60,10 +60,10 @@ public class PovertyPeopleController {
      * @param page
      * @return
      */
-    @PostMapping(value="/selectPovertyPeoplePage")
+    @GetMapping(value="/selectPovertyPeoplePage")
     @ResponseBody
-    public ResponseVO selectPovertyPeoplePage(@RequestBody Page page){
-        Page<PovertyPeopleVO> list  =  povertyUserService.selectPovertyUserPage(page.getPovertyPeopleVO(),page);
+    public ResponseVO selectPovertyPeoplePage(Page page,PovertyPeopleVO povertyPeopleVO){
+        Page<PovertyPeopleVO> list  =  povertyUserService.selectPovertyUserPage(povertyPeopleVO,page);
         return ResponseUtil.successResponse(list);
     }
 }

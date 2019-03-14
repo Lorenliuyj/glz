@@ -1,7 +1,7 @@
 package com.newtouch.glzdept.entity.VO;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class PovertyVisitVO {
 
@@ -45,6 +45,9 @@ public class PovertyVisitVO {
     private Timestamp createTime;
 
     private String isdelete;
+
+    private List<String> villages;
+
 
     public Integer getId() {
         return id;
@@ -204,5 +207,13 @@ public class PovertyVisitVO {
 
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
+    }
+
+    public List<String> getVillages() {
+        return villages;
+    }
+
+    public void setVillages(List<String> villages) {
+        this.villages = villages;
     }
 }

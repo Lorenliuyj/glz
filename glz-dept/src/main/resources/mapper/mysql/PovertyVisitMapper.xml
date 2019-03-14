@@ -60,7 +60,7 @@
     <sql id="ALL_IF_SELECT">
         <if test="povertyVisitVO!= null">
             <if test="povertyVisitVO.povertyPeopleId != null and povertyVisitVO.povertyPeopleId != ''"> AND poverty_people_id = #{povertyVisitVO.povertyPeopleId} </if>
-            <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> AND poverty_people_name = #{povertyVisitVO.povertyPeopleName} </if>
+            <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> AND poverty_people_name LIKE CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')  </if>
             <if test="povertyVisitVO.birthday != null and povertyVisitVO.birthday != ''"> AND birthday = #{povertyVisitVO.birthday} </if>
             <if test="povertyVisitVO.village != null and povertyVisitVO.village != ''"> AND village = #{povertyVisitVO.village} </if>
             <if test="povertyVisitVO.condolenceDate != null and povertyVisitVO.condolenceDate != ''"> AND condolence_date = #{povertyVisitVO.condolenceDate} </if>
@@ -78,6 +78,20 @@
             <if test="povertyVisitVO.createTime != null and povertyVisitVO.createTime != ''"> AND create_time = #{povertyVisitVO.createTime} </if>
             <if test="povertyVisitVO.comments != null and povertyVisitVO.comments != ''"> AND comments = #{povertyVisitVO.comments} </if>
             <if test="povertyVisitVO.isdelete != null and povertyVisitVO.isdelete != ''"> AND isdelete = #{povertyVisitVO.isdelete} </if>
+            <if test="PovertyPeopleObj.villages != null and PovertyPeopleObj.villages.size() > 0">
+                AND
+                <choose>
+                    <when test="povertyVisitVO.villages.size() == 1">
+                        village = #{povertyVisitVO.villages[0]}
+                    </when>
+                    <otherwise>
+                        village IN
+                        <foreach collection="povertyVisitVO.villages" item="item" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </otherwise>
+                </choose>
+            </if>
         </if>
     </sql>
 
