@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link href="../css/mui.picker.all.css" rel="stylesheet" />
 		<link href="../css/viewImg.css" rel="stylesheet" />
+		<link href="../css/mui.mask.css" rel="stylesheet" />
 		<style>
 			html,body,.mui-content{background-color: white;}
 			.mui-icon.mui-icon-plusempty{font-size: 17px;}
@@ -98,6 +99,7 @@
 	<script src="../js/mobileBUGFix.mini.js"></script>
 	<script src="../js/mui.zoom.js"></script>
 	<script src="../js/mui.previewimage.js"></script>
+	<script src="../js/mui.mask.js"></script>
 	<script src="../js/jquery2.min.js"></script>
 	<script src="../js/app.js"></script>
 	<script src="../js/appajax.js"></script>
@@ -135,7 +137,10 @@
 			});
 
 			gbid('submitBtn').addEventListener('tap', function(event) {
-				submitFun();
+				mui.showLoading("正在校验中...","");
+				setTimeout(function(){
+					submitFun();
+				},100);
 			});
 		});
 		
@@ -185,17 +190,28 @@
 				image1:image1,image2:image2,image3:image3,
 				imageMin:imageMin
 			};
+			
 			if(!checkIsEmpty(data)) {
+				mui.hideLoading();
 				return;
 			}
+			//将提交按钮置灰
+			$("#submitBtn").attr('disabled',true);
+			mui.showLoading("正在保存中...","");
 			appajax.SendRequestByPost("/visit/save",JSON.stringify(data),function (response) {
+				mui.hideLoading();
 				if(response.code == "0000") {
 					setTimeout(function(){
 						mui.toast("走访录入成功");
-						openUrl("../menu.html");
+						openUrl("visitorlist_brow.html");
 					},500);
+				}else {
+					$("#submitBtn").attr('disabled',false);
+					mui.toast("走访户录入失败！");
 				}
 			},function(response) {
+				mui.hideLoading();
+				$("#submitBtn").attr('disabled',false);
 				mui.toast("走访户录入失败！");
 			});
 		}

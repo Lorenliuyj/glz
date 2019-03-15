@@ -146,7 +146,7 @@ function checkIdcardNo(idNo) {
 	if((temp1.test(idNo)) || temp2.test(idNo)) {
 		return true;
 	}
-	mui.toast("身份证号码错误！");
+	//mui.toast("身份证号码错误！");
 	return false;
 }
 

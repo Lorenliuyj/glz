@@ -14,7 +14,7 @@
 //             return true;
 //         }
     // };
-
+  
     appajax.SendRequestByGet=function(action,data,successCallback, errorCallback) {
         //if (appajax.checkNetworkStatus(true)) {
             //plus.nativeUI.closeWaiting();

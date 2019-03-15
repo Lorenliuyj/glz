@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link href="../css/mui.picker.all.css" rel="stylesheet" />
 		<link href="../css/viewImg.css" rel="stylesheet" />
+		<link href="../css/mui.mask.css" rel="stylesheet" />
 		<style>
 			html,body,.mui-content{background-color: white;}
 			.mui-icon.mui-icon-plusempty{font-size: 17px;}
@@ -139,6 +140,7 @@
 	<script src="../js/jquery2.min.js"></script>
 	<script src="../js/mui.zoom.js"></script>
 	<script src="../js/mui.previewimage.js"></script>
+	<script src="../js/mui.mask.js"></script>
 	<script src="../js/app.js"></script>
 	<script src="../js/appajax.js"></script>
 	<script type="text/javascript">
@@ -174,16 +176,18 @@
 			forcountryPicker.setData(forcountryData);
 			forhardPicker.setData(forhardData);
 			
-			gbid('idcardNo').addEventListener('onblur',function(event) {
+			gbid('idcardNo').addEventListener('keyup',function(event) {
 				var tempbirthday = $("#idcardNo").val();
-				if(!checkIdcardNo(tempbirthday)) {
-					return;
+				if(tempbirthday.length == 15 || tempbirthday.length ==18) {
+					if(!checkIdcardNo(tempbirthday)) {
+						return;
+					}
+					var bir = getBirthdayFromIdCard(tempbirthday);
+					birthday = bir;
+					$("#birthday").html(bir);
+					$("#birthday").addClass("mui-navigate-right");
+					$("#birthday").removeClass("mui-pull-right");
 				}
-				var bir = getBirthdayFromIdCard(tempbirthday);
-				birthday = bir;
-				$("#birthday").html(bir);
-				$("#birthday").addClass("mui-navigate-right");
-				$("#birthday").removeClass("mui-pull-right");
 			});
 			
 			gbid('timePicker').addEventListener('tap', function(event) {
@@ -228,11 +232,13 @@
 				});
 			});
 			gbid('submitBtn').addEventListener('tap', function(event) {
-                submitFun();
+				mui.showLoading("正在校验中...","");
+				setTimeout(function(){
+					submitFun();
+				},100);
 			});
 
 		});
-		
 		
 		//提交方法
 		function submitFun() {
@@ -245,18 +251,25 @@
 			};
 			//校验
 			console.log(JSON.stringify(data));
-			if(!checkIsEmpty(data)) {
+			if(!checkIsEmpty(data)) {	
+				mui.hideLoading();
 				return;
 			}
-            appajax.SendRequestByPost("poverty/add",JSON.stringify(data),function (response) {;
-				if("0000" == response.code) {
-					// window.location.reload(true);
-					mui.toast("贫困户录入成功");
-					openUrl("../menu.html");
+			mui.showLoading("保存中...","");
+			//将提交按钮置灰
+			$("#submitBtn").attr('disabled',true);
+            appajax.SendRequestByPost("poverty/add",JSON.stringify(data),function (response) {
+				mui.hideLoading();
+				if("0000" == response.code) {					
+					mui.toast("贫困户录入成功！");					
+					openUrl("villagelist_brow.html");					
 				}else{
+					$("#submitBtn").attr('disabled',false);
 					mui.toast("贫困户录入失败！");
 				}
 			},function(response) {
+				mui.hideLoading();
+				$("#submitBtn").attr('disabled',false);
 				mui.toast("贫困户录入失败！");
             });
 		}
@@ -298,7 +311,7 @@
 				return false;
 			}
 			if(!checkIdcardNo(data.idcardNo)) {
-				mui.toast("身份证号码有误！");
+				mui.toast("身份证号码错误！");
 				return false;
 			}
 			
@@ -356,14 +369,22 @@
                     image.onload = function() {
                         var expectWidth = this.naturalWidth;
                         var expectHeight = this.naturalHeight;
-
-                        if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 400) {
-                            expectWidth = 400;
+						if( this.naturalWidth > this.naturalHeight && this.naturalWidth > 600) {
+							expectWidth = 600;
+							var hw = this.naturalHeight/this.naturalWidth
+							expectHeight = parseInt(expectWidth * hw);
+						}else if(this.naturalHeight > this.naturalWidth && this.naturalHeight > 600){
+							expectHeight = 600;
+							var wh = this.naturalWidth/this.naturalHeight;
+							expectWidth = parseInt(expectHeight * wh);
+						}
+                       /* if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 600) {
+                            expectWidth = 600;
                             expectHeight = expectWidth * this.naturalHeight / this.naturalWidth;
                         } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 600) {
                             expectHeight = 600;
                             expectWidth = expectHeight * this.naturalWidth / this.naturalHeight;
-                        }
+                        } */
 						//缩略图:2/3
                         var canvas = document.createElement("canvas");
                         var ctx = canvas.getContext("2d");
@@ -374,7 +395,7 @@
                         var base64 = null;
                         var mpImg = new MegaPixImage(image);
                         mpImg.render(canvas, {
-                            maxWidth: 400,
+                            maxWidth: 600,
                             maxHeight: 600,
                             quality: 0.3,
                             orientation: Orientation
@@ -464,30 +485,38 @@
 		            image.onload = function() {
 		                var expectWidth = this.naturalWidth;
 		                var expectHeight = this.naturalHeight;
-		
-		                if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 400) {
+						if( this.naturalWidth > this.naturalHeight && this.naturalWidth > 80) {
+							expectWidth = 80;
+							var hw = this.naturalHeight/this.naturalWidth
+							expectHeight = parseInt(expectWidth * hw);
+						}else if(this.naturalHeight > this.naturalWidth && this.naturalHeight > 80){
+							expectHeight = 80;
+							var wh = this.naturalWidth/this.naturalHeight;
+							expectWidth = parseInt(expectHeight * wh);
+						}
+		                /* if (this.naturalWidth > this.naturalHeight && this.naturalWidth > 400) {
 		                    expectWidth = 60;
 		                    expectHeight = expectWidth * this.naturalHeight / this.naturalWidth;
 		                } else if (this.naturalHeight > this.naturalWidth && this.naturalHeight > 600) {
 		                    expectHeight = 80;
 		                    expectWidth = expectHeight * this.naturalWidth / this.naturalHeight;
-		                }
+		                } */
 						//缩略图:60/80
 		                var canvas = document.createElement("canvas");
 		                var ctx = canvas.getContext("2d");
 		                canvas.width = expectWidth;
 		                canvas.height = expectHeight;
 		                ctx.drawImage(this, 0, 0, expectWidth, expectHeight);
-		
 		                var base64 = null;
 		                var mpImg = new MegaPixImage(image);
 		                mpImg.render(canvas, {
-		                    maxWidth: 60,
+		                    maxWidth: 80,
 		                    maxHeight: 80,
 		                    quality: 0.4,
 		                    orientation: Orientation
 		                });
 		                base64 = canvas.toDataURL("image/png", 0.4);
+						console.log("缩略图片："+base64);
 						var zz = {key:"image"+index,value:base64};
 						fileBase.push(zz);
 		            };

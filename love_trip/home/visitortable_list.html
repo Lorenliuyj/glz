@@ -174,6 +174,7 @@
 			pageNum = 1;
 			table.innerHTML = "";
             setTimeout(function(){
+				mui('#pullrefresh').pullRefresh().refresh(true);
 				getData(upAndDown)
                 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
             },1000);
@@ -197,8 +198,7 @@
 					console.log(rtnData);
 					var list = rtnData.list;
 					var total = rtnData.totalNum;
-					if(upAndDown == 0) {
-						//mui('#pullrefresh').pullRefresh().endPullup(false);
+					if(upAndDown == 0 || pageNum == 1) {
 						mui('#pullrefresh').pullRefresh().endPullupToRefresh((pageNum*pageSize)>=total);
 					}
 					if(!list) {return;}//为空直接返回
@@ -208,7 +208,7 @@
 						li.id = list[i].id;
 						li.innerHTML = '<div class="mui-slider-handle" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" village="'+list[i].village+'">'+
 											'<a href="javascript:;" onclick="">'+
-												'<img class="mui-media-object mui-pull-left" src="data:image/png;base64,'+list[i].imageMin+'">'+
+												'<img class="mui-media-object mui-pull-left userIcon" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
 													'<div class="mui-ellipsis-2">'+list[i].povertyName+'</div>'+
 												'</div>'+
@@ -219,12 +219,23 @@
 											'</a>'+
 										'</div>';
 						table.appendChild(li);		
+						imgCheck();
 					}
 				}
 			},function(response) {
 				
 			});
 		} 
+		
+		function imgCheck(){
+			var t = document.getElementsByClassName("userIcon");  
+			for(i = 0; i < t.length; i++){  
+			    t.item(i).onerror = function(){
+			    	this.src = "../images/tx.png";
+			      	this.onerror = null;
+			    }  
+			}  
+		}
 		
 		var povertyName = "";
 		var villages = "";
