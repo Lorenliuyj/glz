@@ -239,7 +239,7 @@
     <select id="selectPovertyPeoplePage" resultMap="PovertyPeopleVOMap">
         select
         <!--<include refid="ALL_COLUMN"/>-->
-        id,birthday,poverty_Name,village,image_min,poverty_type_1,poverty_type_2
+        id,birthday,poverty_Name,village,image_min,poverty_type_1,poverty_type_2,phone
         FROM
         t_poverty_people
         WHERE

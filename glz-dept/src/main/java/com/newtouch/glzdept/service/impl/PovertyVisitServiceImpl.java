@@ -26,7 +26,7 @@ public class PovertyVisitServiceImpl implements IPovertyVisitService {
         }
         //TODO 缺少当前用户id赋值
         visitVO.setIsdelete("n");
-        visitVO.setCreateTime(new Timestamp(new Date().getTime()));
+        visitVO.setCreateTime(new Timestamp(System.currentTimeMillis()));
         Integer key = povertyVisitDao.insert(visitVO);
         if(key == null){
             throw new BlcException(MessageType.ERROR);
