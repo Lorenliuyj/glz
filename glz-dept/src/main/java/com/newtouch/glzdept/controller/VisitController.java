@@ -49,4 +49,12 @@ public class VisitController {
         PovertyVisitVO resultVO  =  povertyVisitService.visitInfoImgs(povertyVisitVO);
         return ResponseUtil.successResponse(resultVO);
     }
+
+    @PostMapping(value="/update")
+    @ResponseBody
+    public ResponseVO updateById(@RequestBody PovertyVisitVO povertyVisitVO){
+        povertyVisitService.updateById(povertyVisitVO);
+        return ResponseUtil.successResponse(null);
+    }
+
 }

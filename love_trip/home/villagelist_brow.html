@@ -33,8 +33,15 @@
 				color: #8f8f94;
 			}
 			.meta-info .author,
+			.meta-info .phone,
 			.meta-info .time {
 				display: inline-block;
+			}
+			.meta-info .author {
+				width: 23%;
+			}
+			.meta-info  .phone{
+				text-align: center;
 			}
 			.meta-info .time {
 				float: right;
@@ -209,7 +216,8 @@
 						li.className = "mui-table-view-cell mui-media";
 						li.id = list[i].id;
 						li.innerHTML = '<div class="mui-slider-right mui-disabled">'+
-											'<a class="mui-btn mui-btn-success" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" village="'+list[i].village+'">走访</a>'+
+											'<a class="mui-btn mui-btn-success" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" village="'+list[i].village+'" familyDetail="'+list[i].familyDetail+'">走访</a>'+
+											'<a class="mui-btn mui-btn-danger" id="'+list[i].id+'">删除</a>'+
 										'</div>'+
 										'<div id="'+list[i].id+'" class="mui-slider-handle">'+
 											'<a href="javascript:;" onclick="">'+
@@ -218,7 +226,8 @@
 													'<div class="mui-ellipsis-2">'+list[i].povertyName+'</div>'+
 												'</div>'+
 												'<div class="meta-info">'+
-													'<div class="author">'+getDictJsonText(forcountryData, list[i].village)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+'电话:'+list[i].phone+'</div>'+
+													'<div class="author">'+getDictJsonText(forcountryData, list[i].village)+'</div>'+
+													'<div class="phone">'+list[i].phone+'</div>'+
 													'<div class="time">'+list[i].povertyType2+'</div>'+
 												'</div>'+
 											'</a>'+
@@ -306,7 +315,6 @@
 		    }
 		});
 		
-		
         mui("body").on("tap", ".mui-icon-clear", function() {
             //清空列表
 			clear();
@@ -331,7 +339,24 @@
 			 localStorage.setItem("povertyName",this.getAttribute('povertyName'));
 			 localStorage.setItem("birthday",this.getAttribute('birthday'));
 			 localStorage.setItem("village",this.getAttribute('village'));
+			 localStorage.setItem("familyDetail",this.getAttribute('familyDetail'));
 			 openUrl("visitor_brow.html");
+		});
+		
+		$("#villageInfolist").on('tap','.mui-btn-danger',function () {
+			var data = {id:this.id};
+			appajax.SendRequestByPost("poverty/delete",JSON.stringify(data),function(response) {
+				if(response.code == "0000") {
+					mui.toast("删除成功！");
+					setTimeout(function() {
+						window.location.reload();
+					},500);
+				}else {
+					mui.toast("删除失败！");
+				}
+			},function(response) {
+				mui.toast("删除失败！");
+			});
 		});
 		
 	</script>

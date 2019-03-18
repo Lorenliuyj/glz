@@ -25,5 +25,7 @@ public interface PovertyVisitDao {
     PovertyVisitVO visitInfo(@Param("povertyVisitVO")PovertyVisitVO povertyVisitVO);
 
     PovertyVisitVO visitInfoImgs(@Param("povertyVisitVO")PovertyVisitVO povertyVisitVO);
+
+    void updateById(@Param("povertyVisitVO")PovertyVisitVO povertyVisitVO);
 }
 

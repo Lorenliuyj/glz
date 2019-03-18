@@ -206,7 +206,7 @@
 						var li = document.createElement('li');
 						li.className = "mui-table-view-cell mui-media";
 						li.id = list[i].id;
-						li.innerHTML = '<div class="mui-slider-handle" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" village="'+list[i].village+'">'+
+						li.innerHTML = '<div class="mui-slider-handle" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" village="'+list[i].village+'" familyDetail="'+list[i].familyDetail+'">'+
 											'<a href="javascript:;" onclick="">'+
 												'<img class="mui-media-object mui-pull-left userIcon" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
@@ -320,6 +320,7 @@
 			localStorage.setItem("povertyName",this.getAttribute('povertyName'));
 			localStorage.setItem("birthday",this.getAttribute('birthday'));
 			localStorage.setItem("village",this.getAttribute('village'));
+			localStorage.setItem("familyDetail",this.getAttribute('familyDetail'));
 			openUrl("visitor_brow.html");
         });
 		
