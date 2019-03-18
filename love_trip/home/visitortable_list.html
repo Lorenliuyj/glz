@@ -33,8 +33,15 @@
 				color: #8f8f94;
 			}
 			.meta-info .author,
+			.meta-info .phone,
 			.meta-info .time {
 				display: inline-block;
+			}
+			.meta-info .author {
+				width: 23%;
+			}
+			.meta-info  .phone{
+				text-align: center;
 			}
 			.meta-info .time {
 				float: right;
@@ -213,7 +220,8 @@
 													'<div class="mui-ellipsis-2">'+list[i].povertyName+'</div>'+
 												'</div>'+
 												'<div class="meta-info">'+
-													'<div class="author">'+getDictJsonText(forcountryData, list[i].village)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+'电话:'+list[i].phone+'</div>'+
+													'<div class="author">'+getDictJsonText(forcountryData, list[i].village)+'</div>'+
+													'<div class="phone">'+list[i].phone+'</div>'+
 													'<div class="time">'+list[i].povertyType2+'</div>'+
 												'</div>'+
 											'</a>'+
