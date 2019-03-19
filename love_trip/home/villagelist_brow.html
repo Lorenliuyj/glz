@@ -344,18 +344,23 @@
 		});
 		
 		$("#villageInfolist").on('tap','.mui-btn-danger',function () {
+			var btnValue = ["确定","取消"];
 			var data = {id:this.id};
-			appajax.SendRequestByPost("poverty/delete",JSON.stringify(data),function(response) {
-				if(response.code == "0000") {
-					mui.toast("删除成功！");
-					setTimeout(function() {
-						window.location.reload();
-					},500);
-				}else {
-					mui.toast("删除失败！");
-				}
-			},function(response) {
-				mui.toast("删除失败！");
+			mui.confirm("确定删除该贫困户？", "", btnValue, function(e){
+			    if (e.index === 0) {
+					appajax.SendRequestByPost("poverty/delete",JSON.stringify(data),function(response) {
+						if(response.code == "0000") {
+							mui.toast("删除成功！");
+							setTimeout(function() {
+								window.location.reload();
+							},500);
+						}else {
+							mui.toast("删除失败！");
+						}
+					},function(response) {
+						mui.toast("删除失败！");
+					});
+			    }
 			});
 		});
 		
