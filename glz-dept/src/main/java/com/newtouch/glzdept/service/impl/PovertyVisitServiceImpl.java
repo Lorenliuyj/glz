@@ -50,4 +50,10 @@ public class PovertyVisitServiceImpl implements IPovertyVisitService {
     public PovertyVisitVO visitInfoImgs(PovertyVisitVO povertyVisitVO) {
         return povertyVisitDao.visitInfoImgs(povertyVisitVO);
     }
+
+    @Override
+    public void updateById(PovertyVisitVO povertyVisitVO) {
+        povertyVisitDao.updateById(povertyVisitVO);
+    }
+
 }

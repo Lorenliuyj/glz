@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,5 +54,15 @@ public class PovertyPeopleServiceImpl implements PovertyPeopleService {
 
     }
 
+    @Override
+    public int verifPovertyUser(PovertyPeopleVO povertyPeopleVO) {
+        int result = povertyPeopleDao.selectPovertyPeopleCountByIdNo(povertyPeopleVO);
+        return result;
+    }
+
+    @Override
+    public void deleteById(PovertyPeopleVO povertyPeopleVO) {
+        povertyPeopleDao.deleteById(povertyPeopleVO);
+    }
 
 }

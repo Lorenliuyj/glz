@@ -33,8 +33,15 @@
 				color: #8f8f94;
 			}
 			.meta-info .author,
+			.meta-info .phone,
 			.meta-info .time {
 				display: inline-block;
+			}
+			.meta-info .author {
+				width: 23%;
+			}
+			.meta-info  .phone{
+				text-align: center;
 			}
 			.meta-info .time {
 				float: right;
@@ -206,14 +213,15 @@
 						var li = document.createElement('li');
 						li.className = "mui-table-view-cell mui-media";
 						li.id = list[i].id;
-						li.innerHTML = '<div class="mui-slider-handle" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" village="'+list[i].village+'">'+
+						li.innerHTML = '<div class="mui-slider-handle" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" village="'+list[i].village+'" familyDetail="'+list[i].familyDetail+'">'+
 											'<a href="javascript:;" onclick="">'+
 												'<img class="mui-media-object mui-pull-left userIcon" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
 													'<div class="mui-ellipsis-2">'+list[i].povertyName+'</div>'+
 												'</div>'+
 												'<div class="meta-info">'+
-													'<div class="author">'+getDictJsonText(forcountryData, list[i].village)+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+'电话:'+list[i].phone+'</div>'+
+													'<div class="author">'+getDictJsonText(forcountryData, list[i].village)+'</div>'+
+													'<div class="phone">'+list[i].phone+'</div>'+
 													'<div class="time">'+list[i].povertyType2+'</div>'+
 												'</div>'+
 											'</a>'+
@@ -320,6 +328,7 @@
 			localStorage.setItem("povertyName",this.getAttribute('povertyName'));
 			localStorage.setItem("birthday",this.getAttribute('birthday'));
 			localStorage.setItem("village",this.getAttribute('village'));
+			localStorage.setItem("familyDetail",this.getAttribute('familyDetail'));
 			openUrl("visitor_brow.html");
         });
 		

@@ -55,7 +55,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-blue"></a>
 			<h1 class="mui-title color-blue">贫困户信息详情</h1>
-			<a class="mui-pull-right color-blue" style="margin-top: 11px;font-size: 16px;" onclick="visitor();">走访录入</a>
+			<a id="visit" class="mui-pull-right color-blue" style="margin-top: 11px;font-size: 16px;">走访录入</a>
 		</header>
 		<div class="mui-content mui-content-padded" style="margin-bottom:20px;">
 			<form class="mui-input-group">
@@ -258,7 +258,15 @@
 					}
 				});
 			});
-		
+			
+			gbid('visit').addEventListener('tap',function(event) {
+				localStorage.setItem("povertyName",$("#povertyName").val());
+				localStorage.setItem("birthday",birthday);
+				localStorage.setItem("village",village);
+				localStorage.setItem("familyDetail",$("#familyDetail").val());
+				openUrl('visitor_brow.html');
+			});
+			
 			gbid('submitBtn').addEventListener('tap', function(event) {
 				submitFun();
 			});
@@ -295,6 +303,7 @@
 			if(!checkIsEmpty(data)) {
 				return;
 			}
+			$("#submitBtn").attr('disabled',true);
 		    appajax.SendRequestByPost("poverty/update",JSON.stringify(data),function (response) {
 				if("0000" == response.code) {
 					mui.toast("修改成功");
@@ -303,9 +312,11 @@
 					},500);
 				}else{
 					mui.toast("修改失败！");
+					$("#submitBtn").attr('disabled',false);
 				}
 		    },function(response) {
-					mui.toast("修改失败！");
+				mui.toast("修改失败！");
+				$("#submitBtn").attr('disabled',false);
 		    });
 		}
 		
@@ -484,6 +495,7 @@
 			localStorage.setItem("povertyName",$("#povertyName").val());
 			localStorage.setItem("birthday",birthday);
 			localStorage.setItem("village",village);
+			localStorage.setItem("familyDetail",this.getAttribute('familyDetail'));
 			openUrl('visitor_brow.html');
 		}
 

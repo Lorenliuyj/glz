@@ -20,4 +20,6 @@ public interface IPovertyVisitService {
     PovertyVisitVO visitInfo(PovertyVisitVO povertyVisitVO);
 
     PovertyVisitVO visitInfoImgs(PovertyVisitVO povertyVisitVO);
+
+    void updateById(PovertyVisitVO povertyVisitVO);
 }

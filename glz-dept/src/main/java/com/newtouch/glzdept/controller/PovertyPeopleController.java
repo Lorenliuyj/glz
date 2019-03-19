@@ -31,6 +31,17 @@ public class PovertyPeopleController {
         return ResponseUtil.successResponse(null);
     }
 
+    @PostMapping(value="/verif")
+    @ResponseBody
+    public ResponseVO verifPovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){
+        int backflag = povertyUserService.verifPovertyUser(povertyPeopleVO);
+        if(backflag == 0) {
+            return ResponseUtil.successResponse(null);
+        }else {
+            return ResponseUtil.errorResponse(null);
+        }
+    }
+
     //查询贫困户详细信息
     @RequestMapping(value="/povertyInfo",method=RequestMethod.POST)
     @ResponseBody
@@ -51,6 +62,13 @@ public class PovertyPeopleController {
     @ResponseBody
     public ResponseVO updatePovertyPeople(@RequestBody PovertyPeopleVO povertyPeopleVO){
         povertyUserService.updatePovertyUser(povertyPeopleVO);
+        return ResponseUtil.successResponse(null);
+    }
+
+    @PostMapping(value="/delete")
+    @ResponseBody
+    public ResponseVO delete(@RequestBody PovertyPeopleVO povertyPeopleVO){
+        povertyUserService.deleteById(povertyPeopleVO);
         return ResponseUtil.successResponse(null);
     }
 

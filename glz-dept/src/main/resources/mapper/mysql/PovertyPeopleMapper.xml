@@ -81,8 +81,8 @@
     <sql id="ALL_IF_UPDATE">
         <if test="PovertyPeopleObj != null">
             <if test="PovertyPeopleObj.id != null and PovertyPeopleObj.id != ''"> id = #{PovertyPeopleObj.id} </if>
-            <if test="PovertyPeopleObj.difficultTypeId != null and PovertyPeopleObj.difficultTypeId != ''"> difficult_type_id = #{PovertyPeopleObj.difficultTypeId} </if>
-            <if test="PovertyPeopleObj.povertyName != null and PovertyPeopleObj.povertyName != ''"> poverty_name = #{PovertyPeopleObj.povertyName} </if>
+            <if test="PovertyPeopleObj.difficultTypeId != null and PovertyPeopleObj.difficultTypeId != ''"> ,difficult_type_id = #{PovertyPeopleObj.difficultTypeId} </if>
+            <if test="PovertyPeopleObj.povertyName != null and PovertyPeopleObj.povertyName != ''"> ,poverty_name = #{PovertyPeopleObj.povertyName} </if>
             <if test="PovertyPeopleObj.sex != null and PovertyPeopleObj.sex != ''"> ,sex = #{PovertyPeopleObj.sex} </if>
             <if test="PovertyPeopleObj.idcardNo != null and PovertyPeopleObj.idcardNo != ''"> ,idcar_no = #{PovertyPeopleObj.idcardNo} </if>
             <if test="PovertyPeopleObj.birthday != null and PovertyPeopleObj.birthday != ''"> ,birthday = #{PovertyPeopleObj.birthday} </if>
@@ -108,7 +108,7 @@
             <if test="PovertyPeopleObj.difficultTypeId != null and PovertyPeopleObj.difficultTypeId != ''"> AND difficult_type_id = #{PovertyPeopleObj.difficultTypeId}</if>
             <if test="PovertyPeopleObj.povertyName != null and PovertyPeopleObj.povertyName != ''"> AND poverty_name like concat('%',#{PovertyPeopleObj.povertyName},'%')  </if>
             <if test="PovertyPeopleObj.sex != null and PovertyPeopleObj.sex != ''"> AND sex = #{PovertyPeopleObj.sex} </if>
-            <if test="PovertyPeopleObj.idcardNo != null and PovertyPeopleObj.idcardNo != ''"> AND idcar_no = #{PovertyPeopleObj.idcardNo} </if>
+            <if test="PovertyPeopleObj.idcardNo != null and PovertyPeopleObj.idcardNo != ''"> AND idcard_no = #{PovertyPeopleObj.idcardNo} </if>
             <if test="PovertyPeopleObj.birthday != null and PovertyPeopleObj.birthday != ''"> AND birthday = #{PovertyPeopleObj.birthday} </if>
             <if test="PovertyPeopleObj.village != null and PovertyPeopleObj.village != ''"> AND village = #{PovertyPeopleObj.village} </if>
             <if test="PovertyPeopleObj.povertyType1 != null and PovertyPeopleObj.povertyType1 != ''"> AND poverty_type_1 = #{PovertyPeopleObj.povertyType1} </if>
@@ -239,7 +239,7 @@
     <select id="selectPovertyPeoplePage" resultMap="PovertyPeopleVOMap">
         select
         <!--<include refid="ALL_COLUMN"/>-->
-        id,birthday,poverty_Name,village,image_min,poverty_type_1,poverty_type_2,phone
+        id,birthday,poverty_Name,village,image_min,poverty_type_1,poverty_type_2,phone,family_detail
         FROM
         t_poverty_people
         WHERE
@@ -254,5 +254,15 @@
         WHERE
         1=1
         <include refid="VO_IF_SELECT"/>
+    </select>
+
+    <select id="selectPovertyPeopleCountByIdNo" resultType="java.lang.Integer">
+        SELECT
+          COUNT(id)
+        FROM
+          t_poverty_people
+        WHERE
+          1=1
+        <include refid="PO_IF_SELECT"/>
     </select>
 </mapper>

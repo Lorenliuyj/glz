@@ -20,7 +20,6 @@
 			!* .mui-table-view:before{height: 0px;}*!
 			.mui-table-view:after{height: 0px;}
 			.mui-table-view-chevron .mui-table-view-cell {padding-right: 20px;}
-			.color-blue{color: #12B6F6 !important;}
 			.myBtn{border: 1px solid #CCCCCC;width: 92px;height: 92px;text-align: center;color: #B8B8B8;font-weight: bold;display: inline-block;margin: 5px;}
             .mui-input-group:before{background-color: white;}
             mui-input-group:before{height: 0px;}
@@ -46,13 +45,13 @@
 				text-align: right;
 			}
 			.mui-table-view.u:after{
-				/*width: 96%;
-				margin-left: 4%;*/
-			}
-			/*.mui-table-view.u:before{
 				width: 96%;
 				margin-left: 4%;
-			}*/
+			}
+			.mui-table-view.u:before{
+				width: 96%;
+				margin-left: 4%;
+			}
 		</style>
 	</head>
 
@@ -182,6 +181,10 @@
 					if(!checkIdcardNo(tempbirthday)) {
 						return;
 					}
+					if(!verifobj(tempbirthday)) {
+						mui.toast("该身份证号码已经录入过，请勿重新录入！");
+						return;
+					}
 					var bir = getBirthdayFromIdCard(tempbirthday);
 					birthday = bir;
 					$("#birthday").html(bir);
@@ -255,12 +258,16 @@
 				mui.hideLoading();
 				return;
 			}
+			if(!verifobj(data.idcardNo)) {
+				mui.hideLoading();
+				return;
+			}
 			mui.showLoading("保存中...","");
 			//将提交按钮置灰
 			$("#submitBtn").attr('disabled',true);
             appajax.SendRequestByPost("poverty/add",JSON.stringify(data),function (response) {
 				mui.hideLoading();
-				if("0000" == response.code) {					
+				if("0000" == response.code) {	
 					mui.toast("贫困户录入成功！");					
 					openUrl("villagelist_brow.html");					
 				}else{
@@ -340,6 +347,22 @@
 				return false;
 			}
 			return true;
+		}
+		
+		//校验身份证号码的唯一性
+		var backFlag = true;
+		function verifobj(idcardNo) {
+			var data = {idcardNo:idcardNo};
+			appajax.SendRequestByPost("poverty/verif",JSON.stringify(data),function (response) {
+				if("0000" == response.code) {					
+					backFlag = true;			
+				}else{
+					backFlag = false;
+				}
+			},function(response) {
+				backFlag = false;
+			});
+			return backFlag;
 		}
 		
         var files=[];   

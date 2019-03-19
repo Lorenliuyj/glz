@@ -42,4 +42,8 @@ public interface PovertyPeopleService {
      * @return
      */
     PovertyPeoplePO povertyInfoImgs(PovertyPeopleVO povertyPeopleVO);
+
+    int verifPovertyUser(PovertyPeopleVO povertyPeopleVO);
+
+    void deleteById(PovertyPeopleVO povertyPeopleVO);
 }
