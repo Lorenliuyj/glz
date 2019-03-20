@@ -12,10 +12,12 @@ glz-dept：后端工程包括管理台后端
 
 ## 技术实现
 - App前端使用H5开发，使用[MUI框架](http://dev.dcloud.net.cn/mui/) 前端H5开发工具[HBuilder](http://www.dcloud.io/)
-- 后端使用Springboot开发
-- 管理台前端使用react开发
-
-##开发计划
+- 后端使用Springboot开发 后台开发工具使用IDEA
+- 管理台前端使用react开发 管理端前端开发使用 [visual studio code](https://visualstudio.microsoft.com/zh-hans/vs/)
+## 开发规范
+- 严格准守阿里规范
+- 后台IDEA安装[阿里编码规约]插件，做完后扫描一下代码
+## 开发计划
 - 基础数据表和数据权限 3-24
 - 困难户和走访的增删改查 3-31
 - 权限模块 4-15
