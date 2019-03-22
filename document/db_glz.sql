@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2019/3/22 11:06:59                           */
+/* Created on:     2019/3/22 11:55:18                           */
 /*==============================================================*/
 
 
@@ -42,7 +42,7 @@ create table t_department
    COMMENTS             varchar(120) comment '部门介绍',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -62,7 +62,7 @@ create table t_dict
    COMMENTS             varbinary(128) comment '备注',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -81,7 +81,7 @@ create table t_func
    STATUS               char(1) comment '功能状态',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -113,7 +113,7 @@ create table t_poverty_people
    COMMENTS             varchar(256),
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -142,7 +142,7 @@ create table t_poverty_visit
    COMMENTS             varbinary(1000) comment '备注',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -159,7 +159,7 @@ create table t_role
    COMMENTS             varchar(64) comment '备注',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -176,7 +176,7 @@ create table t_role_func
    FUNC_ID              bigint(15) comment '功能id',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -195,7 +195,7 @@ create table t_trouble_tpye
    COMMENTS             varchar(120) comment '介绍',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -218,7 +218,7 @@ create table t_user
    LOGIN_TIMES          varbinary(64) comment '登录次数',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -235,9 +235,8 @@ create table t_user_dept
    DEPT_ID              bigint(15) comment '部门',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
-   Column_8             char(10),
    primary key (ID)
 );
 
@@ -254,7 +253,7 @@ create table t_user_role
    COMMENTS             varchar(64) comment '备注',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -271,7 +270,7 @@ create table t_user_village
    VILLAGE_ID           bigint(15),
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
@@ -289,7 +288,7 @@ create table t_village
    COMMENTS             varchar(64) comment '备注',
    CREATE_ID            bigint(15) comment '创建人',
    CREATE_TIME          timestamp,
-   LAST_MODIFY_TIME     timestamp,
+   LAST_MODIFY_TIME     datetime,
    IS_DELETE            char(1),
    primary key (ID)
 );
