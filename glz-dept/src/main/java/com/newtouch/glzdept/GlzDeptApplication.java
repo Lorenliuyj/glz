@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.newtouch")
-@MapperScan({"com.newtouch.*.dao"})
+@MapperScan({"com.newtouch.*.*.dao"})
 public class GlzDeptApplication extends SpringBootServletInitializer {
 
 
