@@ -1,7 +1,5 @@
 package com.newtouch.common.entity.base;
 
-import com.newtouch.glzdept.entity.VO.PovertyPeopleVO;
-import com.newtouch.glzdept.entity.VO.PovertyVisitVO;
 
 import java.util.List;
 
