@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newtouch.glzdept.base.dao.TTroubleTpyeDAO">
+  <resultMap id="BaseResultMap" type="com.newtouch.glzdept.base.entity.VO.TTroubleTpyeVO">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="DEPT_ID" jdbcType="BIGINT" property="deptId" />
+    <result column="TROUBLE_CODE" jdbcType="VARCHAR" property="troubleCode" />
+    <result column="TROUBLE_NAME" jdbcType="VARCHAR" property="troubleName" />
+    <result column="COMMENTS" jdbcType="VARCHAR" property="comments" />
+    <result column="CREATE_ID" jdbcType="BIGINT" property="createId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LAST_MODIFY_TIME" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DEPT_ID, TROUBLE_CODE, TROUBLE_NAME, COMMENTS, CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME, 
+    IS_DELETE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_trouble_tpye
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_trouble_tpye
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.glzdept.base.entity.VO.TTroubleTpyeVO">
+    insert into t_trouble_tpye (ID, DEPT_ID, TROUBLE_CODE, 
+      TROUBLE_NAME, COMMENTS, CREATE_ID, 
+      CREATE_TIME, LAST_MODIFY_TIME, IS_DELETE
+      )
+    values (#{id,jdbcType=BIGINT}, #{deptId,jdbcType=BIGINT}, #{troubleCode,jdbcType=VARCHAR}, 
+      #{troubleName,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.glzdept.base.entity.VO.TTroubleTpyeVO">
+    insert into t_trouble_tpye
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="deptId != null">
+        DEPT_ID,
+      </if>
+      <if test="troubleCode != null">
+        TROUBLE_CODE,
+      </if>
+      <if test="troubleName != null">
+        TROUBLE_NAME,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+      <if test="createId != null">
+        CREATE_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME,
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="troubleCode != null">
+        #{troubleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="troubleName != null">
+        #{troubleName,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.glzdept.base.entity.VO.TTroubleTpyeVO">
+    update t_trouble_tpye
+    <set>
+      <if test="deptId != null">
+        DEPT_ID = #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="troubleCode != null">
+        TROUBLE_CODE = #{troubleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="troubleName != null">
+        TROUBLE_NAME = #{troubleName,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        CREATE_ID = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE = #{isDelete,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.glzdept.base.entity.VO.TTroubleTpyeVO">
+    update t_trouble_tpye
+    set DEPT_ID = #{deptId,jdbcType=BIGINT},
+      TROUBLE_CODE = #{troubleCode,jdbcType=VARCHAR},
+      TROUBLE_NAME = #{troubleName,jdbcType=VARCHAR},
+      COMMENTS = #{comments,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
