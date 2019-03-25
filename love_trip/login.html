@@ -38,11 +38,11 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label><span class="mui-icon-extra mui-icon-extra-phone"></span><span class="icon-text">用户名</span></label>
-					<input id='userName' type="text" value="admin" readonly="readonly" class="mui-input-clear mui-input" placeholder="请输入手机号码">
+					<input id='userName' type="text" value="admin" class="mui-input-clear mui-input" placeholder="请输入手机号码">
 				</div>
 				<div class="mui-input-row">
 					<label><span class="mui-icon mui-icon-locked"></span>密码</label>
-					<input id='passWord' type="password" value="admin" readonly="readonly" class="mui-input" placeholder="请输入密码" autocomplete="off" maxlength="16">
+					<input id='password' type="password" value="admin" class="mui-input" placeholder="请输入密码" autocomplete="off" maxlength="16">
 					<a id="btnForget" class="color-blue" style="position: absolute;right:10px;top:12px;color:#63b5ff ;">｜忘记密码？</a>
 				</div>
 	            <ul class="mui-table-view mui-table-view-chevron" style="margin-bottom: 10px;">
@@ -67,35 +67,47 @@
 <script src="js/appajax.js"></script>
 
 <script>
+	//设置登录用户初始化信息
+	var state = app.getUserState();
 	mui.init();
 	//App,浏览器端运行
 	mui.ready(function() {
 	    var btnLogin = gbid('btnLogin');
 	    btnLogin.addEventListener('tap', function(event) {
-	    		var username=document.getElementById("userName");
-	    	    var password=document.getElementById("passWord");
-				if(username.value.length<0){
-					mui.toast('用户名不能为空!');
-					return;
-				}
-				if(password.value.length<0){
-					mui.toast('密码不能为空!');
-					return;
-				}
-	    	    var data={
-	    				    loginName:username.value,
-	    				    password:password.value
-	    				  };
+			var userName=gbid("userName");
+			var password=gbid("password");
+			if(userName.value.length<0){
+				mui.toast('用户名不能为空!');
+				return;
+			}
+			if(password.value.length<0){
+				mui.toast('密码不能为空!');
+				return;
+			}
+	    	var data={userName:userName.value,password:password.value};
 	    	var msg = JSON.stringify(data);
-			console.info(msg);
-	    	appajax.SendRequestByPost("user/login",msg,function(resultMsg){
-				if(resultMsg.code == 0000){
-					 //登录成功
+	    	appajax.SendRequestByPost("user/login",msg,function(response){
+				if(response.code == 0000){
+					var rtnData = response.result;
+					var user = rtnData.user;
+					var depts = rtnData.dept;
+					var villages = rtnData.village;
+					var dept = [];
+					for(var i = 0;i<depts.length;i++) {
+						dept.push(depts[i].id);
+					}
+					var village = [];
+					for(var j = 0;j<villages.length;j++) {
+						village.push(villages[j].id);
+					}
+					state.userName = user.userName;
+					state.dept = dept;
+					state.village = village;
 					openUrl("menu.html");           
 				 }else{
 					mui.toast('用户名或者密码错误！');
 				 }
-			},function(errorMsg){
+			},function(response){
 				mui.toast('登录失败！');
 			});
 	    });

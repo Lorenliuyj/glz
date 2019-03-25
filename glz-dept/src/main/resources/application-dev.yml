@@ -6,7 +6,7 @@ server:
     min-response-size: 2048
 spring:
   datasource:
-    url: jdbc:mysql://39.108.66.223:3306/glzdeptdb?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://39.108.66.223:3306/glzdb?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
