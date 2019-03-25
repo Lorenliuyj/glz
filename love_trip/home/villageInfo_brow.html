@@ -143,7 +143,8 @@
 	<script src="../js/app.js"></script>
 	<script src="../js/appajax.js"></script>
 	<script type="text/javascript">
-
+		var state = app.getUserState();
+		
         //数据初始化
         var birthday = "";
         var village = "";
@@ -174,6 +175,8 @@
 			mui.previewImage();
 			forcountryPicker.setData(forcountryData);
 			forhardPicker.setData(forhardData);
+			
+			initData();
 			
 			gbid('idcardNo').addEventListener('keyup',function(event) {
 				var tempbirthday = $("#idcardNo").val();
@@ -242,6 +245,13 @@
 			});
 
 		});
+		
+		function initData() {
+			
+			
+			
+			
+		}
 		
 		//提交方法
 		function submitFun() {

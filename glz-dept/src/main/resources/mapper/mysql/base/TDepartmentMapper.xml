@@ -12,12 +12,13 @@
     <result column="LAST_MODIFY_TIME" jdbcType="TIMESTAMP" property="lastModifyTime" />
     <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
   </resultMap>
+
   <sql id="Base_Column_List">
-    ID, DEPT_NAME, DEPT_CODE, DEPT_CHARGE, COMMENTS, CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME, 
+    ID, DEPT_NAME, DEPT_CODE, DEPT_CHARGE, COMMENTS, CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME,
     IS_DELETE
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_department
     where ID = #{id,jdbcType=BIGINT}
@@ -27,12 +28,12 @@
     where ID = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.newtouch.glzdept.base.entity.VO.TDepartmentVO">
-    insert into t_department (ID, DEPT_NAME, DEPT_CODE, 
-      DEPT_CHARGE, COMMENTS, CREATE_ID, 
+    insert into t_department (ID, DEPT_NAME, DEPT_CODE,
+      DEPT_CHARGE, COMMENTS, CREATE_ID,
       CREATE_TIME, LAST_MODIFY_TIME, IS_DELETE
       )
-    values (#{id,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, 
-      #{deptCharge,jdbcType=BIGINT}, #{comments,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR},
+      #{deptCharge,jdbcType=BIGINT}, #{comments,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT},
       #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR}
       )
   </insert>
@@ -139,4 +140,22 @@
       IS_DELETE = #{isDelete,jdbcType=CHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectDeptTroubleByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    select
+      TD.ID,
+      TD.DEPT_NAME,
+      TD.DEPT_CODE
+    from
+      T_DEPARTMENT TD
+    where
+      1=1
+    <if test="list != null and list.size() > 0">
+      and TD.ID in
+      <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+
 </mapper>

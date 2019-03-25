@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * t_department
- * @author 
+ * @author
  */
 public class TDepartmentVO implements Serializable {
     /**

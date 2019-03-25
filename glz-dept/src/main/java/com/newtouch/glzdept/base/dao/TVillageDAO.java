@@ -2,6 +2,8 @@ package com.newtouch.glzdept.base.dao;
 
 import com.newtouch.glzdept.base.entity.VO.TVillageVO;
 
+import java.util.List;
+
 public interface TVillageDAO {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,7 @@ public interface TVillageDAO {
     int updateByPrimaryKeySelective(TVillageVO record);
 
     int updateByPrimaryKey(TVillageVO record);
+
+    List<TVillageVO> selectVillageByIds(List<String> list);
+
 }

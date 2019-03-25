@@ -15,7 +15,7 @@
     ID, CODE, `NAME`, COMMENTS, CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME, IS_DELETE
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_village
     where ID = #{id,jdbcType=BIGINT}
@@ -25,11 +25,11 @@
     where ID = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.newtouch.glzdept.base.entity.VO.TVillageVO">
-    insert into t_village (ID, CODE, `NAME`, 
-      COMMENTS, CREATE_ID, CREATE_TIME, 
+    insert into t_village (ID, CODE, `NAME`,
+      COMMENTS, CREATE_ID, CREATE_TIME,
       LAST_MODIFY_TIME, IS_DELETE)
-    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{comments,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{comments,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
       #{lastModifyTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.newtouch.glzdept.base.entity.VO.TVillageVO">
@@ -125,4 +125,22 @@
       IS_DELETE = #{isDelete,jdbcType=CHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectVillageByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    select
+      ID,
+      NAME,
+      CODE
+    from
+      T_VILLAGE
+    where
+      1=1
+    <if test="list != null and list.size() > 0">
+      and ID in
+      <foreach collection="list" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+
 </mapper>

@@ -1,5 +1,15 @@
 package com.newtouch.glzdept.base.controller;
 
+import com.newtouch.common.entity.base.ResponseVO;
+import com.newtouch.common.util.CheckUtil;
+import com.newtouch.common.util.ResponseUtil;
+import com.newtouch.glzdept.base.service.BaseService;
+import com.newtouch.glzdept.user.entity.VO.TUserVO;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.Map;
+
 /**
  * 基础
  *
@@ -7,5 +17,13 @@ package com.newtouch.glzdept.base.controller;
  * zhiliang.lan
  */
 
+@RestController
+@RequestMapping("base")
 public class BaseController {
+
+    @Resource
+    BaseService baseService;
+
+
+
 }
