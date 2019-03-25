@@ -1,33 +1,271 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newtouch.glzdept.user.dao.UserDao">
-
-    <resultMap id="BaseResultMap" type="com.newtouch.glzdept.user.entity.component.UserVO">
-        <result column="tu_id" property="tuId" jdbcType="VARCHAR" />
-        <result column="to_id" property="toId" jdbcType="VARCHAR" />
-        <result column="login_name" property="loginName" jdbcType="VARCHAR" />
-        <result column="password" property="password" jdbcType="VARCHAR" />
-        <result column="username" property="userName" jdbcType="VARCHAR" />
-        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
-        <result column="email" property="email" jdbcType="VARCHAR" />
-        <result column="gen_time" property="genTime" jdbcType="VARCHAR" />
-        <result column="login_time" property="loginTime" jdbcType="VARCHAR" />
-        <result column="last_login_time" property="lastLoginTime" jdbcType="VARCHAR" />
-        <result column="count" property="count" jdbcType="VARCHAR" />
+    <resultMap id="BaseResultMap" type="com.newtouch.glzdept.user.entity.VO.TUserVO">
+        <id column="ID" jdbcType="BIGINT" property="id"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
+        <result column="TRUE_NAME" jdbcType="VARCHAR" property="trueName"/>
+        <result column="SEX" jdbcType="CHAR" property="sex"/>
+        <result column="MOBILE" jdbcType="CHAR" property="mobile"/>
+        <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
+        <result column="LOGIN_TIMES" jdbcType="VARCHAR" property="loginTimes"/>
+        <result column="CREATE_ID" jdbcType="BIGINT" property="createId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="LAST_MODIFY_TIME" jdbcType="TIMESTAMP" property="lastModifyTime"/>
+        <result column="IS_DELETE" jdbcType="CHAR" property="isDelete"/>
     </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.newtouch.glzdept.user.entity.VO.TUserVO">
+        <result column="HEAD_IMG" jdbcType="LONGVARBINARY" property="headImg"/>
+    </resultMap>
+    <resultMap id="BaseResultExtMap" extends="BaseResultMap" type="com.newtouch.glzdept.user.entity.VO.TUserVO">
+        <id column="DEPT_ID" jdbcType="BIGINT" property="deptId"/>
+        <id column="VILLAGE_ID" jdbcType="BIGINT" property="villageId"/>
+        <id column="DEPT_NAME" jdbcType="VARCHAR" property="deptName"/>
+        <id column="DEPT_CODE" jdbcType="VARCHAR" property="deptCode"/>
+        <id column="VILLAGE_NAME" jdbcType="VARCHAR" property="villageName"/>
+        <id column="VILLAGE_CODE" jdbcType="VARCHAR" property="villageCode"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    ID, USER_NAME, `PASSWORD`, TRUE_NAME, SEX, MOBILE, EMAIL, LOGIN_TIMES, CREATE_ID,
+    CREATE_TIME, LAST_MODIFY_TIME, IS_DELETE
+  </sql>
+    <sql id="Blob_Column_List">
+    HEAD_IMG
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_user
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_user
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+    <insert id="insert" parameterType="com.newtouch.glzdept.user.entity.VO.TUserVO">
+    insert into t_user (ID, USER_NAME, `PASSWORD`,
+      TRUE_NAME, SEX, MOBILE, EMAIL,
+      LOGIN_TIMES, CREATE_ID, CREATE_TIME,
+      LAST_MODIFY_TIME, IS_DELETE, HEAD_IMG
+      )
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{trueName,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, #{mobile,jdbcType=CHAR}, #{email,jdbcType=VARCHAR},
+      #{loginTimes,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP},
+      #{lastModifyTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR}, #{headImg,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.newtouch.glzdept.user.entity.VO.TUserVO">
+        insert into t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="userName != null">
+                USER_NAME,
+            </if>
+            <if test="password != null">
+                `PASSWORD`,
+            </if>
+            <if test="trueName != null">
+                TRUE_NAME,
+            </if>
+            <if test="sex != null">
+                SEX,
+            </if>
+            <if test="mobile != null">
+                MOBILE,
+            </if>
+            <if test="email != null">
+                EMAIL,
+            </if>
+            <if test="loginTimes != null">
+                LOGIN_TIMES,
+            </if>
+            <if test="createId != null">
+                CREATE_ID,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="lastModifyTime != null">
+                LAST_MODIFY_TIME,
+            </if>
+            <if test="isDelete != null">
+                IS_DELETE,
+            </if>
+            <if test="headImg != null">
+                HEAD_IMG,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="trueName != null">
+                #{trueName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=CHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTimes != null">
+                #{loginTimes,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                #{createId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=CHAR},
+            </if>
+            <if test="headImg != null">
+                #{headImg,jdbcType=LONGVARBINARY},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.glzdept.user.entity.VO.TUserVO">
+        update t_user
+        <set>
+            <if test="userName != null">
+                USER_NAME = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                `PASSWORD` = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="trueName != null">
+                TRUE_NAME = #{trueName,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null">
+                SEX = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="mobile != null">
+                MOBILE = #{mobile,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                EMAIL = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="loginTimes != null">
+                LOGIN_TIMES = #{loginTimes,jdbcType=VARCHAR},
+            </if>
+            <if test="createId != null">
+                CREATE_ID = #{createId,jdbcType=BIGINT},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastModifyTime != null">
+                LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                IS_DELETE = #{isDelete,jdbcType=CHAR},
+            </if>
+            <if test="headImg != null">
+                HEAD_IMG = #{headImg,jdbcType=LONGVARBINARY},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.newtouch.glzdept.user.entity.VO.TUserVO">
+    update t_user
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      `PASSWORD` = #{password,jdbcType=VARCHAR},
+      TRUE_NAME = #{trueName,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=CHAR},
+      MOBILE = #{mobile,jdbcType=CHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      LOGIN_TIMES = #{loginTimes,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR},
+      HEAD_IMG = #{headImg,jdbcType=LONGVARBINARY}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.newtouch.glzdept.user.entity.VO.TUserVO">
+    update t_user
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      `PASSWORD` = #{password,jdbcType=VARCHAR},
+      TRUE_NAME = #{trueName,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=CHAR},
+      MOBILE = #{mobile,jdbcType=CHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      LOGIN_TIMES = #{loginTimes,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
 
     <!--用户登录查询-->
-    <select id="userLogin" resultMap="BaseResultMap">
+    <select id="userLogin" resultMap="BaseResultMap" parameterType="com.newtouch.glzdept.user.entity.VO.TUserVO">
         SELECT
         *
         FROM
         t_user t
         where 1=1
-        <if test="loginName!=null and loginName!=''">
-            AND  t.login_name = #{loginName}
+        <if test="userName!=null and userName!=''">
+            AND t.user_name = #{userName}
         </if>
         <if test="password!=null and password!=''">
-            AND  t.password = #{password}
+            AND t.password = #{password}
+        </if>
+    </select>
+
+    <select id="selectDeptById" resultMap="BaseResultExtMap">
+      select
+        tu.id as id,
+        td.id as dept_id,
+        td.dept_name,
+        td.dept_code
+      from
+        t_user tu,
+        t_user_dept tud,
+        t_department td
+      where
+        tu.id = tud.user_id
+      and
+        tud.dept_id = td.id
+        <if test="id!=null and id!=''">
+            AND tu.id = #{id,jdbcType=BIGINT}
+        </if>
+    </select>
+
+    <select id="selectVillageById" resultMap="BaseResultExtMap">
+        select
+            tu.id as id,
+            tv.id as village_id,
+            tv.name as village_name,
+            tv.code as village_code
+        from
+            t_user tu,
+            t_user_village tuv,
+            t_village tv
+        where
+            tu.id = tuv.user_id
+        and
+            tuv.village_id = tv.id
+        <if test="id!=null and id!=''">
+            AND tu.id = #{id,jdbcType=BIGINT}
         </if>
     </select>
 
