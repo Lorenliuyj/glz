@@ -13,11 +13,11 @@
     <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, DEPT_ID, TROUBLE_CODE, TROUBLE_NAME, COMMENTS, CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME, 
+    ID, DEPT_ID, TROUBLE_CODE, TROUBLE_NAME, COMMENTS, CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME,
     IS_DELETE
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_trouble_tpye
     where ID = #{id,jdbcType=BIGINT}
@@ -27,12 +27,12 @@
     where ID = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.newtouch.glzdept.base.entity.VO.TTroubleTpyeVO">
-    insert into t_trouble_tpye (ID, DEPT_ID, TROUBLE_CODE, 
-      TROUBLE_NAME, COMMENTS, CREATE_ID, 
+    insert into t_trouble_tpye (ID, DEPT_ID, TROUBLE_CODE,
+      TROUBLE_NAME, COMMENTS, CREATE_ID,
       CREATE_TIME, LAST_MODIFY_TIME, IS_DELETE
       )
-    values (#{id,jdbcType=BIGINT}, #{deptId,jdbcType=BIGINT}, #{troubleCode,jdbcType=VARCHAR}, 
-      #{troubleName,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{deptId,jdbcType=BIGINT}, #{troubleCode,jdbcType=VARCHAR},
+      #{troubleName,jdbcType=VARCHAR}, #{comments,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT},
       #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR}
       )
   </insert>
@@ -139,4 +139,15 @@
       IS_DELETE = #{isDelete,jdbcType=CHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+      ID,
+      DEPT_ID，
+      TROUBLE_NAME,
+      TROUBLE_CODE
+    from
+      t_trouble_tpye
+  </select>
+
 </mapper>
