@@ -32,6 +32,7 @@ public class UserController {
     public ResponseVO userLogin(@RequestBody TUserVO userVO){
         Map<String,Object> resultMap = userService.userLogin(userVO);
         if(!CheckUtil.isEmpty(resultMap)) {
+            //成功
             return ResponseUtil.successResponse(resultMap);
         }
         return ResponseUtil.errorResponse(null);
