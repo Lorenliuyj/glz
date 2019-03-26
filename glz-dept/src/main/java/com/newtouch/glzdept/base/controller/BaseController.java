@@ -3,6 +3,7 @@ package com.newtouch.glzdept.base.controller;
 import com.newtouch.common.entity.base.ResponseVO;
 import com.newtouch.common.util.CheckUtil;
 import com.newtouch.common.util.ResponseUtil;
+import com.newtouch.glzdept.base.entity.base.BaseTransCommonVO;
 import com.newtouch.glzdept.base.service.BaseService;
 import com.newtouch.glzdept.user.entity.VO.TUserVO;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class BaseController {
     @Resource
     BaseService baseService;
 
-
+    @RequestMapping(value="/selectInitData",method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseVO selectInitData(@RequestBody BaseTransCommonVO baseTransCommonVO){
+        Map<String,Object> resultMap = baseService.selectInitData(baseTransCommonVO);
+        return ResponseUtil.successResponse(resultMap);
+    }
 
 }

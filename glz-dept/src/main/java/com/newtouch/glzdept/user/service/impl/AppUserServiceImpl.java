@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.newtouch.common.util.CheckUtil;
 import com.newtouch.glzdept.user.dao.UserDao;
 import com.newtouch.glzdept.user.entity.VO.TUserVO;
-import com.newtouch.glzdept.user.service.UserService;
+import com.newtouch.glzdept.user.service.AppUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class AppUserServiceImpl implements AppUserService {
 
     @Resource
     UserDao userDao;

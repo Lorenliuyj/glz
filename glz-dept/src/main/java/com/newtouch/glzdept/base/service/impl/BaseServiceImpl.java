@@ -5,11 +5,14 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newtouch.common.util.CheckUtil;
 import com.newtouch.glzdept.base.dao.TDepartmentDAO;
+import com.newtouch.glzdept.base.dao.TDictDAO;
 import com.newtouch.glzdept.base.dao.TTroubleTpyeDAO;
 import com.newtouch.glzdept.base.dao.TVillageDAO;
 import com.newtouch.glzdept.base.entity.VO.TDepartmentVO;
+import com.newtouch.glzdept.base.entity.VO.TDictVO;
 import com.newtouch.glzdept.base.entity.VO.TTroubleTpyeVO;
 import com.newtouch.glzdept.base.entity.VO.TVillageVO;
+import com.newtouch.glzdept.base.entity.base.BaseTransCommonVO;
 import com.newtouch.glzdept.base.service.BaseService;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +40,11 @@ public class BaseServiceImpl implements BaseService {
     @Resource
     TVillageDAO tVillageDAO;
 
+    @Resource
+    TDictDAO tDictDAO;
+
     @Override
-    public Map<String, Object> selectDeptTroubleByIds(List<String> list) {
+    public Map<String, Object> selectDeptTroubleByIds(List<Long> list) {
         List<TDepartmentVO> dlist = tDepartmentDAO.selectDeptTroubleByIds(list);
         List<TTroubleTpyeVO> tlist = tTroubleTpyeDAO.selectAll();
 
@@ -72,7 +78,7 @@ public class BaseServiceImpl implements BaseService {
     }
 
     @Override
-    public Map<String, Object> selectVillageByIds(List<String> list) {
+    public Map<String, Object> selectVillageByIds(List<Long> list) {
         List<TVillageVO> tlist = tVillageDAO.selectVillageByIds(list);
         if(CheckUtil.isEmpty(tlist)) {
             return null;
@@ -87,6 +93,20 @@ public class BaseServiceImpl implements BaseService {
             jsonArray.add(jsonObject);
         }
         resultMap.put("villages",jsonArray);
+        return resultMap;
+    }
+
+    @Override
+    public Map<String, Object> selectInitData(BaseTransCommonVO baseTransCommonVO) {
+        List<Long> deptIds = baseTransCommonVO.getDeptIds();
+        List<Long> villageIds = baseTransCommonVO.getVillageIds();
+        Map<String,Object> resultMap = selectDeptTroubleByIds(deptIds);
+        Map<String,Object> resultMap1 = selectVillageByIds(villageIds);
+        TDictVO dict = new TDictVO();
+        dict.setDictType("COMMON_USER_SEX");
+        List<TDictVO> list = tDictDAO.selectDictByVO(dict);
+        resultMap.putAll(resultMap1);
+        resultMap.put("dict",list);
         return resultMap;
     }
 }

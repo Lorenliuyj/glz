@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newtouch.glzdept.buss.dao.TPovertyVisitDAO">
+  <resultMap id="BaseResultMap" type="com.newtouch.glzdept.buss.entity.VO.TPovertyVisitVO">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="POVERTY_PEOPLE_ID" jdbcType="BIGINT" property="povertyPeopleId" />
+    <result column="BIRTHDAY" jdbcType="DATE" property="birthday" />
+    <result column="VISIT_DATE" jdbcType="DATE" property="visitDate" />
+    <result column="VISITOR_ID" jdbcType="BIGINT" property="visitorId" />
+    <result column="VISIT_GOODS" jdbcType="DATE" property="visitGoods" />
+    <result column="CREATE_ID" jdbcType="BIGINT" property="createId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LAST_MODIFY_TIME" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.newtouch.glzdept.buss.entity.VO.TPovertyVisitVOWithBLOBs">
+    <result column="VILLAGE_ID" jdbcType="VARBINARY" property="villageId" />
+    <result column="FAMILY_DETAIL" jdbcType="VARBINARY" property="familyDetail" />
+    <result column="MASS_APPEAL" jdbcType="VARBINARY" property="massAppeal" />
+    <result column="VISIT_DETAIL" jdbcType="VARBINARY" property="visitDetail" />
+    <result column="IMAGE_1" jdbcType="LONGVARBINARY" property="image1" />
+    <result column="IMAGE_2" jdbcType="LONGVARBINARY" property="image2" />
+    <result column="IMAGE_3" jdbcType="LONGVARBINARY" property="image3" />
+    <result column="IMAGE_MIN" jdbcType="LONGVARBINARY" property="imageMin" />
+    <result column="COMMENTS" jdbcType="VARBINARY" property="comments" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, POVERTY_PEOPLE_ID, BIRTHDAY, VISIT_DATE, VISITOR_ID, VISIT_GOODS, CREATE_ID, 
+    CREATE_TIME, LAST_MODIFY_TIME, IS_DELETE
+  </sql>
+  <sql id="Blob_Column_List">
+    VILLAGE_ID, FAMILY_DETAIL, MASS_APPEAL, VISIT_DETAIL, IMAGE_1, IMAGE_2, IMAGE_3, 
+    IMAGE_MIN, COMMENTS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_poverty_visit
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_poverty_visit
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.glzdept.buss.entity.VO.TPovertyVisitVOWithBLOBs">
+    insert into t_poverty_visit (ID, POVERTY_PEOPLE_ID, BIRTHDAY, 
+      VISIT_DATE, VISITOR_ID, VISIT_GOODS, 
+      CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME, 
+      IS_DELETE, VILLAGE_ID, FAMILY_DETAIL, 
+      MASS_APPEAL, VISIT_DETAIL, IMAGE_1, 
+      IMAGE_2, IMAGE_3, IMAGE_MIN, 
+      COMMENTS)
+    values (#{id,jdbcType=BIGINT}, #{povertyPeopleId,jdbcType=BIGINT}, #{birthday,jdbcType=DATE}, 
+      #{visitDate,jdbcType=DATE}, #{visitorId,jdbcType=BIGINT}, #{visitGoods,jdbcType=DATE}, 
+      #{createId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=CHAR}, #{villageId,jdbcType=VARBINARY}, #{familyDetail,jdbcType=VARBINARY}, 
+      #{massAppeal,jdbcType=VARBINARY}, #{visitDetail,jdbcType=VARBINARY}, #{image1,jdbcType=LONGVARBINARY}, 
+      #{image2,jdbcType=LONGVARBINARY}, #{image3,jdbcType=LONGVARBINARY}, #{imageMin,jdbcType=LONGVARBINARY}, 
+      #{comments,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.glzdept.buss.entity.VO.TPovertyVisitVOWithBLOBs">
+    insert into t_poverty_visit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="povertyPeopleId != null">
+        POVERTY_PEOPLE_ID,
+      </if>
+      <if test="birthday != null">
+        BIRTHDAY,
+      </if>
+      <if test="visitDate != null">
+        VISIT_DATE,
+      </if>
+      <if test="visitorId != null">
+        VISITOR_ID,
+      </if>
+      <if test="visitGoods != null">
+        VISIT_GOODS,
+      </if>
+      <if test="createId != null">
+        CREATE_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME,
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE,
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID,
+      </if>
+      <if test="familyDetail != null">
+        FAMILY_DETAIL,
+      </if>
+      <if test="massAppeal != null">
+        MASS_APPEAL,
+      </if>
+      <if test="visitDetail != null">
+        VISIT_DETAIL,
+      </if>
+      <if test="image1 != null">
+        IMAGE_1,
+      </if>
+      <if test="image2 != null">
+        IMAGE_2,
+      </if>
+      <if test="image3 != null">
+        IMAGE_3,
+      </if>
+      <if test="imageMin != null">
+        IMAGE_MIN,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="povertyPeopleId != null">
+        #{povertyPeopleId,jdbcType=BIGINT},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="visitDate != null">
+        #{visitDate,jdbcType=DATE},
+      </if>
+      <if test="visitorId != null">
+        #{visitorId,jdbcType=BIGINT},
+      </if>
+      <if test="visitGoods != null">
+        #{visitGoods,jdbcType=DATE},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="villageId != null">
+        #{villageId,jdbcType=VARBINARY},
+      </if>
+      <if test="familyDetail != null">
+        #{familyDetail,jdbcType=VARBINARY},
+      </if>
+      <if test="massAppeal != null">
+        #{massAppeal,jdbcType=VARBINARY},
+      </if>
+      <if test="visitDetail != null">
+        #{visitDetail,jdbcType=VARBINARY},
+      </if>
+      <if test="image1 != null">
+        #{image1,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="image2 != null">
+        #{image2,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="image3 != null">
+        #{image3,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageMin != null">
+        #{imageMin,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.glzdept.buss.entity.VO.TPovertyVisitVOWithBLOBs">
+    update t_poverty_visit
+    <set>
+      <if test="povertyPeopleId != null">
+        POVERTY_PEOPLE_ID = #{povertyPeopleId,jdbcType=BIGINT},
+      </if>
+      <if test="birthday != null">
+        BIRTHDAY = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="visitDate != null">
+        VISIT_DATE = #{visitDate,jdbcType=DATE},
+      </if>
+      <if test="visitorId != null">
+        VISITOR_ID = #{visitorId,jdbcType=BIGINT},
+      </if>
+      <if test="visitGoods != null">
+        VISIT_GOODS = #{visitGoods,jdbcType=DATE},
+      </if>
+      <if test="createId != null">
+        CREATE_ID = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE = #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="villageId != null">
+        VILLAGE_ID = #{villageId,jdbcType=VARBINARY},
+      </if>
+      <if test="familyDetail != null">
+        FAMILY_DETAIL = #{familyDetail,jdbcType=VARBINARY},
+      </if>
+      <if test="massAppeal != null">
+        MASS_APPEAL = #{massAppeal,jdbcType=VARBINARY},
+      </if>
+      <if test="visitDetail != null">
+        VISIT_DETAIL = #{visitDetail,jdbcType=VARBINARY},
+      </if>
+      <if test="image1 != null">
+        IMAGE_1 = #{image1,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="image2 != null">
+        IMAGE_2 = #{image2,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="image3 != null">
+        IMAGE_3 = #{image3,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="imageMin != null">
+        IMAGE_MIN = #{imageMin,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.newtouch.glzdept.buss.entity.VO.TPovertyVisitVOWithBLOBs">
+    update t_poverty_visit
+    set POVERTY_PEOPLE_ID = #{povertyPeopleId,jdbcType=BIGINT},
+      BIRTHDAY = #{birthday,jdbcType=DATE},
+      VISIT_DATE = #{visitDate,jdbcType=DATE},
+      VISITOR_ID = #{visitorId,jdbcType=BIGINT},
+      VISIT_GOODS = #{visitGoods,jdbcType=DATE},
+      CREATE_ID = #{createId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR},
+      VILLAGE_ID = #{villageId,jdbcType=VARBINARY},
+      FAMILY_DETAIL = #{familyDetail,jdbcType=VARBINARY},
+      MASS_APPEAL = #{massAppeal,jdbcType=VARBINARY},
+      VISIT_DETAIL = #{visitDetail,jdbcType=VARBINARY},
+      IMAGE_1 = #{image1,jdbcType=LONGVARBINARY},
+      IMAGE_2 = #{image2,jdbcType=LONGVARBINARY},
+      IMAGE_3 = #{image3,jdbcType=LONGVARBINARY},
+      IMAGE_MIN = #{imageMin,jdbcType=LONGVARBINARY},
+      COMMENTS = #{comments,jdbcType=VARBINARY}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.glzdept.buss.entity.VO.TPovertyVisitVO">
+    update t_poverty_visit
+    set POVERTY_PEOPLE_ID = #{povertyPeopleId,jdbcType=BIGINT},
+      BIRTHDAY = #{birthday,jdbcType=DATE},
+      VISIT_DATE = #{visitDate,jdbcType=DATE},
+      VISITOR_ID = #{visitorId,jdbcType=BIGINT},
+      VISIT_GOODS = #{visitGoods,jdbcType=DATE},
+      CREATE_ID = #{createId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

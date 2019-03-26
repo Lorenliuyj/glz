@@ -77,20 +77,24 @@
                 </div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;身份证号</label>
-					<input id="idcardNo" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入身份证号码" maxlength="21"/>
+					<input id="idcardNo" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入身份证号码" maxlength="18"/>
 				</div>
 				<ul class="mui-table-view mui-table-view-chevron u">
 					<li class="mui-table-view-cell" id="timePicker">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;出生年月</label>
-						<p id="birthday" class="mui-pull-right">请选择  </p>
+						<input id="birthday" type="text" class="mui-input mui-hidden"/>
+						<p id="birHandle" class="mui-pull-right">请选择  </p>
 					</li>
 					<li class="mui-table-view-cell" id="forcountryPicker">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;所属村居</label>
-						<p id="village" class="mui-pull-right">请选择</p>
+						<input id="villageId" type="text" class="mui-input mui-hidden"/>
+						<p id="vilHandle" class="mui-pull-right">请选择</p>
 					</li>
 					<li class="mui-table-view-cell" id="forhardPicker">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;困难类型</label>
-						<p id="povertyType" class="mui-pull-right">请选择</p>
+						<input id="deptId" type="text" class="mui-input mui-hidden"/>
+						<input id="troubleId" type="text" class="mui-input mui-hidden"/>
+						<p id="troHandle" class="mui-pull-right">请选择</p>
 					</li>
 				</ul>
 				<div class="mui-input-row">
@@ -107,7 +111,7 @@
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">主要困难</label>
-					<input id="trouble" type="text" class="mui-pull-right" style="width: 60%;" placeholder="请输入主要困难" maxlength="50"/>
+					<input id="troubleDesc" type="text" class="mui-pull-right" style="width: 60%;" placeholder="请输入主要困难" maxlength="50"/>
 				</div>
 				<p style="margin-left: 5px;">个人图片</p>
 				<div class="mui-input-row" style="background-color: white;padding-bottom: 100px">
@@ -146,12 +150,6 @@
 		var state = app.getUserState();
 		
         //数据初始化
-        var birthday = "";
-        var village = "";
-        var hardType = "";
-		var povertyType1 = "";
-		var povertyType2 = "";
-		var difficultTypeId = "";
 		var image1 = "";
 		var image2 = "";
 		var image3 = "";
@@ -165,14 +163,15 @@
             {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
             {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
             {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
-        var forhardData=[{value:"",text:"请选择",children:[{value:"",text:" "}]},
+        var forhardData=[{value:"",text:"请选择", id:"",children:[{value:"",text:" "}]},
 			{value:"001",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
 			{value:"002",text:"组织办",children:[{value:"10",text:"困难党员"}]},
             {value:"003",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
 			{value:"004",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
+			
         mui.init();
+        mui.previewImage();
 		mui.ready(function() {
-			mui.previewImage();
 			forcountryPicker.setData(forcountryData);
 			forhardPicker.setData(forhardData);
 			
@@ -189,52 +188,52 @@
 						return;
 					}
 					var bir = getBirthdayFromIdCard(tempbirthday);
-					birthday = bir;
-					$("#birthday").html(bir);
-					$("#birthday").addClass("mui-navigate-right");
-					$("#birthday").removeClass("mui-pull-right");
+					$("#birthday").val(bir);
+					$("#birHandle").addClass("mui-navigate-right");
+					$("#birHandle").removeClass("mui-pull-right");
 				}
 			});
 			
 			gbid('timePicker').addEventListener('tap', function(event) {
 				timePicker.show(function(items) {
-					birthday=parseDate(items.toString());
+					var birthday=parseDate(items.toString());
+					$("#birthday").val(birthday);
 					if(items != null) {;
-                       $("#birthday").addClass("mui-navigate-right");
-                        $("#birthday").removeClass("mui-pull-right");
+                       $("#birHandle").addClass("mui-navigate-right");
+                       $("#birHandle").removeClass("mui-pull-right");
 					}
-					gbid("birthday").innerHTML=items;
+					$("#birHandle").html(items.toString());
 				});
 			});
 			gbid('forcountryPicker').addEventListener('tap', function(event) {
 				forcountryPicker.show(function(items) {
-                    village=items[0].value;
+                    var village=items[0].value;
+					$("#villageId").val(items[0].id);
 					if(village == "") {
-                        $("#village").removeClass("mui-navigate-right");
-                        $("#village").addClass("mui-pull-right");
+                        $("#vilHandle").removeClass("mui-navigate-right");
+                        $("#vilHandle").addClass("mui-pull-right");
 					}else {
-                        $("#village").addClass("mui-navigate-right");
-                        $("#village").removeClass("mui-pull-right");
+                        $("#vilHandle").addClass("mui-navigate-right");
+                        $("#vilHandle").removeClass("mui-pull-right");
 					}
-					gbid("village").innerHTML=items[0].text;
+					$("#vilHandle").html(items[0].text);
 				});
 			});
 			gbid('forhardPicker').addEventListener('tap', function(event) {
 				forhardPicker.show(function(items) {
-					povertyType1 = items[0].value;
-					povertyType2 = items[1].value;
-					if(povertyType1 == "") {
-                        $("#povertyType").removeClass("mui-navigate-right");
-                        $("#povertyType").addClass("mui-pull-right");
-						gbid("povertyType").innerHTML=items[0].text;
+					var deptId = items[0].id;
+					var troubleId = items[1].id;
+					$("#deptId").val(deptId);
+					$("#troubleId").val(troubleId);
+					if(deptId == "") {
+                        $("#troHandle").removeClass("mui-navigate-right");
+                        $("#troHandle").addClass("mui-pull-right");
+						$("#troHandle").html(items[0].text);
 					}else {
-                        $("#povertyType").addClass("mui-navigate-right");
-                        $("#povertyType").removeClass("mui-pull-right");
-						gbid("povertyType").innerHTML=items[0].text+"-"+items[1].text;
+                        $("#troHandle").addClass("mui-navigate-right");
+                        $("#troHandle").removeClass("mui-pull-right");
+						$("#troHandle").html(items[0].text+"-"+items[1].text);
                     }
-					difficultTypeId = povertyType1;
-					povertyType1 = items[0].text;
-					povertyType2 = items[1].text;
 				});
 			});
 			gbid('submitBtn').addEventListener('tap', function(event) {
@@ -247,10 +246,20 @@
 		});
 		
 		function initData() {
+			forcountryPicker.setData(forcountryData);
+			forhardPicker.setData(forhardData);
 			
-			
-			
-			
+			var data = {villageIds:state.villageIds,deptIds:state.deptIds};
+			appajax.SendRequestByPost("base/selectInitData",JSON.stringify(data),function (response) {
+				if("0000" == response.code) {
+					var rtnData = response.result;
+					
+					
+					
+				}
+			},function(response) {
+				mui.toast("初始化数据失败！");
+			},true);
 		}
 		
 		//提交方法

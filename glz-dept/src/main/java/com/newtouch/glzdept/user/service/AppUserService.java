@@ -4,7 +4,7 @@ import com.newtouch.glzdept.user.entity.VO.TUserVO;
 
 import java.util.Map;
 
-public interface UserService {
+public interface AppUserService {
 
     Map<String,Object> userLogin(TUserVO userVO);
 }

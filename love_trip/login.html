@@ -92,17 +92,18 @@
 					var user = rtnData.user;
 					var depts = rtnData.dept;
 					var villages = rtnData.village;
-					var dept = [];
+					var deptIds = [];
 					for(var i = 0;i<depts.length;i++) {
-						dept.push(depts[i].id);
+						deptIds.push(depts[i].id);
 					}
-					var village = [];
+					var villageIds = [];
 					for(var j = 0;j<villages.length;j++) {
-						village.push(villages[j].id);
+						villageIds.push(villages[j].id);
 					}
 					state.userName = user.userName;
-					state.dept = dept;
-					state.village = village;
+					state.deptIds = deptIds;
+					state.villageIds = villageIds;
+					app.setUserState(state);
 					openUrl("menu.html");           
 				 }else{
 					mui.toast('用户名或者密码错误！');
