@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newtouch.glzdept.base.dao.TDictDAO">
+  <resultMap id="BaseResultMap" type="com.newtouch.glzdept.base.entity.VO.TDictVO">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="PARENT_ID" jdbcType="BIGINT" property="parentId" />
+    <result column="DICT_TYPE" jdbcType="VARCHAR" property="dictType" />
+    <result column="DICT_NAME" jdbcType="VARCHAR" property="dictName" />
+    <result column="DICT_VALUE" jdbcType="VARCHAR" property="dictValue" />
+    <result column="CREATE_ID" jdbcType="BIGINT" property="createId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LAST_MODIFY_TIME" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.newtouch.glzdept.base.entity.VO.TDictVO">
+    <result column="COMMENTS" jdbcType="VARBINARY" property="comments" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, PARENT_ID, DICT_TYPE, DICT_NAME, DICT_VALUE, CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME,
+    IS_DELETE
+  </sql>
+  <sql id="Blob_Column_List">
+    COMMENTS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_dict
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_dict
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.glzdept.base.entity.VO.TDictVO">
+    insert into t_dict (ID, PARENT_ID, DICT_TYPE,
+      DICT_NAME, DICT_VALUE, CREATE_ID,
+      CREATE_TIME, LAST_MODIFY_TIME, IS_DELETE,
+      COMMENTS)
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{dictType,jdbcType=VARCHAR},
+      #{dictName,jdbcType=VARCHAR}, #{dictValue,jdbcType=VARCHAR}, #{createId,jdbcType=BIGINT},
+      #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=CHAR},
+      #{comments,jdbcType=VARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.glzdept.base.entity.VO.TDictVO">
+    insert into t_dict
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="dictType != null">
+        DICT_TYPE,
+      </if>
+      <if test="dictName != null">
+        DICT_NAME,
+      </if>
+      <if test="dictValue != null">
+        DICT_VALUE,
+      </if>
+      <if test="createId != null">
+        CREATE_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME,
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE,
+      </if>
+      <if test="comments != null">
+        COMMENTS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="dictType != null">
+        #{dictType,jdbcType=VARCHAR},
+      </if>
+      <if test="dictName != null">
+        #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="dictValue != null">
+        #{dictValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="comments != null">
+        #{comments,jdbcType=VARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.glzdept.base.entity.VO.TDictVO">
+    update t_dict
+    <set>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="dictType != null">
+        DICT_TYPE = #{dictType,jdbcType=VARCHAR},
+      </if>
+      <if test="dictName != null">
+        DICT_NAME = #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="dictValue != null">
+        DICT_VALUE = #{dictValue,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        CREATE_ID = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE = #{isDelete,jdbcType=CHAR},
+      </if>
+      <if test="comments != null">
+        COMMENTS = #{comments,jdbcType=VARBINARY},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.newtouch.glzdept.base.entity.VO.TDictVO">
+    update t_dict
+    set PARENT_ID = #{parentId,jdbcType=BIGINT},
+      DICT_TYPE = #{dictType,jdbcType=VARCHAR},
+      DICT_NAME = #{dictName,jdbcType=VARCHAR},
+      DICT_VALUE = #{dictValue,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR},
+      COMMENTS = #{comments,jdbcType=VARBINARY}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.glzdept.base.entity.VO.TDictVO">
+    update t_dict
+    set PARENT_ID = #{parentId,jdbcType=BIGINT},
+      DICT_TYPE = #{dictType,jdbcType=VARCHAR},
+      DICT_NAME = #{dictName,jdbcType=VARCHAR},
+      DICT_VALUE = #{dictValue,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectDictByVO" resultMap="ResultMapWithBLOBs" parameterType="com.newtouch.glzdept.base.entity.VO.TDictVO">
+    select
+      <include refid="Base_Column_List" />
+      ,
+      <include refid="Blob_Column_List" />
+    from
+      t_dict
+    where
+      1 = 1
+    <include refid="ALL_IF_SELECT"/>
+  </select>
+
+  <sql id="ALL_IF_SELECT">
+    <if test="id != null and id !=''">
+      and id = #{id,jdbcType=BIGINT}
+    </if>
+    <if test="parentId != null and parentId !=''">
+      and parentId = #{parentId,jdbcType=BIGINT}
+    </if>
+    <if test="dictType != null and dictType !=''">
+      and dictType = #{dictType,jdbcType=VARCHAR}
+    </if>
+    <if test="dictName != null and dictName !=''">
+      and dictName = #{dictName,jdbcType=VARCHAR}
+    </if>
+    <if test="dictValue != null and dictValue !=''">
+      and dictValue = #{dictValue,jdbcType=VARCHAR}
+    </if>
+    <if test="createId != null and createId !=''">
+      and createId = #{createId,jdbcType=BIGINT}
+    </if>
+    <if test="isDelete != null and isDelete !=''">
+      and isDelete = #{isDelete,jdbcType=CHAR}
+    </if>
+  </sql>
+
+
+</mapper>
