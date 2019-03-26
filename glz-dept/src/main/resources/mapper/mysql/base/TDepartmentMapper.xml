@@ -147,12 +147,12 @@
       TD.DEPT_NAME,
       TD.DEPT_CODE
     from
-      T_DEPARTMENT TD
+      t_department TD
     where
       1=1
-    <if test="list != null and list.size() > 0">
+    <if test="listss != null and listss.size() > 0">
       and TD.ID in
-      <foreach collection="list" item="item" open="(" separator="," close=")">
+      <foreach collection="listss" item="item" open="(" separator="," close=")">
         #{item}
       </foreach>
     </if>

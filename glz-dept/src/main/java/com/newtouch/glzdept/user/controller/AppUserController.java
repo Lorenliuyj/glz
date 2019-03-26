@@ -5,7 +5,7 @@ import com.newtouch.common.entity.base.ResponseVO;
 import com.newtouch.common.util.CheckUtil;
 import com.newtouch.common.util.ResponseUtil;
 import com.newtouch.glzdept.user.entity.VO.TUserVO;
-import com.newtouch.glzdept.user.service.UserService;
+import com.newtouch.glzdept.user.service.AppUserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -16,11 +16,11 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("user")
-public class UserController {
+public class AppUserController {
 
 
     @Resource
-    UserService userService;
+    AppUserService appUserService;
 
     /**
      * 登录 测试更改 再测试
@@ -30,7 +30,7 @@ public class UserController {
     @RequestMapping(value="/login",method=RequestMethod.POST)
     @ResponseBody
     public ResponseVO userLogin(@RequestBody TUserVO userVO){
-        Map<String,Object> resultMap = userService.userLogin(userVO);
+        Map<String,Object> resultMap = appUserService.userLogin(userVO);
         if(!CheckUtil.isEmpty(resultMap)) {
             //成功
             return ResponseUtil.successResponse(resultMap);

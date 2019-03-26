@@ -1,6 +1,7 @@
 package com.newtouch.glzdept.base.dao;
 
 import com.newtouch.glzdept.base.entity.VO.TVillageVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,6 +18,6 @@ public interface TVillageDAO {
 
     int updateByPrimaryKey(TVillageVO record);
 
-    List<TVillageVO> selectVillageByIds(List<String> list);
+    List<TVillageVO> selectVillageByIds(@Param("list")List<Long> list);
 
 }

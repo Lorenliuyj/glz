@@ -1,6 +1,7 @@
 package com.newtouch.glzdept.base.dao;
 
 import com.newtouch.glzdept.base.entity.VO.TDepartmentVO;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface TDepartmentDAO {
 
     int updateByPrimaryKey(TDepartmentVO record);
 
-    List<TDepartmentVO> selectDeptTroubleByIds(List<String> list);
+    List<TDepartmentVO> selectDeptTroubleByIds(@Param("listss")List<Long> list);
 }

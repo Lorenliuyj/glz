@@ -1,6 +1,7 @@
 package com.newtouch.glzdept.base.service;
 
 import com.newtouch.glzdept.base.entity.VO.TVillageVO;
+import com.newtouch.glzdept.base.entity.base.BaseTransCommonVO;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,9 @@ import java.util.Map;
 
 public interface BaseService {
 
-    Map<String,Object> selectDeptTroubleByIds(List<String> list);
+    Map<String,Object> selectDeptTroubleByIds(List<Long> list);
 
-    Map<String, Object> selectVillageByIds(List<String> list);
+    Map<String, Object> selectVillageByIds(List<Long> list);
+
+    Map<String, Object> selectInitData(BaseTransCommonVO baseTransCommonVO);
 }
