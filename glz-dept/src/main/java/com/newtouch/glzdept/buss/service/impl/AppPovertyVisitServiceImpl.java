@@ -5,14 +5,14 @@ import com.newtouch.common.entity.base.Page;
 import com.newtouch.common.exception.BlcException;
 import com.newtouch.glzdept.buss.dao.PovertyVisitDao;
 import com.newtouch.glzdept.buss.entity.VO.PovertyVisitVO;
-import com.newtouch.glzdept.buss.service.IPovertyVisitService;
+import com.newtouch.glzdept.buss.service.AppPovertyVisitService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 
 @Service
-public class PovertyVisitServiceImpl implements IPovertyVisitService {
+public class AppPovertyVisitServiceImpl implements AppPovertyVisitService {
 
     @Resource
     PovertyVisitDao povertyVisitDao;

@@ -101,19 +101,6 @@
 			<div id="selectMenu">
 				<div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">所属村居</div>
 				<ul id="forcountryRow" class="mui-table-view mui-grid-view">
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784002">东宁社区</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784201">古劳村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784202">麦水村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784203">丽水村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784204">茶山村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784205">下六村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784206">连城村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784207">连南村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784208">连北村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784209">大埠村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784210">双桥村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784211">上升村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784212">新星村</a></li>
 				</ul>
 				<!-- <div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">一级困难类型</div>
 				<ul id="hardRow1" class="mui-table-view mui-grid-view">
@@ -144,6 +131,7 @@
 	<script src="../js/appajax.js"></script>
 	<script src="../js/jquery2.min.js"></script>
 	<script>
+		var state = app.getUserState();
         mui.ready(function () {
 			mui.init({
 				pullRefresh: {
@@ -161,6 +149,18 @@
 				}
 			});
         });
+		var count = 0;
+		var villageData = [];
+		function loadInitData(rtnData) {
+			villageData = rtnData.villages;
+			console.log(villageData);
+			for(var i=0;i<villageData.length;i++) {
+				var li = document.createElement('li');
+				li.className = 'mui-table-view-cell mui-col-sm-3 mui-col-xs-3';
+				li.innerHTML = '<a id="'+villageData[i].id+'">'+villageData[i].text+'</a>';
+				gbid('forcountryRow').appendChild(li);
+			}
+		}
         var upAndDown = 0;//0:up,1:down
         function pullupRefresh() {
             upAndDown = 0;
@@ -183,20 +183,21 @@
 		var pageNum = 0;
 		var pageSize = 10;
 		var table = gbid("visitorlist");
-		var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
-		    {value:"440784202",text:"麦水村"},{value:"440784203",text:"丽水村"},{value:"440784204",text:"茶山村"},
-		    {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
-		    {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
-		    {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
+		
 		function getData(upAndDown) {
-			var data = {pageNum:pageNum,pageSize:pageSize,povertyPeopleName:$("#sName").val(),villages:villages};
+			var data = {pageNum:pageNum,pageSize:pageSize,povertyPeopleName:$("#sName").val(),villages:villages,
+			baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
 			console.log(JSON.stringify(data));
 			appajax.SendRequestByGet("visit/selectvisitPage",data,function(response) {
 				if(response.code = '0000') {
 					var rtnData = response.result;
+					if(count == 0) {
+						count++;
+						loadInitData(rtnData);
+					}
 					console.log(rtnData);
-					var list = rtnData.list;
-					var total = rtnData.totalNum;
+					var list = rtnData.list.list;
+					var total = rtnData.list.totalNum;
 					if(upAndDown == 0 || pageNum == 1) {
 						mui('#pullrefresh').pullRefresh().endPullupToRefresh((pageNum*pageSize)>=total);
 					}
@@ -211,8 +212,8 @@
 													'<div class="mui-ellipsis-2">'+list[i].povertyPeopleName+'</div>'+
 												'</div>'+
 												'<div class="meta-info">'+
-													'<div class="author">'+getDictJsonText(forcountryData, list[i].village)+'</div>'+
-													'<div class="time">'+list[i].condolenceDate+'</div>'+
+													'<div class="author">'+getDictJsonText(villageData, list[i].villageId)+'</div>'+
+													'<div class="time">'+list[i].visitDate+'</div>'+
 												'</div>'+
 											'</a>';
 							table.appendChild(li);		

@@ -187,22 +187,22 @@
       and id = #{id,jdbcType=BIGINT}
     </if>
     <if test="parentId != null and parentId !=''">
-      and parentId = #{parentId,jdbcType=BIGINT}
+      and PARENT_ID = #{parentId,jdbcType=BIGINT}
     </if>
     <if test="dictType != null and dictType !=''">
-      and dictType = #{dictType,jdbcType=VARCHAR}
+      and DICT_TYPE = #{dictType,jdbcType=VARCHAR}
     </if>
     <if test="dictName != null and dictName !=''">
-      and dictName = #{dictName,jdbcType=VARCHAR}
+      and DICT_NAME = #{dictName,jdbcType=VARCHAR}
     </if>
     <if test="dictValue != null and dictValue !=''">
-      and dictValue = #{dictValue,jdbcType=VARCHAR}
+      and DICT_VALUE = #{dictValue,jdbcType=VARCHAR}
     </if>
     <if test="createId != null and createId !=''">
-      and createId = #{createId,jdbcType=BIGINT}
+      and CREATE_ID = #{createId,jdbcType=BIGINT}
     </if>
     <if test="isDelete != null and isDelete !=''">
-      and isDelete = #{isDelete,jdbcType=CHAR}
+      and IS_DELETE = #{isDelete,jdbcType=CHAR}
     </if>
   </sql>
 

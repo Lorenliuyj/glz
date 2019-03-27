@@ -13,9 +13,9 @@ public class PovertyVisitVO {
     /*出生日期*/
     private String birthday;
     /*所属村居*/
-    private String village;
+    private String villageId;
     /*慰问日期*/
-    private String condolenceDate;
+    private String visitDate;
     /*家庭情况*/
     private String familyDetail;
     /*走访人id*/
@@ -23,11 +23,11 @@ public class PovertyVisitVO {
     /*走访人名称*/
     private String visitorName;
     /*慰问品*/
-    private String condolenceProduct;
+    private String visitGoods;
     /*群众诉求*/
     private String massAppeal;
     /*慰问情况*/
-    private String condolenceDetail;
+    private String visitDetail;
     /*图片1*/
     private String image1;
     /*图片2*/
@@ -48,6 +48,7 @@ public class PovertyVisitVO {
 
     private List<String> villages;
 
+    private String villageName;
 
     public Integer getId() {
         return id;
@@ -81,22 +82,6 @@ public class PovertyVisitVO {
         this.birthday = birthday;
     }
 
-    public String getVillage() {
-        return village;
-    }
-
-    public void setVillage(String village) {
-        this.village = village;
-    }
-
-    public String getCondolenceDate() {
-        return condolenceDate;
-    }
-
-    public void setCondolenceDate(String condolenceDate) {
-        this.condolenceDate = condolenceDate;
-    }
-
     public String getFamilyDetail() {
         return familyDetail;
     }
@@ -121,28 +106,12 @@ public class PovertyVisitVO {
         this.visitorName = visitorName;
     }
 
-    public String getCondolenceProduct() {
-        return condolenceProduct;
-    }
-
-    public void setCondolenceProduct(String condolenceProduct) {
-        this.condolenceProduct = condolenceProduct;
-    }
-
     public String getMassAppeal() {
         return massAppeal;
     }
 
     public void setMassAppeal(String massAppeal) {
         this.massAppeal = massAppeal;
-    }
-
-    public String getCondolenceDetail() {
-        return condolenceDetail;
-    }
-
-    public void setCondolenceDetail(String condolenceDetail) {
-        this.condolenceDetail = condolenceDetail;
     }
 
     public String getImage1() {
@@ -215,5 +184,45 @@ public class PovertyVisitVO {
 
     public void setVillages(List<String> villages) {
         this.villages = villages;
+    }
+
+    public String getVillageId() {
+        return villageId;
+    }
+
+    public void setVillageId(String villageId) {
+        this.villageId = villageId;
+    }
+
+    public String getVisitDate() {
+        return visitDate;
+    }
+
+    public void setVisitDate(String visitDate) {
+        this.visitDate = visitDate;
+    }
+
+    public String getVillageName() {
+        return villageName;
+    }
+
+    public void setVillageName(String villageName) {
+        this.villageName = villageName;
+    }
+
+    public String getVisitGoods() {
+        return visitGoods;
+    }
+
+    public void setVisitGoods(String visitGoods) {
+        this.visitGoods = visitGoods;
+    }
+
+    public String getVisitDetail() {
+        return visitDetail;
+    }
+
+    public void setVisitDetail(String visitDetail) {
+        this.visitDetail = visitDetail;
     }
 }

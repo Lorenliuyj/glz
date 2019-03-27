@@ -11,8 +11,6 @@ public class PovertyPeoplePO {
 
     private String id;
 
-    private String difficultTypeId;
-
     private String povertyName;
 
     private String sex;
@@ -21,11 +19,11 @@ public class PovertyPeoplePO {
 
     private String birthday;
 
-    private String village;
+    private String villageId;
 
-    private String povertyType1;
+    private String deptId;
 
-    private String povertyType2;
+    private String troubleId;
 
     private String address;
 
@@ -33,7 +31,7 @@ public class PovertyPeoplePO {
 
     private String familyDetail;
 
-    private String trouble;
+    private String troubleDesc;
 
     private String image1;
 
@@ -53,14 +51,6 @@ public class PovertyPeoplePO {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getDifficultTypeId() {
-        return difficultTypeId;
-    }
-
-    public void setDifficultTypeId(String difficultTypeId) {
-        this.difficultTypeId = difficultTypeId;
     }
 
     public String getPovertyName() {
@@ -95,30 +85,6 @@ public class PovertyPeoplePO {
         this.birthday = birthday;
     }
 
-    public String getVillage() {
-        return village;
-    }
-
-    public void setVillage(String village) {
-        this.village = village;
-    }
-
-    public String getPovertyType1() {
-        return povertyType1;
-    }
-
-    public void setPovertyType1(String povertyType1) {
-        this.povertyType1 = povertyType1;
-    }
-
-    public String getPovertyType2() {
-        return povertyType2;
-    }
-
-    public void setPovertyType2(String povertyType2) {
-        this.povertyType2 = povertyType2;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -141,14 +107,6 @@ public class PovertyPeoplePO {
 
     public void setFamilyDetail(String familyDetail) {
         this.familyDetail = familyDetail;
-    }
-
-    public String getTrouble() {
-        return trouble;
-    }
-
-    public void setTrouble(String trouble) {
-        this.trouble = trouble;
     }
 
     public String getImage1() {
@@ -197,6 +155,38 @@ public class PovertyPeoplePO {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getVillageId() {
+        return villageId;
+    }
+
+    public void setVillageId(String villageId) {
+        this.villageId = villageId;
+    }
+
+    public String getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getTroubleId() {
+        return troubleId;
+    }
+
+    public void setTroubleId(String troubleId) {
+        this.troubleId = troubleId;
+    }
+
+    public String getTroubleDesc() {
+        return troubleDesc;
+    }
+
+    public void setTroubleDesc(String troubleDesc) {
+        this.troubleDesc = troubleDesc;
     }
 }
 

@@ -98,8 +98,8 @@ public class BaseServiceImpl implements BaseService {
 
     @Override
     public Map<String, Object> selectInitData(BaseTransCommonVO baseTransCommonVO) {
-        List<Long> deptIds = baseTransCommonVO.getDeptIds();
-        List<Long> villageIds = baseTransCommonVO.getVillageIds();
+        List<Long> deptIds = baseTransCommonVO.getBaseDeptIds();
+        List<Long> villageIds = baseTransCommonVO.getBaseVillageIds();
         Map<String,Object> resultMap = selectDeptTroubleByIds(deptIds);
         Map<String,Object> resultMap1 = selectVillageByIds(villageIds);
         TDictVO dict = new TDictVO();

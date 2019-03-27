@@ -12,34 +12,35 @@ import java.util.List;
  */
 public class PovertyPeopleVO extends PovertyPeoplePO {
 
-    private List<String> villages;
+    private List<String> villageIds;
 
-    private List<String> povertyType1s;
+    private List<String> deptIds;
 
-    private List<String> povertyType2s;
+    private List<String> troubleIds;
 
-    public List<String> getVillages() {
-        return villages;
+
+    public List<String> getDeptIds() {
+        return deptIds;
     }
 
-    public void setVillages(List<String> villages) {
-        this.villages = villages;
+    public void setDeptIds(List<String> deptIds) {
+        this.deptIds = deptIds;
     }
 
-    public List<String> getPovertyType1s() {
-        return povertyType1s;
+    public List<String> getTroubleIds() {
+        return troubleIds;
     }
 
-    public void setPovertyType1s(List<String> povertyType1s) {
-        this.povertyType1s = povertyType1s;
+    public void setTroubleIds(List<String> troubleIds) {
+        this.troubleIds = troubleIds;
     }
 
-    public List<String> getPovertyType2s() {
-        return povertyType2s;
+    public List<String> getVillageIds() {
+        return villageIds;
     }
 
-    public void setPovertyType2s(List<String> povertyType2s) {
-        this.povertyType2s = povertyType2s;
+    public void setVillageIds(List<String> villageIds) {
+        this.villageIds = villageIds;
     }
 }
 

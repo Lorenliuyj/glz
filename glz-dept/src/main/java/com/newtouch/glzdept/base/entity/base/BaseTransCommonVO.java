@@ -5,31 +5,31 @@ import java.util.List;
 /**
  * 该类为基础数据模块公共传输类
  */
-public class BaseTransCommonVO {
+public class BaseTransCommonVO <T>{
     /**
      * 含村落
      */
-    private List<Long> villageIds;
+    private List<T> baseVillageIds;
 
     /**
      * 含部门
      */
-    private List<Long> deptIds;
+    private List<T> baseDeptIds;
 
 
-    public List<Long> getVillageIds() {
-        return villageIds;
+    public List<T> getBaseVillageIds() {
+        return baseVillageIds;
     }
 
-    public void setVillageIds(List<Long> villageIds) {
-        this.villageIds = villageIds;
+    public void setBaseVillageIds(List<T> baseVillageIds) {
+        this.baseVillageIds = baseVillageIds;
     }
 
-    public List<Long> getDeptIds() {
-        return deptIds;
+    public List<T> getBaseDeptIds() {
+        return baseDeptIds;
     }
 
-    public void setDeptIds(List<Long> deptIds) {
-        this.deptIds = deptIds;
+    public void setBaseDeptIds(List<T> baseDeptIds) {
+        this.baseDeptIds = baseDeptIds;
     }
 }

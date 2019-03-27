@@ -69,9 +69,9 @@
                 <div class="mui-input-row">
                     <label style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;性别</label>
                     <div class="radio_inline mui-radio mui-pull-right" style="width: 60%;" >
-                        <input name="sex" type="radio" value="0">
+                        <input name="sex" type="radio" value="M">
                         <label class="radio-inline"  style="width: 90px;">男</label>
-                        <input name="sex" type="radio" value="1">
+                        <input name="sex" type="radio" value="F">
                         <label class="radio-inline"  style="width: 90px;">女</label>
                     </div>
                 </div>
@@ -158,23 +158,11 @@
 		timePicker.setSelectedValue("1980-01-01");
         var forcountryPicker = new mui.PopPicker();
         var forhardPicker = new mui.PopPicker({layer: 2});
-        var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
-            {value:"440784202",text:"麦水村"},{value:"440784203",text:"丽水村"},{value:"440784204",text:"茶山村"},
-            {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
-            {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
-            {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
-        var forhardData=[{value:"",text:"请选择", id:"",children:[{value:"",text:" "}]},
-			{value:"001",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
-			{value:"002",text:"组织办",children:[{value:"10",text:"困难党员"}]},
-            {value:"003",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
-			{value:"004",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
-			
+        var pickerInitData = [{id:"",text:"请选择",value:""}];
         mui.init();
         mui.previewImage();
 		mui.ready(function() {
-			forcountryPicker.setData(forcountryData);
-			forhardPicker.setData(forhardData);
-			
+			//初始化数据
 			initData();
 			
 			gbid('idcardNo').addEventListener('keyup',function(event) {
@@ -189,6 +177,7 @@
 					}
 					var bir = getBirthdayFromIdCard(tempbirthday);
 					$("#birthday").val(bir);
+					$("#birHandle").html(bir);
 					$("#birHandle").addClass("mui-navigate-right");
 					$("#birHandle").removeClass("mui-pull-right");
 				}
@@ -246,16 +235,14 @@
 		});
 		
 		function initData() {
-			forcountryPicker.setData(forcountryData);
-			forhardPicker.setData(forhardData);
-			
-			var data = {villageIds:state.villageIds,deptIds:state.deptIds};
+			var data = {baseVillageIds:state.villageIds,baseDeptIds:state.deptIds};
 			appajax.SendRequestByPost("base/selectInitData",JSON.stringify(data),function (response) {
 				if("0000" == response.code) {
 					var rtnData = response.result;
-					
-					
-					
+					var villageData = rtnData.villages;
+					var TroData = rtnData.depts;
+					forcountryPicker.setData(villageData.length>0?villageData:pickerInitData);
+					forhardPicker.setData(TroData.length>0?TroData:pickerInitData);
 				}
 			},function(response) {
 				mui.toast("初始化数据失败！");
@@ -266,9 +253,9 @@
 		function submitFun() {
 			//给图片设置值
 			setImage();
-			var data = {povertyName:gbid('povertyName').value,sex:$("input[name='sex']:checked").val(),idcardNo:gbid('idcardNo').value,birthday:birthday,
-                village:village,difficultTypeId:difficultTypeId,povertyType1:povertyType1,povertyType2:povertyType2,address:gbid('address').value,phone:gbid('phone').value,
-                familyDetail:gbid('familyDetail').value,trouble:gbid('trouble').value,income:$("#income").val(),comments:$("#comments").val(),
+			var data = {povertyName:gbid('povertyName').value,sex:$("input[name='sex']:checked").val(),idcardNo:gbid('idcardNo').value,birthday:$("#birthday").val(),
+                villageId:$("#villageId").val(),deptId:$("#deptId").val(),troubleId:$("#troubleId").val(),address:gbid('address').value,phone:gbid('phone').value,
+                familyDetail:gbid('familyDetail').value,troubleDesc:gbid('troubleDesc').value,income:$("#income").val(),comments:$("#comments").val(),
 				image1:image1,image2:image2,image3:image3,imageMin:imageMin
 			};
 			//校验
@@ -345,11 +332,11 @@
 				mui.toast("出生日期不能为空！");
 				return false;
 			}
-			if(data.village == "") {
+			if(data.villageId == "") {
 				mui.toast("所属村居不能为空！");
 				return false;
 			}
-			if(data.difficultTypeId == "") {
+			if(data.deptId == "") {
 				mui.toast("困难类型不能为空！");
 				return false;
 			}
@@ -373,8 +360,13 @@
 		function verifobj(idcardNo) {
 			var data = {idcardNo:idcardNo};
 			appajax.SendRequestByPost("poverty/verif",JSON.stringify(data),function (response) {
-				if("0000" == response.code) {					
-					backFlag = true;			
+				if("0000" == response.code) {
+					var rtnData = response.result;
+					if(rtnData == '0') {
+						backFlag = true;	
+					}else {
+						backFlag = false;
+					}		
 				}else{
 					backFlag = false;
 				}
