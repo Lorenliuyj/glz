@@ -47,7 +47,7 @@
 					<input id="povertyPeopleName" type="text" class="mui-pull-right mui-input" style="width: 60%;" readonly="readonly"/>
 				</div>
 				<ul class="mui-table-view mui-table-view-chevron u">
-					<li class="mui-table-view-cell" id="timePicker">
+					<li class="mui-table-view-cell">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;出生年月</label>
 						<p id="birthday">请选择</p>
 					</li>
@@ -61,7 +61,7 @@
 					<input id="familyDetail" type="text" class="mui-pull-right mui-input" style="width: 60%;" readonly="readonly" placeholder="请填写家庭情况"/>
 				</div>
 				<ul class="mui-table-view mui-table-view-chevron u">
-					<li class="mui-table-view-cell" id="timePicker">
+					<li class="mui-table-view-cell">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问日期</label>
 						<input id="visitDate" type="text" class="mui-input mui-hidden"/>
 						<p id="visHandle" class="mui-pull-right">请选择</p>
@@ -117,30 +117,32 @@
 		
 		//本地缓存
 		var id = localStorage.getItem("vid");
+		var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
 		mui.init();
 		mui.ready(function() {
 			mui.previewImage();
 			var data = {id:id};
 			var tabimg = gbid("imgList");
-			console.log(data);
 			appajax.SendRequestByPost("visit/visitInfo",JSON.stringify(data),function (response) {
 				console.log(response.result);
 				if("0000" == response.code) {
 					var rtnData = response.result;
 					$("#povertyPeopleName").val(rtnData.povertyPeopleName);
 					$("#birthday").html(rtnData.birthday);
-					$("#village").html(getDictJsonText(forcountryData, rtnData.village));
-					$("#condolenceDate").html(rtnData.condolenceDate);
+					$("#village").html(rtnData.villageName);
+					$("#visitDate").val(rtnData.visitDate);
+					$("#visHandle").html(rtnData.visitDate);
+					$("#visHandle").removeClass("mui-pull-right");
 					$("#familyDetail").val(rtnData.familyDetail);
 					$("#visitorName").val(rtnData.visitorName);
-					$("#condolenceProduct").val(rtnData.condolenceProduct);
+					$("#visitGoods").val(rtnData.visitGoods);
 					$("#massAppeal").val(rtnData.massAppeal);
-					$("#condolenceDetail").val(rtnData.condolenceDetail);
+					$("#visitDetail").val(rtnData.visitDetail);
 					$("#comments").val(rtnData.comments);
 				}
 			},function(response) {
 					mui.toast("查询详情失败！");
-			},true);
+			},false);
 			
 			//同步查询图片
 			appajax.SendRequestByPost("visit/visitInfoImgs",JSON.stringify(data),function (response) {
@@ -174,6 +176,18 @@
 					mui.toast("查询图片失败！");
 			},true);
 			
+			/* gbid('timePicker').addEventListener('tap', function(event) {
+				timePicker.show(function(items) {
+					var visitDate=parseDate(items.toString());
+					$("#visitDate").val(visitDate);
+					if(items != null) {;
+			           $("#visHandle").addClass("mui-navigate-right");
+			           $("#visHandle").removeClass("mui-pull-right");
+					}
+					gbid("visHandle").innerHTML=items;
+				});
+			}); */
+			
 			gbid('submitBtn').addEventListener('tap', function(event) {
 				submitFun();
 			});
@@ -181,8 +195,8 @@
 		});
 		
 		function submitFun() {
-			var data = {id:id,condolenceProduct:$("#condolenceProduct").val(),
-			    massAppeal:$("#massAppeal").val(),condolenceDetail:$("#condolenceDetail").val(),
+			var data = {id:id,visitGoods:$("#visitGoods").val(),
+			    massAppeal:$("#massAppeal").val(),visitDetail:$("#visitDetail").val(),
 				comments:$("#comments").val()
 			};
 			$("#submitBtn").attr('disabled',true);
@@ -203,13 +217,6 @@
 			});
 		}
 		
-		
-		
-		var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
-            {value:"440784202",text:"麦水村"},{value:"440784203",text:"丽水村"},{value:"440784204",text:"茶山村"},
-            {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
-            {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
-            {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
 		//初始化数据设置
 		function plusReady(){
 			forcountryPicker.setData(forcountryData);
