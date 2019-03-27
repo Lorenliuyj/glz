@@ -20,6 +20,7 @@
             //plus.nativeUI.closeWaiting();
             //plus.nativeUI.showWaiting();
             mui.getJSON(appajax.SERVER_URL+action, data, function (response) {
+				consoleLog("ajax return data:"+JSON.stringify(response));
                 if (response.code == "0000") {
                     successCallback && successCallback(response);
                 } else {

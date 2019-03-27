@@ -7,14 +7,15 @@
         <result column="poverty_people_id" property="povertyPeopleId" jdbcType="BIGINT" />
         <result column="poverty_people_name" property="povertyPeopleName" jdbcType="VARCHAR" />
         <result column="birthday" property="birthday" jdbcType="DATE" />
-        <result column="village" property="village" jdbcType="VARCHAR" />
-        <result column="condolence_date" property="condolenceDate" jdbcType="DATE" />
+        <result column="village_id" property="villageId" jdbcType="VARCHAR" />
+        <result column="village_name" property="villageName" jdbcType="VARCHAR" />
+        <result column="visit_date" property="visitDate" jdbcType="DATE" />
         <result column="family_detail" property="familyDetail" jdbcType="VARCHAR" />
         <result column="visitor_id" property="visitorId" jdbcType="BIGINT" />
         <result column="visitor_name" property="visitorName" jdbcType="VARCHAR" />
-        <result column="condolence_product" property="condolenceProduct" jdbcType="VARCHAR" />
+        <result column="visit_goods" property="visitGoods" jdbcType="VARCHAR" />
         <result column="mass_appeal" property="massAppeal" jdbcType="VARCHAR" />
-        <result column="condolence_detail" property="condolenceDetail" jdbcType="VARCHAR" />
+        <result column="visit_detail" property="visitDetail" jdbcType="VARCHAR" />
         <result column="image_1" property="image1" jdbcType="BLOB" />
         <result column="image_2" property="image2" jdbcType="BLOB" />
         <result column="image_3" property="image3" jdbcType="BLOB" />
@@ -22,7 +23,7 @@
         <result column="comments" property="comments" jdbcType="VARCHAR" />
         <result column="create_id" property="createId" jdbcType="BIGINT" />
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-        <result column="isdelete" property="isdelete" jdbcType="CHAR" />
+        <result column="is_delete" property="isdelete" jdbcType="CHAR" />
     </resultMap>
 
     <sql id="ALL_COLUMN">
@@ -34,20 +35,19 @@
     <sql id="BASE_COLUMN">
         id,
         poverty_people_id,
-        poverty_people_name,
         birthday,
-        village,
-        condolence_date,
+        village_id,
+        visit_date,
         family_detail,
         visitor_id,
         visitor_name,
-        condolence_product,
+        visit_goods,
         mass_appeal,
-        condolence_detail,
+        visit_detail,
         comments,
         create_id,
         create_time,
-        isdelete
+        is_delete
     </sql>
 
     <sql id="IMGS_COLUMN">
@@ -61,16 +61,16 @@
         <if test="povertyVisitVO!= null">
             <if test="povertyVisitVO.id != null and povertyVisitVO.id != ''"> AND id = #{povertyVisitVO.id} </if>
             <if test="povertyVisitVO.povertyPeopleId != null and povertyVisitVO.povertyPeopleId != ''"> AND poverty_people_id = #{povertyVisitVO.povertyPeopleId} </if>
-            <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> AND poverty_people_name LIKE CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')  </if>
+            <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> AND tpp.poverty_name LIKE CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')  </if>
             <if test="povertyVisitVO.birthday != null and povertyVisitVO.birthday != ''"> AND birthday = #{povertyVisitVO.birthday} </if>
-            <if test="povertyVisitVO.village != null and povertyVisitVO.village != ''"> AND village = #{povertyVisitVO.village} </if>
-            <if test="povertyVisitVO.condolenceDate != null and povertyVisitVO.condolenceDate != ''"> AND condolence_date = #{povertyVisitVO.condolenceDate} </if>
+            <if test="povertyVisitVO.villageId != null and povertyVisitVO.villageId != ''"> AND village_id = #{povertyVisitVO.villageId} </if>
+            <if test="povertyVisitVO.visitDate != null and povertyVisitVO.visitDate != ''"> AND visit_date = #{povertyVisitVO.visitDate} </if>
             <if test="povertyVisitVO.familyDetail != null and povertyVisitVO.familyDetail != ''"> AND family_detail = #{povertyVisitVO.familyDetail} </if>
             <if test="povertyVisitVO.visitorId != null and povertyVisitVO.visitorId != ''"> AND visitor_id = #{povertyVisitVO.visitorId} </if>
             <if test="povertyVisitVO.visitorName != null and povertyVisitVO.visitorName != ''"> AND visitor_name = #{povertyVisitVO.visitorName} </if>
-            <if test="povertyVisitVO.condolenceProduct != null and povertyVisitVO.condolenceProduct != ''"> AND condolence_product = #{povertyVisitVO.condolenceProduct} </if>
+            <if test="povertyVisitVO.visitGoods != null and povertyVisitVO.visitGoods != ''"> AND visit_goods = #{povertyVisitVO.visitGoods} </if>
             <if test="povertyVisitVO.massAppeal != null and povertyVisitVO.massAppeal != ''"> AND mass_appeal = #{povertyVisitVO.massAppeal} </if>
-            <if test="povertyVisitVO.condolenceDetail != null and povertyVisitVO.condolenceDetail != ''"> AND condolence_detail = #{povertyVisitVO.condolenceDetail} </if>
+            <if test="povertyVisitVO.visitDetail != null and povertyVisitVO.visitDetail != ''"> AND visit_detail = #{povertyVisitVO.visitDetail} </if>
             <if test="povertyVisitVO.createId != null and povertyVisitVO.createId != ''"> AND create_id = #{povertyVisitVO.createId} </if>
             <if test="povertyVisitVO.image1 != null and povertyVisitVO.image1 != ''"> AND image_1 = #{povertyVisitVO.image1} </if>
             <if test="povertyVisitVO.image2 != null and povertyVisitVO.image2 != ''"> AND image_2 = #{povertyVisitVO.image2} </if>
@@ -78,15 +78,15 @@
             <if test="povertyVisitVO.imageMin != null and povertyVisitVO.imageMin != ''"> AND image_min = #{povertyVisitVO.imageMin} </if>
             <if test="povertyVisitVO.createTime != null and povertyVisitVO.createTime != ''"> AND create_time = #{povertyVisitVO.createTime} </if>
             <if test="povertyVisitVO.comments != null and povertyVisitVO.comments != ''"> AND comments = #{povertyVisitVO.comments} </if>
-            <if test="povertyVisitVO.isdelete != null and povertyVisitVO.isdelete != ''"> AND isdelete = #{povertyVisitVO.isdelete} </if>
+            <if test="povertyVisitVO.isdelete != null and povertyVisitVO.isdelete != ''"> AND is_delete = #{povertyVisitVO.isdelete} </if>
             <if test="povertyVisitVO.villages != null and povertyVisitVO.villages.size() > 0">
                 AND
                 <choose>
                     <when test="povertyVisitVO.villages.size() == 1">
-                        village = #{povertyVisitVO.villages[0]}
+                        tpv.village_id = #{povertyVisitVO.villages[0]}
                     </when>
                     <otherwise>
-                        village IN
+                        tpv.village_id IN
                         <foreach collection="povertyVisitVO.villages" item="item" open="(" separator="," close=")">
                             #{item}
                         </foreach>
@@ -101,16 +101,15 @@
         <if test="povertyVisitVO!= null">
             <if test="povertyVisitVO.id != null and povertyVisitVO.id != ''"> id = #{povertyVisitVO.id} </if>
             <if test="povertyVisitVO.povertyPeopleId != null and povertyVisitVO.povertyPeopleId != ''"> ,poverty_people_id = #{povertyVisitVO.povertyPeopleId} </if>
-            <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> ,poverty_people_name  = #{povertyVisitVO.povertyPeopleName}  </if>
             <if test="povertyVisitVO.birthday != null and povertyVisitVO.birthday != ''"> ,birthday = #{povertyVisitVO.birthday} </if>
-            <if test="povertyVisitVO.village != null and povertyVisitVO.village != ''"> ,village = #{povertyVisitVO.village} </if>
-            <if test="povertyVisitVO.condolenceDate != null and povertyVisitVO.condolenceDate != ''"> ,condolence_date = #{povertyVisitVO.condolenceDate} </if>
+            <if test="povertyVisitVO.villageId != null and povertyVisitVO.villageId != ''"> ,village_id = #{povertyVisitVO.villageId} </if>
+            <if test="povertyVisitVO.visitDate != null and povertyVisitVO.visitDate != ''"> ,visit_date = #{povertyVisitVO.visitDate} </if>
             <if test="povertyVisitVO.familyDetail != null and povertyVisitVO.familyDetail != ''"> ,family_detail = #{povertyVisitVO.familyDetail} </if>
             <if test="povertyVisitVO.visitorId != null and povertyVisitVO.visitorId != ''"> ,visitor_id = #{povertyVisitVO.visitorId} </if>
             <if test="povertyVisitVO.visitorName != null and povertyVisitVO.visitorName != ''"> ,visitor_name = #{povertyVisitVO.visitorName} </if>
-            <if test="povertyVisitVO.condolenceProduct != null and povertyVisitVO.condolenceProduct != ''"> ,condolence_product = #{povertyVisitVO.condolenceProduct} </if>
+            <if test="povertyVisitVO.visitGoods != null and povertyVisitVO.visitGoods != ''"> ,visit_goods = #{povertyVisitVO.visitGoods} </if>
             <if test="povertyVisitVO.massAppeal != null and povertyVisitVO.massAppeal != ''"> ,mass_appeal = #{povertyVisitVO.massAppeal} </if>
-            <if test="povertyVisitVO.condolenceDetail != null and povertyVisitVO.condolenceDetail != ''"> ,condolence_detail = #{povertyVisitVO.condolenceDetail} </if>
+            <if test="povertyVisitVO.visitDetail != null and povertyVisitVO.visitDetail != ''"> ,visit_detail = #{povertyVisitVO.visitDetail} </if>
             <if test="povertyVisitVO.createId != null and povertyVisitVO.createId != ''"> ,create_id = #{povertyVisitVO.createId} </if>
             <if test="povertyVisitVO.image1 != null and povertyVisitVO.image1 != ''"> ,image_1 = #{povertyVisitVO.image1} </if>
             <if test="povertyVisitVO.image2 != null and povertyVisitVO.image2 != ''"> ,image_2 = #{povertyVisitVO.image2} </if>
@@ -118,7 +117,7 @@
             <if test="povertyVisitVO.imageMin != null and povertyVisitVO.imageMin != ''"> ,image_min = #{povertyVisitVO.imageMin} </if>
             <if test="povertyVisitVO.createTime != null and povertyVisitVO.createTime != ''"> ,create_time = #{povertyVisitVO.createTime} </if>
             <if test="povertyVisitVO.comments != null and povertyVisitVO.comments != ''"> ,comments = #{povertyVisitVO.comments} </if>
-            <if test="povertyVisitVO.isdelete != null and povertyVisitVO.isdelete != ''"> ,isdelete = #{povertyVisitVO.isdelete} </if>
+            <if test="povertyVisitVO.isdelete != null and povertyVisitVO.isdelete != ''"> ,is_delete = #{povertyVisitVO.isdelete} </if>
         </if>
     </sql>
 
@@ -131,16 +130,15 @@
           t_poverty_visit
        <trim prefix="(" suffix=")" suffixOverrides=",">
            <if test="visitVO.povertyPeopleId != null and visitVO.povertyPeopleId != ''">poverty_people_id,</if>
-           <if test="visitVO.povertyPeopleName != null and visitVO.povertyPeopleName != ''">poverty_people_name,</if>
            <if test="visitVO.birthday != null and visitVO.birthday != ''">birthday,</if>
-          <if test="visitVO.village != null and visitVO.village != ''">village,</if>
-           <if test="visitVO.condolenceDate != null and visitVO.condolenceDate != ''">condolence_date,</if>
+          <if test="visitVO.villageId != null and visitVO.villageId != ''">village_id,</if>
+           <if test="visitVO.visitDate != null and visitVO.visitDate != ''">visit_date,</if>
            <if test="visitVO.familyDetail != null and visitVO.familyDetail != ''">family_detail,</if>
           <if test="visitVO.visitorId != null and visitVO.visitorId != ''">visitor_id,</if>
           <if test="visitVO.visitorName != null and visitVO.visitorName != ''">visitor_name,</if>
-           <if test="visitVO.condolenceProduct != null and visitVO.condolenceProduct != ''">condolence_product,</if>
+           <if test="visitVO.visitGoods != null and visitVO.visitGoods != ''">visit_goods,</if>
           <if test="visitVO.massAppeal != null and visitVO.massAppeal != ''">mass_appeal,</if>
-          <if test="visitVO.condolenceDetail != null and visitVO.condolenceDetail != ''">condolence_detail,</if>
+          <if test="visitVO.visitDetail != null and visitVO.visitDetail != ''">visit_detail,</if>
           <if test="visitVO.createId != null and visitVO.createId != ''">create_id,</if>
           <if test="visitVO.image1 != null and visitVO.image1 != ''">image_1, </if>
            <if test="visitVO.image2 != null and visitVO.image2 != ''">image_2,</if>
@@ -148,21 +146,20 @@
            <if test="visitVO.imageMin != null and visitVO.imageMin != ''"> image_min,</if>
           <!--<if test="visitVO.createTime != null and visitVO.createTime != ''">create_time,</if>-->
           <if test="visitVO.comments != null and visitVO.comments != ''">comments,</if>
-          <if test="visitVO.isdelete != null and visitVO.isdelete != ''">isdelete</if>
+          <if test="visitVO.isdelete != null and visitVO.isdelete != ''">is_delete</if>
        </trim>
         VALUES
            <trim prefix="(" suffix=")" suffixOverrides=",">
                <if test="visitVO.povertyPeopleId != null and visitVO.povertyPeopleId != ''">#{visitVO.povertyPeopleId,jdbcType=BIGINT},</if>
-               <if test="visitVO.povertyPeopleName != null and visitVO.povertyPeopleName != ''">#{visitVO.povertyPeopleName,jdbcType=VARCHAR},</if>
               <if test="visitVO.birthday != null and visitVO.birthday != ''">STR_TO_DATE(#{visitVO.birthday,jdbcType=DATE},'%Y-%m-%d'),</if>
-              <if test="visitVO.village != null and visitVO.village != ''">#{visitVO.village,jdbcType=VARCHAR},</if>
-              <if test="visitVO.condolenceDate != null and visitVO.condolenceDate != ''">STR_TO_DATE(#{visitVO.condolenceDate,jdbcType=DATE},'%Y%m%d'),</if>
+              <if test="visitVO.villageId != null and visitVO.villageId != ''">#{visitVO.villageId,jdbcType=VARCHAR},</if>
+              <if test="visitVO.visitDate != null and visitVO.visitDate != ''">STR_TO_DATE(#{visitVO.visitDate,jdbcType=DATE},'%Y%m%d'),</if>
                <if test="visitVO.familyDetail != null and visitVO.familyDetail != ''">#{visitVO.familyDetail,jdbcType=VARCHAR},</if>
                <if test="visitVO.visitorId != null and visitVO.visitorId != ''">#{visitVO.visitorId,jdbcType=BIGINT},</if>
               <if test="visitVO.visitorName != null and visitVO.visitorName != ''">#{visitVO.visitorName,jdbcType=VARCHAR},</if>
-               <if test="visitVO.condolenceProduct != null and visitVO.condolenceProduct != ''"> #{visitVO.condolenceProduct,jdbcType=VARCHAR},</if>
+               <if test="visitVO.visitGoods != null and visitVO.visitGoods != ''"> #{visitVO.visitGoods,jdbcType=VARCHAR},</if>
               <if test="visitVO.massAppeal != null and visitVO.massAppeal != ''">#{visitVO.massAppeal,jdbcType=VARCHAR},</if>
-               <if test="visitVO.condolenceDetail != null and visitVO.condolenceDetail != ''">#{visitVO.condolenceDetail,jdbcType=VARCHAR},</if>
+               <if test="visitVO.visitDetail != null and visitVO.visitDetail != ''">#{visitVO.visitDetail,jdbcType=VARCHAR},</if>
               <if test="visitVO.createId != null and visitVO.createId != ''">#{visitVO.createId,jdbcType=BIGINT},</if>
               <if test="visitVO.image1 != null and visitVO.image1 != ''">#{visitVO.image1,jdbcType=BLOB},</if>
                <if test="visitVO.image2 != null and visitVO.image2 != ''">#{visitVO.image2,jdbcType=BLOB},</if>
@@ -176,22 +173,40 @@
 
     <select id="selectPovertyVisitPage" resultMap="BaseResultMap">
         select
-        <!--<include refid="ALL_COLUMN"/>-->
-        id,poverty_people_name,village,condolence_date,image_min
+          tpv.id,
+          tpp.poverty_name as poverty_people_name,
+          tpv.village_id,
+          tpv.visit_date,
+          tpv.image_min,
+          tv.name as village_name
         FROM
-        t_poverty_visit
-        WHERE
-        1=1
+        t_poverty_visit tpv
+        LEFT JOIN
+        t_poverty_people tpp
+        ON
+        tpv.poverty_people_id = tpp.id
+        LEFT JOIN
+        t_village tv
+        ON
+        tpv.village_id = tv.id
         <include refid="ALL_IF_SELECT"/>
         limit #{page.minNum},#{page.pageSize}
     </select>
 
 
     <select id="total" resultType="java.lang.Integer">
-        select count(*)
-        from   t_poverty_visit
-        WHERE
-        1=1
+        select
+          count(*)
+        from
+        t_poverty_visit tpv
+        LEFT JOIN
+        t_poverty_people tpp
+        ON
+        tpv.poverty_people_id = tpp.id
+        LEFT JOIN
+        t_village tv
+        ON
+        tpv.village_id = tv.id
         <include refid="ALL_IF_SELECT"/>
     </select>
 

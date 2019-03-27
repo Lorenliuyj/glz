@@ -63,7 +63,8 @@
 				<ul class="mui-table-view mui-table-view-chevron u">
 					<li class="mui-table-view-cell" id="timePicker">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问日期</label>
-						<p id="condolenceDate">请选择</p>
+						<input id="visitDate" type="text" class="mui-input mui-hidden"/>
+						<p id="visHandle" class="mui-pull-right">请选择</p>
 					</li>
 				</ul>
 				<div class="mui-input-row">
@@ -72,7 +73,7 @@
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问物品</label>
-					<input id="condolenceProduct" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问物品"/>
+					<input id="visitGoods" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问物品"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;群众诉求</label>
@@ -95,7 +96,7 @@
 				</div>
 				<div class="mui-input-row">
 					<p style="margin-left: 5px;">慰问情况</p>
-					<textarea id="condolenceDetail" rows="4" placeholder="请填写慰问情况" class="mui-input-speech mui-input-clear"></textarea>
+					<textarea id="visitDetail" rows="4" placeholder="请填写慰问情况" class="mui-input-speech mui-input-clear"></textarea>
 				</div>
 				<div class="mui-input-row">
 					<p style="margin-bottom: -2px;">备注</p>
@@ -113,6 +114,7 @@
 	<script src="../js/app.js"></script>
 	<script src="../js/appajax.js"></script>
 	<script type="text/javascript">
+		
 		//本地缓存
 		var id = localStorage.getItem("vid");
 		mui.init();

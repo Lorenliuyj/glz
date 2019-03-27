@@ -60,42 +60,46 @@
 		<div class="mui-content mui-content-padded" style="margin-bottom:20px;">
 			<form class="mui-input-group">
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">姓名</label>
-					<input id="povertyName" type="text" class="mui-input mui-pull-right"  style="width: 60%;"/>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;姓名</label>
+					<input id="povertyName" type="text" class="mui-input mui-pull-right" readonly="readonly"  style="width: 60%;"/>
 				</div>
                 <div class="mui-input-row">
-                    <label style="width: 40%;">性别</label>
+                    <label style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;性别</label>
                     <div class="radio_inline mui-radio mui-pull-right" style="width: 60%;" >
-                        <input name="sex" type="radio" value="0">
+                        <input name="sex" type="radio" value="M" disabled="disabled">
                         <label class="radio-inline"  style="width: 90px;">男</label>
-                        <input name="sex" type="radio" value="1">
+                        <input name="sex" type="radio" value="F" disabled="disabled">
                         <label class="radio-inline"  style="width: 90px;">女</label>
                     </div>
                 </div>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">身份证号</label>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;身份证号</label>
 					<input id="idcardNo" type="text" class="mui-input mui-pull-right" readonly="readonly" style="width: 60%;"/>
 				</div>
 				<ul class="mui-table-view mui-table-view-chevron u">
 					<li class="mui-table-view-cell" id="timePicker">
-						<label class="mui-pull-left" style="width: 40%;">出生年月</label>
-						<p id="birthday" class="mui-pull-right">请选择</p>
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;出生年月</label>
+						<input id="birthday" type="text" class="mui-input mui-hidden"/>
+						<p id="birHandle" class="mui-pull-right">请选择</p>
 					</li>
 					<li class="mui-table-view-cell" id="forcountryPicker">
-						<label class="mui-pull-left" style="width: 40%;">所属村居</label>
-						<p id="village" class="mui-pull-right">请选择</p>
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;所属村居</label>
+						<input id="villageId" type="text" class="mui-input mui-hidden"/>
+						<p id="vilHandle" class="mui-pull-right">请选择</p>
 					</li>
 					<li class="mui-table-view-cell" id="forhardPicker">
-						<label class="mui-pull-left" style="width: 40%;">困难类型</label>
-						<p id="povertyType" class="mui-pull-right">请选择</p>
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;困难类型</label>
+						<input id="deptId" type="text" class="mui-input mui-hidden"/>
+						<input id="troubleId" type="text" class="mui-input mui-hidden"/>
+						<p id="troHandle" class="mui-pull-right">请选择</p>
 					</li>
 				</ul>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">住址</label>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;住址</label>
 					<input id="address" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入住址"/>
 				</div>
 				<div class="mui-input-row">
-					<label class="mui-pull-left" style="width: 40%;">联系电话</label>
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;联系电话</label>
 					<input id="phone" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入联系电话"/>
 				</div>
 				<div class="mui-input-row">
@@ -104,7 +108,7 @@
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;">主要困难</label>
-					<input id="trouble" type="text" class="mui-pull-right" style="width: 60%;" placeholder="请输入主要困难"/>
+					<input id="troubleDesc" type="text" class="mui-pull-right" style="width: 60%;" placeholder="请输入主要困难"/>
 				</div>
 				<p style="margin-left: 5px;">个人图片</p>
 				<div class="mui-input-row" style="height: 100px;">
@@ -145,16 +149,114 @@
 	<script src="../js/appajax.js"></script>
 	
 	<script type="text/javascript">
-	mui.init();
+	var state = app.getUserState();
 	var id = localStorage.getItem("pid");
+	mui.init();
+	mui.previewImage();
  	mui.ready(function() {
-			mui.previewImage();
-			forcountryPicker.setData(forcountryData);
-			forhardPicker.setData(forhardData);
+			//初始化数据
+			initData();
+			/* gbid('idcardNo').addEventListener('keyup',function(event) {
+				var tempbirthday = $("#idcardNo").val();
+				if(tempbirthday.length == 15 || tempbirthday.length ==18) {
+					if(!checkIdcardNo(tempbirthday)) {
+						return;
+					}
+					if(!verifobj(tempbirthday)) {
+						mui.toast("该身份证号码已经录入过，请勿重新录入！");
+						return;
+					}
+					var bir = getBirthdayFromIdCard(tempbirthday);
+					$("#birthday").val(bir);
+					$("#birHandle").html(bir);
+					$("#birHandle").addClass("mui-navigate-right");
+					$("#birHandle").removeClass("mui-pull-right");
+				}
+			});
 			
+			gbid('timePicker').addEventListener('tap', function(event) {
+				timePicker.show(function(items) {
+					var birthday=parseDate(items.toString());
+					$("#birthday").val(birthday);
+					if(items != null) {;
+			           $("#birHandle").addClass("mui-navigate-right");
+			           $("#birHandle").removeClass("mui-pull-right");
+					}
+					$("#birHandle").html(items.toString());
+				});
+			}); */
+			
+			gbid('forcountryPicker').addEventListener('tap', function(event) {
+				forcountryPicker.show(function(items) {
+			        var village=items[0].value;
+					$("#villageId").val(items[0].id);
+					if(village == "") {
+			            $("#vilHandle").removeClass("mui-navigate-right");
+			            $("#vilHandle").addClass("mui-pull-right");
+					}else {
+			            $("#vilHandle").addClass("mui-navigate-right");
+			            $("#vilHandle").removeClass("mui-pull-right");
+					}
+					$("#vilHandle").html(items[0].text);
+				});
+			});
+			
+			gbid('forhardPicker').addEventListener('tap', function(event) {
+				forhardPicker.show(function(items) {
+					var deptId = items[0].id;
+					var troubleId = items[1].id;
+					$("#deptId").val(deptId);
+					$("#troubleId").val(troubleId);
+					if(deptId == "") {
+			            $("#troHandle").removeClass("mui-navigate-right");
+			            $("#troHandle").addClass("mui-pull-right");
+						$("#troHandle").html(items[0].text);
+					}else {
+			            $("#troHandle").addClass("mui-navigate-right");
+			            $("#troHandle").removeClass("mui-pull-right");
+						$("#troHandle").html(items[0].text+"-"+items[1].text);
+			        }
+				});
+			});
+			
+			gbid('visit').addEventListener('tap',function(event) {
+				localStorage.setItem("povertyName",$("#povertyName").val());
+				localStorage.setItem("birthday",birthday);
+				localStorage.setItem("village",village);
+				localStorage.setItem("familyDetail",$("#familyDetail").val());
+				openUrl('visitor_brow.html');
+			});
+			
+			gbid('submitBtn').addEventListener('tap', function(event) {
+				submitFun();
+			});
+		
+	});
+
+		
+        //数据初始化
+        var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
+        var forcountryPicker = new mui.PopPicker();
+        var forhardPicker = new mui.PopPicker({layer: 2});
+		var pickerInitData = [{id:"",text:"请选择",value:""}];
+		var villageData = [];
+		var TroData = [];
+		function initData() {
 			var data = {id:id};
 			var tabimg = gbid("imgList");
-			console.log(data);
+			var initdata = {villageIds:state.villageIds,deptIds:state.deptIds};
+			appajax.SendRequestByPost("base/selectInitData",JSON.stringify(initdata),function (response) {
+				if("0000" == response.code) {
+					var rtnData = response.result;
+					villageData = rtnData.villages;
+					TroData = rtnData.depts;
+					forcountryPicker.setData(villageData.length>0?villageData:pickerInitData);
+					forhardPicker.setData(TroData.length>0?TroData:pickerInitData);
+				}
+			},function(response) {
+				mui.toast("初始化数据失败！");
+			},false);
+			
 			appajax.SendRequestByPost("poverty/povertyInfo",JSON.stringify(data),function (response) {
 				console.log(response.result);
 				if("0000" == response.code) {
@@ -165,27 +267,25 @@
 					$("#address").val(rtnData.address);
 					$("#phone").val(rtnData.phone);
 					$("#familyDetail").val(rtnData.familyDetail);
-					$("#trouble").val(rtnData.trouble);
+					$("#troubleDesc").val(rtnData.troubleDesc);
 					$("#income").val(rtnData.income);
 					$("#comments").val(rtnData.comments);
-					$("#birthday").html(rtnData.birthday);
-					birthday = rtnData.birthday;
 					
-					$("#village").html(getDictJsonText(forcountryData, rtnData.village));
-					village = rtnData.village;
-					$("#village").removeClass("mui-pull-right");
+					$("#birHandle").html(rtnData.birthday);
+					$("#birHandle").removeClass("mui-pull-right");
 					
-					$("#birthday").html(rtnData.birthday);
-					$("#birthday").removeClass("mui-pull-right");
+					$("#villageId").val(rtnData.villageId);
+					$("#vilHandle").html(getDictJsonText(villageData, rtnData.villageId));
+					$("#vilHandle").removeClass("mui-pull-right");
 					
-					$("#povertyType").html(rtnData.povertyType1+"-"+rtnData.povertyType2);
-					$("#povertyType").removeClass("mui-pull-right");
-					povertyType1 = rtnData.povertyType1;
-					povertyType2 = rtnData.povertyType2;
+					$("#deptId").val(rtnData.deptId);
+					$("#troubleId").val(rtnData.troubleId);
+					$("#troHandle").html(getTwoDictJsonText(TroData,rtnData.deptId,rtnData.troubleId));
+					$("#troHandle").removeClass("mui-pull-right");
 				}
 			},function(response) {
 					mui.toast("查询详情失败！");
-			},true);
+			},false);
 			
 			//同步查询图片
 			appajax.SendRequestByPost("poverty/povertyInfoImgs",JSON.stringify(data),function (response) {
@@ -195,7 +295,6 @@
 					if(rtnData.image1!="") {
 						var img = document.createElement('img');
 						img.setAttribute("data-preview-src","");
-						
 						img.className = "mui-table-view-cell mui-col-sm-4 mui-col-xs-4";
 						img.src = "data:image/png;base64,"+rtnData.image1;
 						gbid("imgList").appendChild(img);
@@ -219,86 +318,15 @@
 					mui.toast("查询图片失败！");
 			},true);
 			
-			gbid('timePicker').addEventListener('tap', function(event) {
-				timePicker.show(function(items) {
-					birthday=parseDate(items.toString());
-					if(items != null) {;
-					   $("#birthday").addClass("mui-navigate-right");
-						$("#birthday").removeClass("mui-pull-right");
-					}
-					gbid("birthday").innerHTML=items;
-				});
-			}); 
-			gbid('forcountryPicker').addEventListener('tap', function(event) {
-				forcountryPicker.show(function(items) {
-					countryType=items[0].value;
-					village=items[0].value;
-					if(village == "") {
-						$("#village").removeClass("mui-navigate-right");
-						$("#village").addClass("mui-pull-right");
-					}else {
-						$("#village").addClass("mui-navigate-right");
-						$("#village").removeClass("mui-pull-right");
-					}
-					gbid("village").innerHTML=items[0].text;
-				});
-			});
-			gbid('forhardPicker').addEventListener('tap', function(event) {
-				forhardPicker.show(function(items) {
-					povertyType1 = items[0].value;
-					povertyType2 = items[1].value;
-					if(povertyType1 == "") {
-						$("#povertyType").removeClass("mui-navigate-right");
-						$("#povertyType").addClass("mui-pull-right");
-						gbid("povertyType").innerHTML=items[0].text;
-					}else {
-						$("#povertyType").addClass("mui-navigate-right");
-						$("#povertyType").removeClass("mui-pull-right");
-						gbid("povertyType").innerHTML=items[0].text+"-"+items[1].text;
-					}
-				});
-			});
-			
-			gbid('visit').addEventListener('tap',function(event) {
-				localStorage.setItem("povertyName",$("#povertyName").val());
-				localStorage.setItem("birthday",birthday);
-				localStorage.setItem("village",village);
-				localStorage.setItem("familyDetail",$("#familyDetail").val());
-				openUrl('visitor_brow.html');
-			});
-			
-			gbid('submitBtn').addEventListener('tap', function(event) {
-				submitFun();
-			});
-		
-	});
-
-		
-        //数据初始化
-        var birthday = "";
-        var village = "";
-        var povertyType1 = "";
-        var povertyType2 = ";"
-        var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
-        var forcountryPicker = new mui.PopPicker();
-        var forhardPicker = new mui.PopPicker({layer: 2});
-        var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
-            {value:"440784202",text:"麦水村"},{value:"440784203",text:"丽水村"},{value:"440784204",text:"茶山村"},
-            {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
-            {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
-            {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
-        var forhardData=[{value:"",text:"请选择",children:[{value:"",text:" "}]},
-			{value:"001",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
-			{value:"002",text:"组织办",children:[{value:"10",text:"困难党员"}]},
-            {value:"003",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
-			{value:"004",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
+		}
 		
 		//提交方法
 		function submitFun() {
 			//校验
-			var data = {id:id,birthday:birthday,
-		        village:village,povertyType1:povertyType1,povertyType2:povertyType2,address:gbid('address').value,phone:gbid('phone').value,
-		        familyDetail:gbid('familyDetail').value,trouble:gbid('trouble').value,income:$("#income").val(),comments:$("#comments").val()
+			var data = {id:id,villageId:$("#villageId").val(),
+				deptId:$("#deptId").val(),troubleId:$("#troubleId").val(),address:gbid('address').value,
+				phone:gbid('phone').value,familyDetail:gbid('familyDetail').value,
+				troubleDesc:gbid('troubleDesc').value,income:$("#income").val(),comments:$("#comments").val()
 			};
 			if(!checkIsEmpty(data)) {
 				return;
@@ -321,15 +349,11 @@
 		}
 		
 		function checkIsEmpty(data) {
-			if(data.birthday == "") {
-				mui.toast("出生日期不能为空！");
-				return false;
-			}
-			if(data.village == "") {
+			if(data.villageId == "") {
 				mui.toast("所属村居不能为空！");
 				return false;
 			}
-			if(data.difficultTypeId == "") {
+			if(data.deptId == "") {
 				mui.toast("困难类型不能为空！");
 				return false;
 			}

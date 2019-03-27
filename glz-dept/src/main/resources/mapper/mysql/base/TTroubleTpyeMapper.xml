@@ -142,10 +142,7 @@
 
   <select id="selectAll" resultMap="BaseResultMap">
     select
-      ID,
-      DEPT_ID，
-      TROUBLE_NAME,
-      TROUBLE_CODE
+      ID, DEPT_ID, TROUBLE_CODE, TROUBLE_NAME
     from
       t_trouble_tpye
   </select>

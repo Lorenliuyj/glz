@@ -4,7 +4,7 @@ import com.newtouch.common.entity.base.Page;
 import com.newtouch.glzdept.buss.dao.PovertyPeopleDao;
 import com.newtouch.glzdept.buss.entity.PO.PovertyPeoplePO;
 import com.newtouch.glzdept.buss.entity.VO.PovertyPeopleVO;
-import com.newtouch.glzdept.buss.service.PovertyPeopleService;
+import com.newtouch.glzdept.buss.service.AppPovertyPeopleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * project:glz-dept
  */
 @Service
-public class PovertyPeopleServiceImpl implements PovertyPeopleService {
+public class AppPovertyPeopleServiceImpl implements AppPovertyPeopleService {
 
     @Resource
     PovertyPeopleDao povertyPeopleDao;

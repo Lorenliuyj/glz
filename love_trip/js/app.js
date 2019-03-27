@@ -178,12 +178,13 @@ function getDictJsonText(dictJson, dictId) {
         return "";
     }
     for (var i=0; i<dictJson.length; i++) {
-        if (dictJson[i].value == dictId) {
+        if (dictJson[i].id == dictId) {
             return dictJson[i].text;
         }
     }
     return "";
 }
+
 
 function getTwoDictJsonText(dictJson, dictId1,dictId2) {
 	var dictText = "";
@@ -191,11 +192,11 @@ function getTwoDictJsonText(dictJson, dictId1,dictId2) {
         return "";
     }
     for (var i=0; i<dictJson.length; i++) {
-        if (dictJson[i].value == dictId1) {
+        if (dictJson[i].id == dictId1) {
 			dictText = dictJson[i].text;
 			var dict = dictJson[i].children;
 			for(var j=0;j<dict.length;j++) {
-				if(dict[j].value == dictId2) {
+				if(dict[j].id == dictId2) {
 					dictText = dictText + "-" + dict[j].text;
 				}
 			}

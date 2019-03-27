@@ -54,7 +54,8 @@
 					</li>
 					<li class="mui-table-view-cell" id="forcountryPicker">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;所属村居</label>
-						<p id="village" class="mui-pull-right">请选择</p>
+						<input id="villageId" type="text" class="mui-input mui-hidden"/>
+						<p id="vilHandle" class="mui-pull-right">请选择</p>
 					</li>
 				</ul>
 				<div class="mui-input-row">
@@ -64,7 +65,8 @@
 				<ul class="mui-table-view mui-table-view-chevron u">
 					<li class="mui-table-view-cell" id="timePicker">
 						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问日期</label>
-						<p id="condolenceDate" class="mui-pull-right">请选择</p>
+						<input id="visitDate" type="text" class="mui-input mui-hidden"/>
+						<p id="visHandle" class="mui-pull-right">请选择</p>
 					</li>
 				</ul>
 				<div class="mui-input-row">
@@ -73,7 +75,7 @@
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;慰问物品</label>
-					<input id="condolenceProduct" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问物品"/>
+					<input id="visitGoods" type="text" class="mui-pull-right mui-input" style="width: 60%;" placeholder="请填写慰问物品"/>
 				</div>
 				<div class="mui-input-row">
 					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;群众诉求</label>
@@ -114,35 +116,38 @@
 	<script src="../js/appajax.js"></script>
 	<script type="text/javascript">
 		//本地缓存
-		mui.init();
+		var state = app.getUserState();
 		var povertyPeopleId = localStorage.getItem("pid");
 		var povertyPeopleName = localStorage.getItem("povertyName");
 		var birthday = localStorage.getItem("birthday");
-		var village = localStorage.getItem("village");
+		var villageId = localStorage.getItem("villageId");
 		var familyDetail = localStorage.getItem("familyDetail");
+		mui.init();
 		mui.ready(function() {
 			DataInit();
 			gbid('timePicker').addEventListener('tap', function(event) {
 				timePicker.show(function(items) {
-					condolenceDate=parseDate(items.toString());
-						if(items != null) {;
-							$("#condolenceDate").addClass("mui-navigate-right");
-							$("#condolenceDate").removeClass("mui-pull-right");
-						}
-					gbid("condolenceDate").innerHTML=items;
+					var visitDate=parseDate(items.toString());
+					$("#visitDate").val(visitDate);
+					if(items != null) {;
+						$("#visHandle").addClass("mui-navigate-right");
+						$("#visHandle").removeClass("mui-pull-right");
+					}
+					gbid("visHandle").innerHTML=items;
 				});
 			});
 			gbid('forcountryPicker').addEventListener('tap', function(event) {
 				forcountryPicker.show(function(items) {
-					village=items[0].value;
+					var village=items[0].value;
+					$("#villageId").val(items[0].id);
 					if(village == "") {
-							$("#village").removeClass("mui-navigate-right");
-							$("#village").addClass("mui-pull-right");
+					    $("#vilHandle").removeClass("mui-navigate-right");
+					    $("#vilHandle").addClass("mui-pull-right");
 					}else {
-							$("#village").addClass("mui-navigate-right");
-							$("#village").removeClass("mui-pull-right");
+					    $("#vilHandle").addClass("mui-navigate-right");
+					    $("#vilHandle").removeClass("mui-pull-right");
 					}
-					gbid("village").innerHTML=items[0].text;
+					$("#vilHandle").html(items[0].text);
 				});
 			});
 
@@ -155,28 +160,29 @@
 		});
 		
 		//数据初始化
-		var condolenceDate = "";
 		var timePicker = new mui.DtPicker({"type":"date","beginYear":new Date().getFullYear()-100,"endYear":new Date().getFullYear()});
 		var forcountryPicker = new mui.PopPicker();
-		var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
-		    {value:"440784202",text:"麦水村"},{value:"440784203",text:"丽水村"},{value:"440784204",text:"茶山村"},
-		    {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
-		    {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
-		    {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
-		var forhardData=[{value:"",text:"请选择"},
-			{value:"0",text:"社事办",children:[{value:"00",text:"低保户"},{value:"01",text:"五保户"},{value:"02",text:"困难残疾人"}]},
-		    {value:"1",text:"组织办",children:[{value:"10",text:"困难党员"}]},
-		    {value:"2",text:"农业办",children:[{value:"20",text:"精准扶贫对象"}]},
-		    {value:"3",text:"镇妇办",children:[{value:"30",text:"单亲家庭"}]}];
-			
+		var pickerInitData = [{id:"",text:"请选择",value:""}];
+		var villageData = [];
 		function DataInit() {
-			forcountryPicker.setData(forcountryData);
 			$("#povertyPeopleName").val(povertyPeopleName);
 			$("#birthday").html(birthday);
 			$("#birthday").removeClass("mui-pull-right");
-			$("#village").html(getDictJsonText(forcountryData, village));
-			$("#village").removeClass("mui-pull-right");
 			$("#familyDetail").val(familyDetail);
+			var data = {baseVillageIds:state.villageIds,baseDeptIds:state.deptIds};
+			appajax.SendRequestByPost("base/selectInitData",JSON.stringify(data),function (response) {
+				if("0000" == response.code) {
+					var rtnData = response.result;
+					var villages = rtnData.villages;
+					villageData = villages.length>0?villages:pickerInitData;
+					forcountryPicker.setData(villageData);
+					$("#villageId").val(villageId);
+					$("#vilHandle").html(getDictJsonText(villageData, villageId));
+					$("#vilHandle").removeClass("mui-pull-right");
+				}
+			},function(response) {
+				mui.toast("初始化数据失败！");
+			},false);
 		}
 		
 		var image1 = "";
@@ -188,15 +194,14 @@
 			setImage();
 			var data = {
 				povertyPeopleId:povertyPeopleId,
-				povertyPeopleName:povertyPeopleName,
 				birthday:birthday,
-				village:village,
-				condolenceDate:condolenceDate,
+				villageId:$("#villageId").val(),
+				visitDate:$("#visitDate").val(),
 				familyDetail:gbid('familyDetail').value,
 			    visitorName:gbid('visitorName').value,
-				condolenceProduct:gbid("condolenceProduct").value,
+				visitGoods:gbid("visitGoods").value,
 				massAppeal:gbid('massAppeal').value,
-			    condolenceDetail:gbid('condolenceDetail').value,
+			    visitDetail:gbid('condolenceDetail').value,
 				comments:gbid('comments').value,
 				image1:image1,image2:image2,image3:image3,
 				imageMin:imageMin

@@ -108,35 +108,12 @@
 			<div id="selectMenu">
 				<div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">所属村居</div>
 				<ul id="forcountryRow" class="mui-table-view mui-grid-view">
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784002">东宁社区</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784201">古劳村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784202">麦水村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784203">丽水村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784204">茶山村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784205">下六村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784206">连城村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784207">连南村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784208">连北村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784209">大埠村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784210">双桥村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784211">上升村</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="440784212">新星村</a></li>
 				</ul>
 				<div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">一级困难类型</div>
 				<ul id="hardRow1" class="mui-table-view mui-grid-view">
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="社事办">社事办</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="组织办">组织办</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="农业办">农业办</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="镇妇办">镇妇办</a></li>
 				</ul>
 				<div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">二级困难类型</div>
 				<ul id="hardRow2" class="mui-table-view mui-grid-view">
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="低保户">低保户</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="五保户">五保户</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="困难残疾人">困难残疾人</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="困难党员">困难党员</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="精准扶贫对象">精准扶贫</a></li>
-					<li class="mui-table-view-cell mui-col-sm-3 mui-col-xs-3"><a id="单亲家庭">单亲家庭</a></li>
 				</ul>
 				<div style="position: relative;left: 0px;width: 100%;padding: 0 5px;text-align: center;">
 					<button id="cancelBtn" class="mui-btn mui-btn-block  btn-blue">取消筛选</button>
@@ -151,6 +128,8 @@
 	<script src="../js/appajax.js"></script>
 	<script src="../js/jquery2.min.js"></script>
 	<script>
+		var state = app.getUserState();
+		
         mui.ready(function () {
 			mui.init({
 				pullRefresh: {
@@ -165,9 +144,38 @@
 						contentnomore:'没有更多数据了',
 						callback: pullupRefresh
 					}
-				}
+				} 
 			});
         });
+		
+		var count = 0;
+		var villageData = [];
+		var TroubleData = [];//二级类型
+		function loadInitData(rtnData) {
+			villageData = rtnData.villages;
+			var TroData = rtnData.depts;
+			for(var i=0;i<villageData.length;i++) {
+				var li = document.createElement('li');
+				li.className = 'mui-table-view-cell mui-col-sm-3 mui-col-xs-3';
+				li.innerHTML = '<a id="'+villageData[i].id+'">'+villageData[i].text+'</a>';
+				gbid('forcountryRow').appendChild(li);
+			}
+			for(var i=0;i<TroData.length;i++) {
+				if(TroData[i].children != undefined) {
+					TroubleData = TroubleData.concat(TroData[i].children);
+				}
+				var li = document.createElement('li');
+				li.className = 'mui-table-view-cell mui-col-sm-3 mui-col-xs-3';
+				li.innerHTML = '<a id="'+TroData[i].id+'">'+TroData[i].text+'</a>';
+				gbid('hardRow1').appendChild(li);
+			}
+			for(var i=0;i<TroubleData.length;i++) {
+				var li = document.createElement('li');
+				li.className = 'mui-table-view-cell mui-col-sm-3 mui-col-xs-3';
+				li.innerHTML = '<a id="'+TroubleData[i].id+'">'+TroubleData[i].text+'</a>';
+				gbid('hardRow2').appendChild(li);
+			}
+		}
         var upAndDown = 0;//0:up,1:down
         function pullupRefresh() {
 		    pageNum++;
@@ -192,21 +200,20 @@
 		var pageNum = 0;
 		var pageSize = 10;
 		var table = gbid("villageInfolist");
-		var forcountryData=[{value:"",text:"请选择"},{value:"440784002",text:"东宁社区"},{value:"440784201",text:"古劳村"},
-		    {value:"440784202",text:"麦水村"},{value:"440784203",text:"丽水村"},{value:"440784204",text:"茶山村"},
-		    {value:"440784205",text:"下六村"},{value:"440784206",text:"连城村"},{value:"440784207",text:"连南村"},
-		    {value:"440784208",text:"连北村"},{value:"440784209",text:"大埠村"},{value:"440784210",text:"双桥村"},
-		    {value:"440784211",text:"上升村"},{value:"440784212",text:"新星村"}];
  		function getData(upAndDown) {
 			var data = {pageNum:pageNum,pageSize:pageSize,povertyName:$("#sName").val(),
-			povertyType1s:povertyType1s,povertyType2s:povertyType2s,villages:villages};
+			deptIds:povertyType1s,troubleIds:povertyType2s,villageIds:villages,
+			baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
 			console.log(JSON.stringify(data));
 			appajax.SendRequestByGet("poverty/selectPovertyPeoplePage",data,function(response) {
 				if(response.code == "0000") {
 					var rtnData = response.result;
-					console.log(rtnData);
-					var list = rtnData.list;
-					var total = rtnData.totalNum;
+					if(count == 0) {
+						count++;
+						loadInitData(rtnData);
+					}
+					var list = rtnData.list.list;
+					var total = rtnData.list.totalNum;
 					if(upAndDown == 0 || pageNum == 1) {
 						mui('#pullrefresh').pullRefresh().endPullupToRefresh((pageNum*pageSize)>=total);
 					}
@@ -216,7 +223,7 @@
 						li.className = "mui-table-view-cell mui-media";
 						li.id = list[i].id;
 						li.innerHTML = '<div class="mui-slider-right mui-disabled">'+
-											'<a class="mui-btn mui-btn-success" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" village="'+list[i].village+'" familyDetail="'+list[i].familyDetail+'">走访</a>'+
+											'<a class="mui-btn mui-btn-success" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" villageId="'+list[i].villageId+'" familyDetail="'+list[i].familyDetail+'">走访</a>'+
 											'<a class="mui-btn mui-btn-danger" id="'+list[i].id+'">删除</a>'+
 										'</div>'+
 										'<div id="'+list[i].id+'" class="mui-slider-handle">'+
@@ -226,9 +233,9 @@
 													'<div class="mui-ellipsis-2">'+list[i].povertyName+'</div>'+
 												'</div>'+
 												'<div class="meta-info">'+
-													'<div class="author">'+getDictJsonText(forcountryData, list[i].village)+'</div>'+
+													'<div class="author">'+getDictJsonText(villageData, list[i].villageId)+'</div>'+
 													'<div class="phone">'+list[i].phone+'</div>'+
-													'<div class="time">'+list[i].povertyType2+'</div>'+
+													'<div class="time">'+getDictJsonText(TroubleData,list[i].troubleId)+'</div>'+
 												'</div>'+
 											'</a>'+
 										'</div>';
@@ -237,7 +244,6 @@
 					}
 				}
 			},function(response) {
-				
 			});
 		} 
 		
@@ -338,7 +344,7 @@
 			 localStorage.setItem("pid",this.id);
 			 localStorage.setItem("povertyName",this.getAttribute('povertyName'));
 			 localStorage.setItem("birthday",this.getAttribute('birthday'));
-			 localStorage.setItem("village",this.getAttribute('village'));
+			 localStorage.setItem("villageId",this.getAttribute('villageId'));
 			 localStorage.setItem("familyDetail",this.getAttribute('familyDetail'));
 			 openUrl("visitor_brow.html");
 		});

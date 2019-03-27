@@ -132,7 +132,7 @@
       NAME,
       CODE
     from
-      T_VILLAGE
+      t_village
     where
       1=1
     <if test="list != null and list.size() > 0">

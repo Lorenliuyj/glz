@@ -3,7 +3,7 @@ package com.newtouch.glzdept.buss.service;
 import com.newtouch.common.entity.base.Page;
 import com.newtouch.glzdept.buss.entity.VO.PovertyVisitVO;
 
-public interface IPovertyVisitService {
+public interface AppPovertyVisitService {
 
     void saveVisitInfo(PovertyVisitVO visitVO);
 
