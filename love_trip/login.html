@@ -38,11 +38,11 @@
 			<form class="mui-input-group">
 				<div class="mui-input-row">
 					<label><span class="mui-icon-extra mui-icon-extra-phone"></span><span class="icon-text">用户名</span></label>
-					<input id='userName' type="text" value="admin" class="mui-input-clear mui-input" placeholder="请输入手机号码">
+					<input id='userName' type="text" class="mui-input-clear mui-input" placeholder="请输入用户名">
 				</div>
 				<div class="mui-input-row">
 					<label><span class="mui-icon mui-icon-locked"></span>密码</label>
-					<input id='password' type="password" value="admin" class="mui-input" placeholder="请输入密码" autocomplete="off" maxlength="16">
+					<input id='password' type="password" class="mui-input" placeholder="请输入密码" autocomplete="off" maxlength="16">
 					<a id="btnForget" class="color-blue" style="position: absolute;right:10px;top:12px;color:#63b5ff ;">｜忘记密码？</a>
 				</div>
 	            <ul class="mui-table-view mui-table-view-chevron" style="margin-bottom: 10px;">
@@ -92,6 +92,8 @@
 					var user = rtnData.user;
 					var depts = rtnData.dept;
 					var villages = rtnData.village;
+					gbid("userName").value = user.userName;
+					gbid("password").value = user.password;
 					var deptIds = [];
 					for(var i = 0;i<depts.length;i++) {
 						deptIds.push(depts[i].id);

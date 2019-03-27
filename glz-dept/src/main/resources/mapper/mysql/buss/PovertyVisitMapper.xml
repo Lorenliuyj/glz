@@ -59,9 +59,9 @@
 
     <sql id="ALL_IF_SELECT">
         <if test="povertyVisitVO!= null">
-            <if test="povertyVisitVO.id != null and povertyVisitVO.id != ''"> AND id = #{povertyVisitVO.id} </if>
+            <if test="povertyVisitVO.id != null and povertyVisitVO.id != ''"> AND tpv.id = #{povertyVisitVO.id} </if>
             <if test="povertyVisitVO.povertyPeopleId != null and povertyVisitVO.povertyPeopleId != ''"> AND poverty_people_id = #{povertyVisitVO.povertyPeopleId} </if>
-            <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> AND tpp.poverty_name LIKE CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')  </if>
+            <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> AND tpp.poverty_name like CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')  </if>
             <if test="povertyVisitVO.birthday != null and povertyVisitVO.birthday != ''"> AND birthday = #{povertyVisitVO.birthday} </if>
             <if test="povertyVisitVO.villageId != null and povertyVisitVO.villageId != ''"> AND village_id = #{povertyVisitVO.villageId} </if>
             <if test="povertyVisitVO.visitDate != null and povertyVisitVO.visitDate != ''"> AND visit_date = #{povertyVisitVO.visitDate} </if>
@@ -212,9 +212,30 @@
 
     <select id="visitInfo" resultMap="BaseResultMap">
         select
-        <include refid="BASE_COLUMN"/>
+            tpv.id,
+            tpv.poverty_people_id,
+            tpv.birthday,
+            tpv.village_id,
+            tpv.visit_date,
+            tpv.family_detail,
+            tpv.visitor_id,
+            tpv.visitor_name,
+            tpv.visit_goods,
+            tpv.mass_appeal,
+            tpv.visit_detail,
+            tpv.comments,
+            tpp.poverty_name as poverty_people_name,
+            tv.name as village_name
         FROM
-        t_poverty_visit
+        t_poverty_visit tpv
+        LEFT JOIN
+        t_poverty_people tpp
+        ON
+        tpv.poverty_people_id = tpp.id
+        LEFT JOIN
+        t_village tv
+        ON
+        tpv.village_id = tv.id
         WHERE
         1=1
         <include refid="ALL_IF_SELECT"/>
@@ -224,7 +245,7 @@
         select
         <include refid="IMGS_COLUMN"/>
         FROM
-        t_poverty_visit
+        t_poverty_visit tpv
         WHERE
         1=1
         <include refid="ALL_IF_SELECT"/>
