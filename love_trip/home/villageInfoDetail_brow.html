@@ -242,12 +242,13 @@
 		var villageData = [];
 		var TroData = [];
 		function initData() {
-			var data = {id:id};
+			var data = {id:id,baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
 			var tabimg = gbid("imgList");
-			var initdata = {villageIds:state.villageIds,deptIds:state.deptIds};
+			/* var initdata = {baseVillageIds:state.villageIds,baseDeptIds:state.deptIds};
 			appajax.SendRequestByPost("base/selectInitData",JSON.stringify(initdata),function (response) {
 				if("0000" == response.code) {
 					var rtnData = response.result;
+					console.log(rtnData);
 					villageData = rtnData.villages;
 					TroData = rtnData.depts;
 					forcountryPicker.setData(villageData.length>0?villageData:pickerInitData);
@@ -255,12 +256,16 @@
 				}
 			},function(response) {
 				mui.toast("初始化数据失败！");
-			},false);
+			},true); */
 			
-			appajax.SendRequestByPost("poverty/povertyInfo",JSON.stringify(data),function (response) {
+			appajax.SendRequestByGet("poverty/povertyInfo",data,function (response) {
 				console.log(response.result);
 				if("0000" == response.code) {
-					var rtnData = response.result;
+					var rtnData = response.result.vo;
+					var villageData = response.result.villages;
+					var TroData = response.result.depts;
+					forcountryPicker.setData(villageData.length>0?villageData:pickerInitData);
+					forhardPicker.setData(TroData.length>0?TroData:pickerInitData);
 					$("#povertyName").val(rtnData.povertyName);
 					$("[name='sex'][value='"+rtnData.sex+"']").prop("checked", "checked");
 					$("#idcardNo").val(rtnData.idcardNo);
@@ -285,7 +290,7 @@
 				}
 			},function(response) {
 					mui.toast("查询详情失败！");
-			},false);
+			});
 			
 			//同步查询图片
 			appajax.SendRequestByPost("poverty/povertyInfoImgs",JSON.stringify(data),function (response) {
