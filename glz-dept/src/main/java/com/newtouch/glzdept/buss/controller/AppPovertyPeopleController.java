@@ -49,11 +49,13 @@ public class AppPovertyPeopleController {
     }
 
     //查询贫困户详细信息
-    @RequestMapping(value="/povertyInfo",method=RequestMethod.POST)
+    @GetMapping(value="/povertyInfo")
     @ResponseBody
-    public ResponseVO povertyInfo(@RequestBody PovertyPeopleVO povertyPeopleVO){
+    public ResponseVO povertyInfo(PovertyPeopleVO povertyPeopleVO,BaseTransCommonVO baseTransCommonVO){
         PovertyPeoplePO povertyInfo = povertyUserService.povertyInfo(povertyPeopleVO);
-        return ResponseUtil.successResponse(povertyInfo);
+        Map<String,Object> resultMap = baseService.selectInitData(baseTransCommonVO);
+        resultMap.put("vo",povertyInfo);
+        return ResponseUtil.successResponse(resultMap);
     }
 
     //查询贫困户详细信息
