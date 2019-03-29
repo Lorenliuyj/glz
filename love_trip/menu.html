@@ -111,6 +111,42 @@
 					<div class="mui-content" style="padding: 0px;">
 						<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin-top: -1px;">
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+								<a onclick="mui.toast('敬请期待')">
+									<img src="images/ty.png"/>
+									<div class="mui-media-body">低保户</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+								<a onclick="mui.toast('敬请期待')">
+									<img src="images/ty.png"/>
+									<div class="mui-media-body">五保户</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+								<a onclick="mui.toast('敬请期待')">
+									<img src="images/ty.png"/>
+									<div class="mui-media-body">困难残疾人</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+								<a onclick="mui.toast('敬请期待')">
+									<img src="images/ty.png"/>
+									<div class="mui-media-body">困难党员</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+								<a onclick="mui.toast('敬请期待')">
+									<img src="images/ty.png"/>
+									<div class="mui-media-body">精准扶贫对象</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+								<a onclick="mui.toast('敬请期待')">
+									<img src="images/ty.png"/>
+									<div class="mui-media-body">单亲家庭</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
 								<a onclick="openUrl('home/villageInfo_brow.html')">
 									<img src="images/pkh.png"/>
 									<div class="mui-media-body">贫困户录入</div>
@@ -134,17 +170,17 @@
 									<div class="mui-media-body">走访查询</div>
 								</a>
 							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+							<!-- <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
 								<a onclick="mui.toast('敬请期待')">
 									<img src="images/gengduo.png"/>
 									<div class="mui-media-body">更多</div>
 								</a>
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</div>
 
-				<div class="mui-content" style="padding-top: 5px;">
+				<!-- <div class="mui-content" style="padding-top: 5px;">
 					<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin: 0px;">
 						<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="text-align: left;height: 40px;" onclick="mui.toast('敬请期待')">
 							<img src="images/qianzhidian.png" style="width: 2%;margin-bottom: -2px;margin-left: 10px;height: 50%;">
@@ -155,7 +191,7 @@
 					<div id="text-slider" class="mui-scroll-wrapper" style="background-color: white;height: 40px;position: relative;">
 						<div style="height: 160px;overflow:hidden;white-space:nowrap;" id="notice" class="mui-scroll" ></div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 
 		</div>
@@ -166,33 +202,15 @@
 	<script type="text/javascript" src="js/appajax.js" ></script>
 	<script>
 		var state=app.getUserState();
-		var i = 0;
-		/*var scrollHeight = (mui("#text-slider a").length-1)*40;*/
-		var scrollHeight = 0;
 		var slider = mui("#slider");
-		var textSlider = mui("#text-slider");
 		mui.init();
+		slider.slider({interval: 3000});
 		mui.ready(function() {
-			window.setInterval("scrollText()",3000);
+			
 		});
 
-		slider.slider({interval: 3000});
-		textSlider.scroll({
-			scrollY: true, //是否竖向滚动
-			scrollX: false, //是否横向滚动
-			startX: 0, //初始化时滚动至x
-			startY: 0, //初始化时滚动至y
-			indicators: false, //是否显示滚动条
-		});
-		function scrollText(){
-			if(i>-scrollHeight){
-				i=i-40;
-				textSlider.scroll().scrollTo(0,i,1000);
-			}else{
-				i=0;
-				textSlider.scroll().scrollTo(0,i,2000);
-			}
-		}
+		
+		
 
 	</script>
 </html>
