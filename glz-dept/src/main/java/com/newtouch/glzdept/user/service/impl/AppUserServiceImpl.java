@@ -47,7 +47,7 @@ public class AppUserServiceImpl implements AppUserService {
         for(TUserVO vo : vlist) {
             if(id.equals(vo.getId())) {
                 JSONObject jsonObject = new JSONObject();
-                Long villageId = vo.getId();
+                String villageId = vo.getVillageId();
                 String name = vo.getVillageName();
                 String code = vo.getVillageCode();
                 jsonObject.put("id",villageId);
