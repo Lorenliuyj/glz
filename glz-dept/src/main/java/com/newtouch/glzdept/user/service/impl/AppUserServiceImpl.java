@@ -26,8 +26,8 @@ public class AppUserServiceImpl implements AppUserService {
             return null;
         }
         TUserVO user = userlist.get(0);
-        Long id = user.getId();
         Map<String,Object> resultMap = new HashMap<String,Object>();
+        Long id = user.getId();
         List<TUserVO> dlist = userDao.selectDeptById(id);
         List<TUserVO> vlist = userDao.selectVillageById(id);
         JSONArray jsonArray = new JSONArray();
@@ -56,9 +56,9 @@ public class AppUserServiceImpl implements AppUserService {
                 jsonArray1.add(jsonObject);
             }
         }
-        resultMap.put("user",user);
         resultMap.put("dept",jsonArray);
         resultMap.put("village",jsonArray1);
+        resultMap.put("user",user);
         return resultMap;
     }
 

@@ -90,10 +90,10 @@
 				if(response.code == 0000){
 					var rtnData = response.result;
 					var user = rtnData.user;
-					var depts = rtnData.dept;
-					var villages = rtnData.village;
 					gbid("userName").value = user.userName;
 					gbid("password").value = user.password;
+					var depts = rtnData.dept;
+					var villages = rtnData.village;
 					var deptIds = [];
 					for(var i = 0;i<depts.length;i++) {
 						deptIds.push(depts[i].id);
@@ -102,9 +102,9 @@
 					for(var j = 0;j<villages.length;j++) {
 						villageIds.push(villages[j].id);
 					}
-					state.userName = user.userName;
 					state.deptIds = deptIds;
 					state.villageIds = villageIds;
+					state.userName = user.userName;
 					app.setUserState(state);
 					openUrl("menu.html");           
 				 }else{

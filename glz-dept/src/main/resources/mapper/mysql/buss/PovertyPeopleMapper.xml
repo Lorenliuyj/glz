@@ -22,6 +22,11 @@
         <result column="image_min" property="imageMin" jdbcType="BLOB" />
         <result column="income" property="income" jdbcType="VARCHAR" />
         <result column="comments" property="comments" jdbcType="VARCHAR" />
+        <result column="CREATE_ID" jdbcType="BIGINT" property="createId"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="LAST_MODIFY_TIME" jdbcType="TIMESTAMP" property="lastModifyTime"/>
+        <result column="IS_DELETE" jdbcType="CHAR" property="isDelete"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
     </resultMap>
 
 
@@ -44,6 +49,7 @@
         family_detail,
         trouble_desc,
         income,
+        status,
         comments
     </sql>
 
@@ -68,6 +74,7 @@
         #{PovertyPeopleObj.familyDetail},
         #{PovertyPeopleObj.troubleDesc},
         #{PovertyPeopleObj.income},
+        #{PovertyPeopleObj.status},
         #{PovertyPeopleObj.comments},
         #{PovertyPeopleObj.image1},
         #{PovertyPeopleObj.image2},
@@ -94,6 +101,7 @@
             <if test="PovertyPeopleObj.image3 != null and PovertyPeopleObj.image3 != ''"> ,image_3 = #{PovertyPeopleObj.image3} </if>
             <if test="PovertyPeopleObj.imageMin != null and PovertyPeopleObj.imageMin != ''"> ,image_min = #{PovertyPeopleObj.imageMin} </if>
             <if test="PovertyPeopleObj.income != null and PovertyPeopleObj.income != ''"> ,income = #{PovertyPeopleObj.income} </if>
+            <if test="PovertyPeopleObj.status != null and PovertyPeopleObj.status != ''"> ,status = #{PovertyPeopleObj.status} </if>
             <if test="PovertyPeopleObj.comments != null and PovertyPeopleObj.comments != ''"> ,comments = #{PovertyPeopleObj.comments} </if>
         </if>
     </sql>
@@ -117,6 +125,7 @@
             <if test="PovertyPeopleObj.image3 != null and PovertyPeopleObj.image3 != ''"> AND image_3 = #{PovertyPeopleObj.image3} </if>
             <if test="PovertyPeopleObj.imageMin != null and PovertyPeopleObj.imageMin != ''"> AND image_min = #{PovertyPeopleObj.imageMin} </if>
             <if test="PovertyPeopleObj.income != null and PovertyPeopleObj.income != ''"> AND income = #{PovertyPeopleObj.income} </if>
+            <if test="PovertyPeopleObj.status != null and PovertyPeopleObj.status != ''"> AND status = #{PovertyPeopleObj.status} </if>
             <if test="PovertyPeopleObj.comments != null and PovertyPeopleObj.comments != ''"> AND comments = #{PovertyPeopleObj.comments} </if>
         </if>
     </sql>
@@ -189,7 +198,8 @@
     </insert>
 
     <delete id="deleteById">
-        DELETE FROM t_poverty_people
+        UPDATE t_poverty_people SET
+          is_delete = 'y'
         WHERE
           id = #{PovertyPeopleObj.id}
     </delete>
@@ -234,11 +244,11 @@
     <select id="selectPovertyPeoplePage" resultMap="PovertyPeopleVOMap">
         select
         <!--<include refid="ALL_COLUMN"/>-->
-        id,birthday,poverty_Name,village_id,image_min,dept_id,trouble_id,phone,family_detail
+        id,birthday,poverty_Name,village_id,image_min,dept_id,trouble_id,phone,family_detail,status
         FROM
         t_poverty_people
         WHERE
-        1=1
+          is_delete = 'n'
         <include refid="VO_IF_SELECT"/>
         limit #{page.minNum},#{page.pageSize}
     </select>
@@ -247,7 +257,7 @@
         select count(id)
         from t_poverty_people
         WHERE
-        1=1
+          is_delete = 'n'
         <include refid="VO_IF_SELECT"/>
     </select>
 

@@ -220,9 +220,10 @@
 			});
 			
 			gbid('visit').addEventListener('tap',function(event) {
+				mui.toast($("#birthday").val());
 				localStorage.setItem("povertyName",$("#povertyName").val());
-				localStorage.setItem("birthday",birthday);
-				localStorage.setItem("village",village);
+				localStorage.setItem("birthday",$("#birthday").val());
+				localStorage.setItem("villageId",villageId);
 				localStorage.setItem("familyDetail",$("#familyDetail").val());
 				openUrl('visitor_brow.html');
 			});
@@ -241,6 +242,7 @@
 		var pickerInitData = [{id:"",text:"请选择",value:""}];
 		var villageData = [];
 		var TroData = [];
+		var villageId = "";
 		function initData() {
 			var data = {id:id,baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
 			var tabimg = gbid("imgList");
@@ -276,9 +278,11 @@
 					$("#income").val(rtnData.income);
 					$("#comments").val(rtnData.comments);
 					
+					$("#birthday").val(rtnData.birthday);
 					$("#birHandle").html(rtnData.birthday);
 					$("#birHandle").removeClass("mui-pull-right");
 					
+					villageId = rtnData.villageId;
 					$("#villageId").val(rtnData.villageId);
 					$("#vilHandle").html(getDictJsonText(villageData, rtnData.villageId));
 					$("#vilHandle").removeClass("mui-pull-right");
@@ -523,7 +527,7 @@
 		function visitor() {
 			localStorage.setItem("povertyName",$("#povertyName").val());
 			localStorage.setItem("birthday",birthday);
-			localStorage.setItem("village",village);
+			localStorage.setItem("villageId",villageId);
 			localStorage.setItem("familyDetail",this.getAttribute('familyDetail'));
 			openUrl('visitor_brow.html');
 		}
