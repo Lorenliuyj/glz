@@ -83,10 +83,20 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-blue"></a>
 			<h1 class="mui-title color-blue">走访查询</h1>
 		</header>
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="openUrl('../menu.html')">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" onclick="mui.toast('攻城狮正在玩命研发中')">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
 		<div class="mui-content">
 			<div id="searchBar" class="mui-table-view mui-grid-view" style="position: fixed;margin-top:0px;z-index: 2;background-color: gray;padding-left:15px;padding-right: 1px;height: 45px;">
 				<div class="mui-input-row mui-search mui-col-sm-9 mui-col-xs-9" style="display: inline-block;margin-top: 5px;">
-					<input id="sName" type="search" class="mui-input-clear" placeholder="搜索贫困户姓名" style="background-color: white;"/>
+					<input id="sName" type="search" class="mui-input-clear" placeholder="搜索贫困户姓名或备注" style="background-color: white;"/>
 				</div>
 				<button class="mui-btn-link  mui-col-sm-3 mui-col-xs-3 selectBtn" style="line-height: 30px;color: white;">更多筛选</button>
 			</div>
@@ -185,8 +195,8 @@
 		var table = gbid("visitorlist");
 		
 		function getData(upAndDown) {
-			var data = {pageNum:pageNum,pageSize:pageSize,povertyPeopleName:$("#sName").val(),villages:villages,
-			baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
+			var data = {pageNum:pageNum,pageSize:pageSize,povertyPeopleName:$("#sName").val(),
+			villages:villages,baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
 			console.log(JSON.stringify(data));
 			appajax.SendRequestByGet("visit/selectvisitPage",data,function(response) {
 				if(response.code = '0000') {

@@ -1,6 +1,7 @@
 package com.newtouch.glzdept.buss.entity.PO;
 
 
+import java.util.Date;
 
 /**
  * @author: lgyu6
@@ -44,6 +45,16 @@ public class PovertyPeoplePO {
     private String income;
 
     private String comments;
+
+    private Long createId;
+
+    private Date createTime;
+
+    private Date lastModifyTime;
+
+    private String isDelete;
+
+    private String status;
 
     public String getId() {
         return id;
@@ -187,6 +198,46 @@ public class PovertyPeoplePO {
 
     public void setTroubleDesc(String troubleDesc) {
         this.troubleDesc = troubleDesc;
+    }
+
+    public String getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(String isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Long getCreateId() {
+        return createId;
+    }
+
+    public void setCreateId(Long createId) {
+        this.createId = createId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getLastModifyTime() {
+        return lastModifyTime;
+    }
+
+    public void setLastModifyTime(Date lastModifyTime) {
+        this.lastModifyTime = lastModifyTime;
     }
 }
 
