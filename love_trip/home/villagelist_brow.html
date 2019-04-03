@@ -103,7 +103,7 @@
 		<div class="mui-content">
 			<div id="searchBar" class="mui-table-view mui-grid-view" style="position: fixed;margin-top:0px;z-index: 2;background-color: gray;padding-left:15px;padding-right: 1px;height: 45px;">
 				<div class="mui-input-row mui-search mui-col-sm-9 mui-col-xs-9" style="display: inline-block;margin-top: 5px;">
-					<input id="sName" type="search" class="mui-input-clear" placeholder="搜索贫困户姓名" style="background-color: white;"/>
+					<input id="sName" type="search" class="mui-input-clear" placeholder="搜索贫困户姓名或备注" style="background-color: white;"/>
 				</div>
 				<button class="mui-btn-link  mui-col-sm-3 mui-col-xs-3 selectBtn" style="line-height: 30px;color: white;">更多筛选</button>
 			</div>
@@ -211,7 +211,7 @@
 		var pageSize = 10;
 		var table = gbid("villageInfolist");
  		function getData(upAndDown) {
-			var data = {pageNum:pageNum,pageSize:pageSize,povertyName:$("#sName").val(),
+			var data = {pageNum:pageNum,pageSize:pageSize,povertyName:$("#sName").val(),comments:$("#sName").val(),
 			deptIds:povertyType1s,troubleIds:povertyType2s,villageIds:villages,
 			baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
 			console.log(JSON.stringify(data));

@@ -126,7 +126,7 @@
             <if test="PovertyPeopleObj.imageMin != null and PovertyPeopleObj.imageMin != ''"> AND image_min = #{PovertyPeopleObj.imageMin} </if>
             <if test="PovertyPeopleObj.income != null and PovertyPeopleObj.income != ''"> AND income = #{PovertyPeopleObj.income} </if>
             <if test="PovertyPeopleObj.status != null and PovertyPeopleObj.status != ''"> AND status = #{PovertyPeopleObj.status} </if>
-            <if test="PovertyPeopleObj.comments != null and PovertyPeopleObj.comments != ''"> AND comments = #{PovertyPeopleObj.comments} </if>
+            <if test="PovertyPeopleObj.comments != null and PovertyPeopleObj.comments != ''"> OR comments like concat('%', #{PovertyPeopleObj.comments},'%' )</if>
         </if>
     </sql>
 

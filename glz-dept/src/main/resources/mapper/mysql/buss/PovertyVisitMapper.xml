@@ -61,7 +61,7 @@
         <if test="povertyVisitVO!= null">
             <if test="povertyVisitVO.id != null and povertyVisitVO.id != ''"> AND tpv.id = #{povertyVisitVO.id} </if>
             <if test="povertyVisitVO.povertyPeopleId != null and povertyVisitVO.povertyPeopleId != ''"> AND poverty_people_id = #{povertyVisitVO.povertyPeopleId} </if>
-            <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> AND tpp.poverty_name like CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')  </if>
+            <!--<if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''"> AND tpp.poverty_name like CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')  </if>-->
             <if test="povertyVisitVO.birthday != null and povertyVisitVO.birthday != ''"> AND birthday = #{povertyVisitVO.birthday} </if>
             <if test="povertyVisitVO.villageId != null and povertyVisitVO.villageId != ''"> AND village_id = #{povertyVisitVO.villageId} </if>
             <if test="povertyVisitVO.visitDate != null and povertyVisitVO.visitDate != ''"> AND visit_date = #{povertyVisitVO.visitDate} </if>
@@ -77,7 +77,7 @@
             <if test="povertyVisitVO.image3 != null and povertyVisitVO.image3 != ''"> AND image_3 = #{povertyVisitVO.image3} </if>
             <if test="povertyVisitVO.imageMin != null and povertyVisitVO.imageMin != ''"> AND image_min = #{povertyVisitVO.imageMin} </if>
             <if test="povertyVisitVO.createTime != null and povertyVisitVO.createTime != ''"> AND create_time = #{povertyVisitVO.createTime} </if>
-            <if test="povertyVisitVO.comments != null and povertyVisitVO.comments != ''"> AND comments = #{povertyVisitVO.comments} </if>
+            <!--<if test="povertyVisitVO.comments != null and povertyVisitVO.comments != ''"> OR tpv.comments like CONCAT('%',#{povertyVisitVO.comments},'%') </if>-->
             <if test="povertyVisitVO.isdelete != null and povertyVisitVO.isdelete != ''"> AND is_delete = #{povertyVisitVO.isdelete} </if>
             <if test="povertyVisitVO.villages != null and povertyVisitVO.villages.size() > 0">
                 AND
@@ -189,6 +189,14 @@
         t_village tv
         ON
         tpv.village_id = tv.id
+        WHERE
+        1=1
+        <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''">
+            AND (
+            tpp.poverty_name like CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')
+            OR tpv.comments like CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')
+            )
+        </if>
         <include refid="ALL_IF_SELECT"/>
         limit #{page.minNum},#{page.pageSize}
     </select>
@@ -207,6 +215,14 @@
         t_village tv
         ON
         tpv.village_id = tv.id
+        WHERE
+        1=1
+        <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''">
+            AND (
+            tpp.poverty_name like CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')
+            OR tpv.comments like CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')
+            )
+        </if>
         <include refid="ALL_IF_SELECT"/>
     </select>
 
