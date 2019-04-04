@@ -117,37 +117,37 @@
 					<div class="mui-content" style="padding: 0px;">
 						<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin-top: -1px;">
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
-								<a onclick="mui.toast('敬请期待')">
+								<a onclick="openUrlByTrouble(this)">
 									<img src="images/ty.png"/>
 									<div class="mui-media-body">低保户</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
-								<a onclick="mui.toast('敬请期待')">
+								<a onclick="openUrlByTrouble(this)">
 									<img src="images/ty.png"/>
 									<div class="mui-media-body">五保户</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
-								<a onclick="mui.toast('敬请期待')">
+								<a onclick="openUrlByTrouble(this)">
 									<img src="images/ty.png"/>
 									<div class="mui-media-body">困难残疾人</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
-								<a onclick="mui.toast('敬请期待')">
+								<a onclick="openUrlByTrouble(this)">
 									<img src="images/ty.png"/>
 									<div class="mui-media-body">困难党员</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
-								<a onclick="mui.toast('敬请期待')">
+								<a onclick="openUrlByTrouble(this)">
 									<img src="images/ty.png"/>
 									<div class="mui-media-body">精准扶贫对象</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
-								<a onclick="mui.toast('敬请期待')">
+								<a onclick="openUrlByTrouble(this)">
 									<img src="images/ty.png"/>
 									<div class="mui-media-body">单亲家庭</div>
 								</a>
@@ -209,12 +209,26 @@
 	<script>
 		var state=app.getUserState();
 		var slider = mui("#slider");
-		mui.init();
 		slider.slider({interval: 3000});
+		mui.init();
 		mui.ready(function() {
 			
+			
 		});
-
+		
+		var trouble = state.trouble;
+		function openUrlByTrouble(e) {
+			var name = $(e).find('div').html();
+			trouble.forEach(function(t) {
+				if(t.troubleName == name) {
+					localStorage.setItem("tid",t.tid);
+					openUrl("home/villagetypelist_brow.html");
+				}
+			});
+			
+		}
+		
+		
 		
 		
 

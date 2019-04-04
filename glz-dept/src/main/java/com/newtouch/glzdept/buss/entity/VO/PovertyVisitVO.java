@@ -50,6 +50,9 @@ public class PovertyVisitVO {
 
     private String villageName;
 
+    //装在心愿实体
+    private TBussWishVO tBussWishVO;
+
     public Integer getId() {
         return id;
     }
@@ -224,5 +227,13 @@ public class PovertyVisitVO {
 
     public void setVisitDetail(String visitDetail) {
         this.visitDetail = visitDetail;
+    }
+
+    public TBussWishVO gettBussWishVO() {
+        return tBussWishVO;
+    }
+
+    public void settBussWishVO(TBussWishVO tBussWishVO) {
+        this.tBussWishVO = tBussWishVO;
     }
 }

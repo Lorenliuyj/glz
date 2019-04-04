@@ -173,7 +173,6 @@ function getBirthdayFromIdCard(idCard) {
 }
 
 function getDictJsonText(dictJson, dictId) {
-	console.log(dictJson);
     if (dictJson == null || dictJson.length == 0) {
         return "";
     }
@@ -204,6 +203,19 @@ function getTwoDictJsonText(dictJson, dictId1,dictId2) {
         }
     }
     return "";
+}
+
+//状态
+function getDictJsonTextByValue(dictJson,dictVal) {
+	if (dictJson == null || dictJson.length == 0) {
+	    return "";
+	}
+	for (var i=0; i<dictJson.length; i++) {
+	    if (dictJson[i].dictValue == dictVal && dictVal == '0') {
+	        return dictJson[i].dictName;
+	    }
+	}
+	return "";
 }
 
 function openUrl(pageUrl,extras){

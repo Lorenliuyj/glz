@@ -94,6 +94,7 @@
 					gbid("password").value = user.password;
 					var depts = rtnData.dept;
 					var villages = rtnData.village;
+					var trouble = rtnData.trouble;
 					var deptIds = [];
 					for(var i = 0;i<depts.length;i++) {
 						deptIds.push(depts[i].id);
@@ -102,6 +103,7 @@
 					for(var j = 0;j<villages.length;j++) {
 						villageIds.push(villages[j].id);
 					}
+					state.trouble = trouble;
 					state.deptIds = deptIds;
 					state.villageIds = villageIds;
 					state.userName = user.userName;

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newtouch.glzdept.buss.dao.TBussWishDAO">
+  <resultMap id="BaseResultMap" type="com.newtouch.glzdept.buss.entity.VO.TBussWishVO">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="POVERTY_PEOPLE_ID" jdbcType="BIGINT" property="povertyPeopleId" />
+    <result column="MAKE_POVERTY_VISIT_ID" jdbcType="BIGINT" property="makePovertyVisitId" />
+    <result column="FINISH_POVERTY_VISIT_ID" jdbcType="BIGINT" property="finishPovertyVisitId" />
+    <result column="WISH_TITLE" jdbcType="VARCHAR" property="wishTitle" />
+    <result column="WISH_CONTENT" jdbcType="VARCHAR" property="wishContent" />
+    <result column="WISH_STATUS" jdbcType="CHAR" property="wishStatus" />
+    <result column="WISH_CREATE_DATE" jdbcType="DATE" property="wishCreateDate" />
+    <result column="WISH_FINISH_DATE" jdbcType="DATE" property="wishFinishDate" />
+    <result column="REALIZE_INTRO" jdbcType="VARCHAR" property="realizeIntro" />
+    <result column="RECORD_ID" jdbcType="BIGINT" property="recordId" />
+    <result column="REALIZE_NAME" jdbcType="VARCHAR" property="realizeName" />
+    <result column="CREATE_ID" jdbcType="BIGINT" property="createId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LAST_MODIFY_TIME" jdbcType="TIMESTAMP" property="lastModifyTime" />
+    <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, POVERTY_PEOPLE_ID, MAKE_POVERTY_VISIT_ID, FINISH_POVERTY_VISIT_ID, WISH_TITLE, 
+    WISH_CONTENT, WISH_STATUS, WISH_CREATE_DATE, WISH_FINISH_DATE, REALIZE_INTRO, RECORD_ID, 
+    REALIZE_NAME, CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME, IS_DELETE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_buss_wish
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_buss_wish
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.newtouch.glzdept.buss.entity.VO.TBussWishVO">
+    insert into t_buss_wish (ID, POVERTY_PEOPLE_ID, MAKE_POVERTY_VISIT_ID, 
+      FINISH_POVERTY_VISIT_ID, WISH_TITLE, WISH_CONTENT, 
+      WISH_STATUS, WISH_CREATE_DATE, WISH_FINISH_DATE, 
+      REALIZE_INTRO, RECORD_ID, REALIZE_NAME, 
+      CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME, 
+      IS_DELETE)
+    values (#{id,jdbcType=BIGINT}, #{povertyPeopleId,jdbcType=BIGINT}, #{makePovertyVisitId,jdbcType=BIGINT}, 
+      #{finishPovertyVisitId,jdbcType=BIGINT}, #{wishTitle,jdbcType=VARCHAR}, #{wishContent,jdbcType=VARCHAR}, 
+      #{wishStatus,jdbcType=CHAR}, #{wishCreateDate,jdbcType=DATE}, #{wishFinishDate,jdbcType=DATE}, 
+      #{realizeIntro,jdbcType=VARCHAR}, #{recordId,jdbcType=BIGINT}, #{realizeName,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.newtouch.glzdept.buss.entity.VO.TBussWishVO">
+    insert into t_buss_wish
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="povertyPeopleId != null">
+        POVERTY_PEOPLE_ID,
+      </if>
+      <if test="makePovertyVisitId != null">
+        MAKE_POVERTY_VISIT_ID,
+      </if>
+      <if test="finishPovertyVisitId != null">
+        FINISH_POVERTY_VISIT_ID,
+      </if>
+      <if test="wishTitle != null">
+        WISH_TITLE,
+      </if>
+      <if test="wishContent != null">
+        WISH_CONTENT,
+      </if>
+      <if test="wishStatus != null">
+        WISH_STATUS,
+      </if>
+      <if test="wishCreateDate != null">
+        WISH_CREATE_DATE,
+      </if>
+      <if test="wishFinishDate != null">
+        WISH_FINISH_DATE,
+      </if>
+      <if test="realizeIntro != null">
+        REALIZE_INTRO,
+      </if>
+      <if test="recordId != null">
+        RECORD_ID,
+      </if>
+      <if test="realizeName != null">
+        REALIZE_NAME,
+      </if>
+      <if test="createId != null">
+        CREATE_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME,
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="povertyPeopleId != null">
+        #{povertyPeopleId,jdbcType=BIGINT},
+      </if>
+      <if test="makePovertyVisitId != null">
+        #{makePovertyVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="finishPovertyVisitId != null">
+        #{finishPovertyVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="wishTitle != null">
+        #{wishTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wishContent != null">
+        #{wishContent,jdbcType=VARCHAR},
+      </if>
+      <if test="wishStatus != null">
+        #{wishStatus,jdbcType=CHAR},
+      </if>
+      <if test="wishCreateDate != null">
+        #{wishCreateDate,jdbcType=DATE},
+      </if>
+      <if test="wishFinishDate != null">
+        #{wishFinishDate,jdbcType=DATE},
+      </if>
+      <if test="realizeIntro != null">
+        #{realizeIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="recordId != null">
+        #{recordId,jdbcType=BIGINT},
+      </if>
+      <if test="realizeName != null">
+        #{realizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.newtouch.glzdept.buss.entity.VO.TBussWishVO">
+    update t_buss_wish
+    <set>
+      <if test="povertyPeopleId != null">
+        POVERTY_PEOPLE_ID = #{povertyPeopleId,jdbcType=BIGINT},
+      </if>
+      <if test="makePovertyVisitId != null">
+        MAKE_POVERTY_VISIT_ID = #{makePovertyVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="finishPovertyVisitId != null">
+        FINISH_POVERTY_VISIT_ID = #{finishPovertyVisitId,jdbcType=BIGINT},
+      </if>
+      <if test="wishTitle != null">
+        WISH_TITLE = #{wishTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wishContent != null">
+        WISH_CONTENT = #{wishContent,jdbcType=VARCHAR},
+      </if>
+      <if test="wishStatus != null">
+        WISH_STATUS = #{wishStatus,jdbcType=CHAR},
+      </if>
+      <if test="wishCreateDate != null">
+        WISH_CREATE_DATE = #{wishCreateDate,jdbcType=DATE},
+      </if>
+      <if test="wishFinishDate != null">
+        WISH_FINISH_DATE = #{wishFinishDate,jdbcType=DATE},
+      </if>
+      <if test="realizeIntro != null">
+        REALIZE_INTRO = #{realizeIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="recordId != null">
+        RECORD_ID = #{recordId,jdbcType=BIGINT},
+      </if>
+      <if test="realizeName != null">
+        REALIZE_NAME = #{realizeName,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        CREATE_ID = #{createId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifyTime != null">
+        LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE = #{isDelete,jdbcType=CHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.newtouch.glzdept.buss.entity.VO.TBussWishVO">
+    update t_buss_wish
+    set POVERTY_PEOPLE_ID = #{povertyPeopleId,jdbcType=BIGINT},
+      MAKE_POVERTY_VISIT_ID = #{makePovertyVisitId,jdbcType=BIGINT},
+      FINISH_POVERTY_VISIT_ID = #{finishPovertyVisitId,jdbcType=BIGINT},
+      WISH_TITLE = #{wishTitle,jdbcType=VARCHAR},
+      WISH_CONTENT = #{wishContent,jdbcType=VARCHAR},
+      WISH_STATUS = #{wishStatus,jdbcType=CHAR},
+      WISH_CREATE_DATE = #{wishCreateDate,jdbcType=DATE},
+      WISH_FINISH_DATE = #{wishFinishDate,jdbcType=DATE},
+      REALIZE_INTRO = #{realizeIntro,jdbcType=VARCHAR},
+      RECORD_ID = #{recordId,jdbcType=BIGINT},
+      REALIZE_NAME = #{realizeName,jdbcType=VARCHAR},
+      CREATE_ID = #{createId,jdbcType=BIGINT},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LAST_MODIFY_TIME = #{lastModifyTime,jdbcType=TIMESTAMP},
+      IS_DELETE = #{isDelete,jdbcType=CHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

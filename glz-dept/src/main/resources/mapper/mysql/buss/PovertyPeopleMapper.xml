@@ -109,7 +109,7 @@
     <sql id="PO_IF_SELECT">
         <if test="PovertyPeopleObj != null">
             <if test="PovertyPeopleObj.id!=null and PovertyPeopleObj.id!=''">AND id= #{PovertyPeopleObj.id}</if>
-            <if test="PovertyPeopleObj.povertyName != null and PovertyPeopleObj.povertyName != ''"> AND poverty_name like concat('%',#{PovertyPeopleObj.povertyName},'%')  </if>
+            <!--<if test="PovertyPeopleObj.povertyName != null and PovertyPeopleObj.povertyName != ''"> AND poverty_name like concat('%',#{PovertyPeopleObj.povertyName},'%')  </if>-->
             <if test="PovertyPeopleObj.sex != null and PovertyPeopleObj.sex != ''"> AND sex = #{PovertyPeopleObj.sex} </if>
             <if test="PovertyPeopleObj.idcardNo != null and PovertyPeopleObj.idcardNo != ''"> AND idcard_no = #{PovertyPeopleObj.idcardNo} </if>
             <if test="PovertyPeopleObj.birthday != null and PovertyPeopleObj.birthday != ''"> AND birthday = #{PovertyPeopleObj.birthday} </if>
@@ -126,7 +126,7 @@
             <if test="PovertyPeopleObj.imageMin != null and PovertyPeopleObj.imageMin != ''"> AND image_min = #{PovertyPeopleObj.imageMin} </if>
             <if test="PovertyPeopleObj.income != null and PovertyPeopleObj.income != ''"> AND income = #{PovertyPeopleObj.income} </if>
             <if test="PovertyPeopleObj.status != null and PovertyPeopleObj.status != ''"> AND status = #{PovertyPeopleObj.status} </if>
-            <if test="PovertyPeopleObj.comments != null and PovertyPeopleObj.comments != ''"> OR comments like concat('%', #{PovertyPeopleObj.comments},'%' )</if>
+            <!--<if test="PovertyPeopleObj.comments != null and PovertyPeopleObj.comments != ''"> OR comments like concat('%', #{PovertyPeopleObj.comments},'%' )</if>-->
         </if>
     </sql>
 
@@ -249,7 +249,14 @@
         t_poverty_people
         WHERE
           is_delete = 'n'
+        <if test="PovertyPeopleObj.povertyName != null and PovertyPeopleObj.povertyName != ''">
+            AND(
+              poverty_name like concat('%',#{PovertyPeopleObj.povertyName},'%')
+              OR comments like concat('%',#{PovertyPeopleObj.povertyName},'%')
+            )
+        </if>
         <include refid="VO_IF_SELECT"/>
+        ORDER BY create_time desc
         limit #{page.minNum},#{page.pageSize}
     </select>
 
@@ -258,6 +265,12 @@
         from t_poverty_people
         WHERE
           is_delete = 'n'
+        <if test="PovertyPeopleObj.povertyName != null and PovertyPeopleObj.povertyName != ''">
+            AND(
+            poverty_name like concat('%',#{PovertyPeopleObj.povertyName},'%')
+            OR comments like concat('%',#{PovertyPeopleObj.povertyName},'%')
+            )
+        </if>
         <include refid="VO_IF_SELECT"/>
     </select>
 

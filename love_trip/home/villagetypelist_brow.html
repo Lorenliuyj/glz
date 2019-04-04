@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>贫困户查询</title>
+		<title>贫困户</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -78,7 +78,7 @@
 			#selectMenu .mui-btn{display: inline-block;width: 45%;}
 			#selectMenu .mui-table-view{padding: 0px;}
 			#selectMenu .mui-table-view-cell{padding: 11px 5px;}
-			#selectMenu .mui-table-view-cell>a{background-color: #F2F2F2;border-radius: 20px; margin:-10px 5px 0px;font-size: 14px;padding: 2px 0px;}
+			#selectMenu .mui-table-view-cell>a{background-color:#F2F2F2;border-radius: 20px;margin:-10px 5px 0px;font-size: 14px;padding: 2px 0px;}
 			.active{background-color: #D3D3D3 !important;color: white !important;}
 			.btn-blue{background-color: skyblue;color: white;padding:6px 0;border-radius: 6px;margin-bottom: 10px;border: 0px;}
 			#selectMenu{display:none ;position:fixed;top:88px;z-index: 3;background-color: white;width: 100%;height:100%;padding: 0px 5px;}
@@ -88,18 +88,8 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-blue"></a>
-			<h1 class="mui-title color-blue">贫困户查询</h1>
+			<h1 class="mui-title color-blue">贫困户</h1>
 		</header>
-		<nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item mui-active" onclick="openUrl('../menu.html')">
-				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">首页</span>
-			</a>
-			<a class="mui-tab-item" onclick="mui.toast('攻城狮正在玩命研发中')">
-				<span class="mui-icon mui-icon-contact"></span>
-				<span class="mui-tab-label">我的</span>
-			</a>
-		</nav>
 		<div class="mui-content">
 			<div id="searchBar" class="mui-table-view mui-grid-view" style="position: fixed;margin-top:0px;z-index: 2;background-color: gray;padding-left:15px;padding-right: 1px;height: 45px;">
 				<div class="mui-input-row mui-search mui-col-sm-9 mui-col-xs-9" style="display: inline-block;margin-top: 5px;">
@@ -107,7 +97,6 @@
 				</div>
 				<button class="mui-btn-link  mui-col-sm-3 mui-col-xs-3 selectBtn" style="line-height: 30px;color: white;">更多筛选</button>
 			</div>
-
 			<div id="pullrefresh" class="mui-scroll-wrapper" style="top:89px;z-index: 1;">
 				<div class="mui-scroll">
 					<ul id="villageInfolist" class="mui-table-view mui-table-view-chevron">
@@ -121,10 +110,6 @@
 				</ul>
 				<div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">一级困难类型</div>
 				<ul id="hardRow1" class="mui-table-view mui-grid-view">
-				</ul>
-				<div style="margin: 5px 0px 5px 10px;padding-left:5px;border-left: 3px #12B6F6 solid;">二级困难类型</div>
-				<ul id="hardRow2" class="mui-table-view mui-grid-view">
-				</ul>
 				<div style="position: relative;left: 0px;width: 100%;padding: 0 5px;text-align: center;">
 					<button id="cancelBtn" class="mui-btn mui-btn-block  btn-blue">取消筛选</button>
 					<button id="confirmBtn" class="mui-btn mui-btn-block btn-blue">确定</button>
@@ -139,7 +124,7 @@
 	<script src="../js/jquery2.min.js"></script>
 	<script>
 		var state = app.getUserState();
-		
+		var tid = localStorage.getItem("tid");
         mui.ready(function () {
 			mui.init({
 				pullRefresh: {
@@ -154,7 +139,7 @@
 						contentnomore:'没有更多数据了',
 						callback: pullupRefresh
 					}
-				} 
+				}
 			});
         });
 		
@@ -181,30 +166,25 @@
 				li.innerHTML = '<a id="'+TroData[i].id+'">'+TroData[i].text+'</a>';
 				gbid('hardRow1').appendChild(li);
 			}
-			for(var i=0;i<TroubleData.length;i++) {
-				var li = document.createElement('li');
-				li.className = 'mui-table-view-cell mui-col-sm-3 mui-col-xs-3';
-				li.innerHTML = '<a id="'+TroubleData[i].id+'">'+TroubleData[i].text+'</a>';
-				gbid('hardRow2').appendChild(li);
-			}
 		}
+		
         var upAndDown = 0;//0:up,1:down
         function pullupRefresh() {
-		    pageNum++;
+            pageNum++;
             upAndDown = 0;
             setTimeout(function () {
                 //mui('#pullrefresh').pullRefresh().endPullup(true);
                 //mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
-				getData(upAndDown);
-			},1000);
+        		getData(upAndDown);
+        	},1000);
         }
         function pulldownRefresh() {
             upAndDown = 1;
-			pageNum = 1;
-			table.innerHTML = "";
+        	pageNum = 1;
+        	table.innerHTML = "";
             setTimeout(function(){
-				mui('#pullrefresh').pullRefresh().refresh(true);
-				getData(upAndDown)
+        		mui('#pullrefresh').pullRefresh().refresh(true);
+        		getData(upAndDown)
                 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
             },1000);
         }
@@ -214,7 +194,7 @@
 		var table = gbid("villageInfolist");
  		function getData(upAndDown) {
 			var data = {pageNum:pageNum,pageSize:pageSize,povertyName:$("#sName").val(),
-			deptIds:povertyType1s,troubleIds:povertyType2s,villageIds:villages,
+			deptIds:povertyType1s,troubleIds:tid,villageIds:villages,
 			baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
 			console.log(JSON.stringify(data));
 			appajax.SendRequestByGet("poverty/selectPovertyPeoplePage",data,function(response) {
@@ -260,6 +240,7 @@
 					}
 				}
 			},function(response) {
+				
 			});
 		} 
 		
@@ -276,22 +257,17 @@
 		var povertyName = "";
 		var villages = "";
 		var povertyType1s = "";
-		var povertyType2s = "";
 		function getSelectValue() {
 			villages = "";
 			povertyType1s = "";
-			povertyType2s = "";
 			var villagesList = mui('#forcountryRow .active');
 			var povertyType1sList = mui('#hardRow1 .active');
-			var povertyType2sList = mui('#hardRow2 .active');
+
 			for(i=0;i<villagesList.length;i++) {
 				villages += (villages != "" ? "," : "") + villagesList[i].id;
 			}
 			for(var i=0;i<povertyType1sList.length;i++) {
 				povertyType1s += (povertyType1s != "" ? "," : "") + povertyType1sList[i].id;
-			}
-			for(var i=0;i<povertyType2sList.length;i++) {
-				povertyType2s += (povertyType2s != "" ? "," : "") + povertyType2sList[i].id;
 			}
 		}
 		
@@ -304,18 +280,18 @@
 			pullupRefresh();
 		}
 		
-        //点击更多筛选收起或显示
-         mui("body").on('tap','.selectBtn',function(){
-            $('#selectMenu').slideToggle();
-        }); 
+		//点击更多筛选收起或显示
+		 mui("body").on('tap','.selectBtn',function(){
+		    $('#selectMenu').slideToggle();
+		}); 
 		
-        //点击取消筛选
-        mui("#selectMenu").on('tap','#cancelBtn',function(){
-            $("a").toggleClass("active",false);
-            $('#selectMenu').slideToggle();
-            //清空列表
+		//点击取消筛选
+		mui("#selectMenu").on('tap','#cancelBtn',function(){
+		    $("a").toggleClass("active",false);
+		    $('#selectMenu').slideToggle();
+		    //清空列表
 			clear();
-        });
+		});
 		
 		mui("#selectMenu").on('tap','#confirmBtn',function() {
 			$('#selectMenu').slideToggle();
@@ -337,24 +313,24 @@
 		    }
 		});
 		
-        mui("body").on("tap", ".mui-icon-clear", function() {
-            //清空列表
+		mui("body").on("tap", ".mui-icon-clear", function() {
+		    //清空列表
 			clear();
-        });
-        $("#forcountryRow").on('tap','a',function(){
-            $(this).toggleClass('active');
-        });
-        $("#hardRow1").on('tap','a',function(){
-            $(this).toggleClass('active');
-        });
-        $("#hardRow2").on('tap','a',function(){
-            $(this).toggleClass('active');
-        });
-
-        $("#villageInfolist").on('tap','.mui-slider-handle',function () {
+		});
+		$("#forcountryRow").on('tap','a',function(){
+		    $(this).toggleClass('active');
+		});
+		$("#hardRow1").on('tap','a',function(){
+		    $(this).toggleClass('active');
+		});
+		$("#hardRow2").on('tap','a',function(){
+		    $(this).toggleClass('active');
+		});
+		
+		$("#villageInfolist").on('tap','.mui-slider-handle',function () {
 			localStorage.setItem("pid",this.id);
 			openUrl("villageInfoDetail_brow.html");
-        });
+		});
 		
 		$("#villageInfolist").on('tap','.mui-btn-success',function () {
 			 localStorage.setItem("pid",this.id);

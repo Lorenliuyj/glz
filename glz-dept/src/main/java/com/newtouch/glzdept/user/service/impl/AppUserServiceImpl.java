@@ -3,6 +3,8 @@ package com.newtouch.glzdept.user.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newtouch.common.util.CheckUtil;
+import com.newtouch.glzdept.base.dao.TTroubleTpyeDAO;
+import com.newtouch.glzdept.base.entity.VO.TTroubleTpyeVO;
 import com.newtouch.glzdept.user.dao.UserDao;
 import com.newtouch.glzdept.user.entity.VO.TUserVO;
 import com.newtouch.glzdept.user.service.AppUserService;
@@ -19,6 +21,9 @@ public class AppUserServiceImpl implements AppUserService {
     @Resource
     UserDao userDao;
 
+    @Resource
+    TTroubleTpyeDAO tTroubleTpyeDAO;
+
     @Override
     public Map<String,Object> userLogin(TUserVO userVO) {
         List<TUserVO> userlist = userDao.userLogin(userVO);
@@ -30,8 +35,10 @@ public class AppUserServiceImpl implements AppUserService {
         Long id = user.getId();
         List<TUserVO> dlist = userDao.selectDeptById(id);
         List<TUserVO> vlist = userDao.selectVillageById(id);
+        List<TTroubleTpyeVO> tlist = tTroubleTpyeDAO.selectAll();
         JSONArray jsonArray = new JSONArray();
         JSONArray jsonArray1 = new JSONArray();
+        JSONArray jsonArray2 = new JSONArray();
         for(TUserVO vo : dlist) {
             if(id.equals(vo.getId())) {
                 JSONObject jsonObject = new JSONObject();
@@ -56,8 +63,17 @@ public class AppUserServiceImpl implements AppUserService {
                 jsonArray1.add(jsonObject);
             }
         }
+        for(TTroubleTpyeVO vo : tlist) {
+            JSONObject jsonObject = new JSONObject();
+            Long tid = vo.getId();
+            String name = vo.getTroubleName();
+            jsonObject.put("tid",tid);
+            jsonObject.put("troubleName",name);
+            jsonArray2.add(jsonObject);
+        }
         resultMap.put("dept",jsonArray);
         resultMap.put("village",jsonArray1);
+        resultMap.put("trouble",jsonArray2);
         resultMap.put("user",user);
         return resultMap;
     }

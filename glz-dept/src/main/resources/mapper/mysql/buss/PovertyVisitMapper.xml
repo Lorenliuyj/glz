@@ -122,10 +122,7 @@
     </sql>
 
     <!--插入-->
-   <insert id="insert" parameterType="com.newtouch.glzdept.buss.entity.VO.PovertyVisitVO">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+   <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.newtouch.glzdept.buss.entity.VO.PovertyVisitVO">
         INSERT INTO
           t_poverty_visit
        <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -190,7 +187,7 @@
         ON
         tpv.village_id = tv.id
         WHERE
-        1=1
+        tpv.is_delete = 'n'
         <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''">
             AND (
             tpp.poverty_name like CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')
@@ -198,6 +195,7 @@
             )
         </if>
         <include refid="ALL_IF_SELECT"/>
+        ORDER BY tpv.create_time DESC
         limit #{page.minNum},#{page.pageSize}
     </select>
 
@@ -216,7 +214,7 @@
         ON
         tpv.village_id = tv.id
         WHERE
-        1=1
+        tpv.is_delete = 'n'
         <if test="povertyVisitVO.povertyPeopleName != null and povertyVisitVO.povertyPeopleName != ''">
             AND (
             tpp.poverty_name like CONCAT('%',#{povertyVisitVO.povertyPeopleName},'%')

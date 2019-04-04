@@ -105,8 +105,12 @@ public class BaseServiceImpl implements BaseService {
         TDictVO dict = new TDictVO();
         dict.setDictType("COMMON_USER_SEX");
         List<TDictVO> list = tDictDAO.selectDictByVO(dict);
+        TDictVO dict1 = new TDictVO();
+        dict1.setDictType("POVERTY_STATUS");
+        List<TDictVO> list1 = tDictDAO.selectDictByVO(dict1);
         resultMap.putAll(resultMap1);
-        resultMap.put("dict",list);
+        resultMap.put("sex",list);
+        resultMap.put("status",list1);
         return resultMap;
     }
 }
