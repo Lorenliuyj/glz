@@ -4,7 +4,9 @@ import com.newtouch.common.entity.base.MessageType;
 import com.newtouch.common.entity.base.Page;
 import com.newtouch.common.exception.BlcException;
 import com.newtouch.glzdept.buss.dao.PovertyVisitDao;
+import com.newtouch.glzdept.buss.dao.TBussWishDAO;
 import com.newtouch.glzdept.buss.entity.VO.PovertyVisitVO;
+import com.newtouch.glzdept.buss.entity.VO.TBussWishVO;
 import com.newtouch.glzdept.buss.service.AppPovertyVisitService;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class AppPovertyVisitServiceImpl implements AppPovertyVisitService {
     @Resource
     PovertyVisitDao povertyVisitDao;
 
+    @Resource
+    TBussWishDAO tBussWishDAO;
+
     @Override
     public void saveVisitInfo(PovertyVisitVO visitVO) {
         if(visitVO == null){
@@ -24,11 +29,10 @@ public class AppPovertyVisitServiceImpl implements AppPovertyVisitService {
         }
         //TODO 缺少当前用户id赋值
         visitVO.setIsdelete("n");
-        visitVO.setCreateTime(new Timestamp(System.currentTimeMillis()));
-        Integer key = povertyVisitDao.insert(visitVO);
-        if(key == null){
-            throw new BlcException(MessageType.ERROR);
-        }
+        Long key = povertyVisitDao.insert(visitVO);
+        TBussWishVO tBussWishVO = visitVO.gettBussWishVO();
+        tBussWishVO.setId(key);
+        tBussWishDAO.insert(tBussWishVO);
     }
 
     @Override

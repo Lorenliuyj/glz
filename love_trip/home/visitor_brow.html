@@ -33,6 +33,14 @@
 				width: 96%;
 				margin-left: 4%;
 			}
+			.mui-table-view.n:after{
+				width: 0%;
+				margin-left: 4%;
+			}
+			.mui-table-view.n:before{
+				width: 0%;
+				margin-left: 4%;
+			}
 		</style>
 	</head>
 
@@ -92,15 +100,47 @@
 						<img src="" alt="" id="ago" style="display: none"/>
 					</a>
 				</div>
-				<div class="mui-input-row" style="margin-top: 5px;">
-					<p style="margin-bottom: -2px;">慰问情况</p>
-					<textarea id="condolenceDetail" rows="4" placeholder="请填写慰问情况" class="mui-input-speech mui-input-clear"></textarea>
+				<ul class="mui-table-view n">
+					<div class="mui-card">
+						<li class="mui-table-view-cell mui-collapse">
+							<a class="mui-navigate-right" href="#">慰问详情</a>
+							<div class="mui-collapse-content">
+								<div class="mui-input-row" style="margin-top: 5px;">
+									<p style="margin-bottom: -2px;">慰问情况</p>
+									<textarea id="condolenceDetail" rows="4" placeholder="请填写慰问情况" class="mui-input-speech mui-input-clear"></textarea>
+								</div>
+								<div class="mui-input-row">
+									<p style="margin-bottom: -2px;">备注</p>
+									<textarea id="comments" rows="2" placeholder="请填写备注" class="mui-input-speech mui-input-clear"></textarea>
+								</div>
+							</div>
+						</li>
+					</div>
+				</ul>
+				<div class="mui-content" style="margin-top: -10px;">
+					<div class="mui-card">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell mui-collapse">
+								<a class="mui-navigate-right" href="#">心愿</a>
+								<div class="mui-collapse-content">
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<label>心愿标题</label>
+											<input id="wishTitle" type="text" class="mui-input-clear" placeholder="请输入心愿标题">
+										</div>
+										<div class="mui-input-row" style="height: 15px;">
+										</div>
+									</form>
+									<div class="mui-input-row">
+										<p style="margin-bottom: -2px;">心愿内容</p>
+										<textarea id="wishContent" rows="2" class="mui-input-speech mui-input-clear" placeholder="请填写心愿内容"></textarea>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
-				<div class="mui-input-row">
-					<p style="margin-bottom: -2px;">备注</p>
-					<textarea id="comments" rows="2" placeholder="请填写备注" class="mui-input-speech mui-input-clear"></textarea>
-				</div>
-				<button id="submitBtn" class="mui-btn mui-btn-block btn-blue" style="margin-top: 5px;">提交</button>
+				<button id="submitBtn" class="mui-btn mui-btn-block btn-blue" style="margin-top: 20px;">提交</button>
 			</form>
 		</div>
 	</body>
@@ -192,6 +232,12 @@
 		function submitFun() {
 			//给图片设置值
 			setImage();
+			var wish = {povertyPeopleId:povertyPeopleId,
+				wishTitle:$("#wishTitle").val(),
+				wishContent:$("#wishContent").val(),
+				wishCreateDate:$("#visitDate").val(),
+				wishStatus:"0"
+				};
 			var data = {
 				povertyPeopleId:povertyPeopleId,
 				birthday:birthday,
@@ -203,8 +249,10 @@
 				massAppeal:gbid('massAppeal').value,
 			    visitDetail:gbid('condolenceDetail').value,
 				comments:gbid('comments').value,
+				isDelete:"n",
 				image1:image1,image2:image2,image3:image3,
-				imageMin:imageMin
+				imageMin:imageMin,
+				tBussWishVO : wish
 			};
 			
 			if(!checkIsEmpty(data)) {
@@ -255,6 +303,15 @@
 			}
 			if(data.massAppeal == "") {
 				mui.toast("群众诉求不能为空！");
+				return false;
+			}
+			var wish = data.tBussWishVO;
+			if(wish.wishTitle !="" && wish.wishContent == "") {
+				mui.toast("心愿必须全部填写！");
+				return false;
+			} 
+			if(wish.wishContent !="" && wish.wishTitle == "") {
+				mui.toast("心愿必须全部填写！");
 				return false;
 			}
 			return true;

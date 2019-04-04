@@ -56,6 +56,7 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-blue"></a>
 			<h1 class="mui-title color-blue">贫困户信息详情</h1>
 			<a id="visit" class="mui-pull-right color-blue" style="margin-top: 11px;font-size: 16px;">走访录入</a>
+			<input id="status" type="text" class="mui-input mui-hidden"/>
 		</header>
 		<div class="mui-content mui-content-padded" style="margin-bottom:20px;">
 			<form class="mui-input-group">
@@ -220,7 +221,10 @@
 			});
 			
 			gbid('visit').addEventListener('tap',function(event) {
-				mui.toast($("#birthday").val());
+				if($("#status").val() == '0') {
+					mui.alert("该贫困户已被注销！");
+					return;
+				}
 				localStorage.setItem("povertyName",$("#povertyName").val());
 				localStorage.setItem("birthday",$("#birthday").val());
 				localStorage.setItem("villageId",villageId);
@@ -277,6 +281,7 @@
 					$("#troubleDesc").val(rtnData.troubleDesc);
 					$("#income").val(rtnData.income);
 					$("#comments").val(rtnData.comments);
+					$("#status").val(rtnData.status);
 					
 					$("#birthday").val(rtnData.birthday);
 					$("#birHandle").html(rtnData.birthday);

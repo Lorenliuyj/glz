@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PovertyVisitDao {
 
-    Integer insert(@Param("visitVO") PovertyVisitVO visitVO);
+    Long insert(@Param("visitVO") PovertyVisitVO visitVO);
 
     /**
      *  分頁查詢

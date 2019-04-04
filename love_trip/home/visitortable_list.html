@@ -159,8 +159,10 @@
 		var count = 0;
 		var villageData = [];
 		var TroubleData = [];//二级类型
+		var statusData = [];//贫困户状态
 		function loadInitData(rtnData) {
 			villageData = rtnData.villages;
+			statusData = rtnData.status;
 			var TroData = rtnData.depts;
 			for(var i=0;i<villageData.length;i++) {
 				var li = document.createElement('li');
@@ -207,7 +209,7 @@
 		var pageSize = 10;
 		var table = gbid("villageInfolist");
  		function getData(upAndDown) {
-			var data = {pageNum:pageNum,pageSize:pageSize,povertyName:$("#sName").val(),comments:$("#sName").val(),
+			var data = {pageNum:pageNum,pageSize:pageSize,povertyName:$("#sName").val(),
 			deptIds:povertyType1s,troubleIds:povertyType2s,villageIds:villages,
 			baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
 			console.log(JSON.stringify(data));
@@ -227,12 +229,12 @@
 					for(var i=0;i<list.length;i++) {
 						var li = document.createElement('li');
 						li.className = "mui-table-view-cell mui-media";
-						li.id = list[i].id;
-						li.innerHTML = '<div class="mui-slider-handle" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" villageId="'+list[i].villageId+'" familyDetail="'+list[i].familyDetail+'">'+
+						li.innerHTML = '<div class="mui-slider-handle" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" status="'+list[i].status+'" birthday="'+list[i].birthday+'" villageId="'+list[i].villageId+'" familyDetail="'+list[i].familyDetail+'">'+
 											'<a href="javascript:;" onclick="">'+
 												'<img class="mui-media-object mui-pull-left userIcon" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
-													'<div class="mui-ellipsis-2">'+list[i].povertyName+'</div>'+
+													'<span class="">'+list[i].povertyName+'</span>'+
+													'<span class="mui-pull-right" style="color:red;">'+getDictJsonTextByValue(statusData,list[i].status)+'</span>'+
 												'</div>'+
 												'<div class="meta-info">'+
 													'<div class="author">'+getDictJsonText(villageData, list[i].villageId)+'</div>'+
@@ -242,9 +244,6 @@
 											'</a>'+
 										'</div>';
 						table.appendChild(li);		
-						if(list[i].status == '0') {
-							$(".mui-btn-success").hide();
-						}
 						imgCheck();
 					}
 				}
@@ -342,6 +341,11 @@
 		});
 
        $("#villageInfolist").on('tap','.mui-slider-handle',function () {
+			var status = this.getAttribute('status');
+			if(status == '0') {
+				mui.alert("该贫困户已被注销！");
+				return;
+			}
 			localStorage.setItem("pid",this.id);
 			localStorage.setItem("povertyName",this.getAttribute('povertyName'));
 			localStorage.setItem("birthday",this.getAttribute('birthday'));
