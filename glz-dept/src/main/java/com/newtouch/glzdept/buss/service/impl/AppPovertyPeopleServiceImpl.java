@@ -2,12 +2,15 @@ package com.newtouch.glzdept.buss.service.impl;
 
 import com.newtouch.common.entity.base.Page;
 import com.newtouch.glzdept.buss.dao.PovertyPeopleDao;
+import com.newtouch.glzdept.buss.dao.TBussWishDAO;
 import com.newtouch.glzdept.buss.entity.PO.PovertyPeoplePO;
 import com.newtouch.glzdept.buss.entity.VO.PovertyPeopleVO;
+import com.newtouch.glzdept.buss.entity.VO.TBussWishVO;
 import com.newtouch.glzdept.buss.service.AppPovertyPeopleService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author: lgyu6
@@ -19,6 +22,9 @@ public class AppPovertyPeopleServiceImpl implements AppPovertyPeopleService {
 
     @Resource
     PovertyPeopleDao povertyPeopleDao;
+
+    @Resource
+    TBussWishDAO tBussWishDAO;
 
     @Override
     public void addPovertyUser(PovertyPeopleVO povertyPeopleVO) {
@@ -45,8 +51,17 @@ public class AppPovertyPeopleServiceImpl implements AppPovertyPeopleService {
     @Override
     public Page<PovertyPeopleVO> selectPovertyUserPage(PovertyPeopleVO povertyPeopleVO, Page page) {
         page.init();
+        List<PovertyPeopleVO> list = povertyPeopleDao.selectPovertyPeoplePage(povertyPeopleVO,page);
+        List<TBussWishVO> tlist = tBussWishDAO.selectWishCountByPid(povertyPeopleVO);
+        for(PovertyPeoplePO pvo : list) {
+            for(TBussWishVO tvo : tlist) {
+                if(pvo.getId().equals(Long.toString(tvo.getPovertyPeopleId()))) {
+                    pvo.settSum(tvo.gettSum());
+                }
+            }
+        }
         page.setTotalNum(povertyPeopleDao.total(povertyPeopleVO));
-        page.setList(povertyPeopleDao.selectPovertyPeoplePage(povertyPeopleVO,page));
+        page.setList(list);
         return page;
 
     }

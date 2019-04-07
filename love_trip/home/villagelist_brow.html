@@ -236,6 +236,7 @@
 						var listid = list[i].id;
 						li.innerHTML = '<div class="mui-slider-right mui-disabled">'+
 											'<a class="mui-btn mui-btn-success" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" birthday="'+list[i].birthday+'" villageId="'+list[i].villageId+'" familyDetail="'+list[i].familyDetail+'">走访</a>'+
+											'<a class="mui-btn mui-badge-warning" id="'+list[i].id+'">心愿</a>'+
 											'<a class="mui-btn mui-btn-danger" id="'+list[i].id+'">删除</a>'+
 										'</div>'+
 										'<div id="'+list[i].id+'" class="mui-slider-handle">'+
@@ -243,6 +244,7 @@
 												'<img class="mui-media-object mui-pull-left userIcon" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
 													'<span class="">'+list[i].povertyName+'</span>'+
+													'<span id="'+list[i].id+'" class="mui-badge mui-badge-danger mui-pull-right" style="margin-top:2px;">'+getTextNotNull(list[i].tSum)+'</span>'+
 													'<span class="mui-pull-right" style="color:red;">'+getDictJsonTextByValue(statusData,list[i].status)+'</span>'+
 												'</div>'+
 												'<div class="meta-info">'+
@@ -252,9 +254,14 @@
 												'</div>'+
 											'</a>'+
 										'</div>';
-							table.appendChild(li);	
+							table.appendChild(li);
+						if(list[i].tSum == null) {
+							$("#"+listid+".mui-badge").hide();
+						}
 						if(list[i].status == '0') {
-							$("#"+listid).hide();
+							$("#"+listid+".mui-btn-success").hide();
+							$("#"+listid+".mui-badge-warning").hide();
+							$("#"+listid+".mui-badge").hide();
 						}
 						imgCheck();
 					}
@@ -350,6 +357,11 @@
         $("#hardRow2").on('tap','a',function(){
             $(this).toggleClass('active');
         });
+		
+		$("#villageInfolist").on('tap','.mui-btn.mui-badge-warning',function () {
+			 localStorage.setItem("wid",this.id);
+			 openUrl("wishlist_brow.html");
+		});
 
         $("#villageInfolist").on('tap','.mui-slider-handle',function () {
 			localStorage.setItem("pid",this.id);

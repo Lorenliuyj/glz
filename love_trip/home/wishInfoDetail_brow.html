@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>心愿详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link href="../css/mui.picker.all.css" rel="stylesheet" />
+		<style>
+			html,body,.mui-content{background-color: white;}
+			.mui-icon.mui-icon-plusempty{font-size: 17px;}
+			.mui-icon-plusempty:before {content: '\e468';font-size: 530%;font-weight:bold;color: #12B6F6;}
+			input::-webkit-input-placeholder{text-align: right;}
+			input{font-size: 14px;color: #8f8f94;}
+			!* .mui-table-view:before{height: 0px;}*!
+			.mui-table-view:after{height: 0px;}
+			.mui-table-view-chevron .mui-table-view-cell {padding-right: 20px;}
+			.color-blue{color: #12B6F6 !important;}
+			.myBtn{border: 1px solid #CCCCCC;width: 92px;height: 92px;text-align: center;color: #B8B8B8;font-weight: bold;display: inline-block;margin: 5px;}
+            .mui-input-group:before{background-color: white;}
+            mui-input-group:before{height: 0px;}
+			.color-blue{color: #12B6F6 !important;}
+			.btn-blue{background-color: #12B6F6;color: white;padding:6px 10px;border-radius: 6px;border: 0px;}
+			/* .mui-table-view.u:after{
+				width: 96%;
+				margin-left: 4%;
+			} */
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left color-blue"></a>
+			<h1 class="mui-title color-blue">心愿详情</h1>
+		</header>
+		<div class="mui-content mui-content-padded" style="margin-bottom:20px;">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label class="mui-pull-left" style="width: 40%;">姓名</label>
+					<input id="povertyName" type="text" class="mui-input mui-pull-right" readonly="readonly"  style="width: 60%;"/>
+				</div>
+				<ul class="mui-table-view mui-table-view-chevron u">
+					<li class="mui-table-view-cell">
+						<label class="mui-pull-left" style="width: 40%;">许愿时间</label>
+						<input id="wishCreateDate" type="text" class="mui-input mui-hidden"/>
+						<p id="wctHandle">请选择</p>
+					</li>
+				</ul>
+				<div class="mui-input-row">
+					<label class="mui-pull-left" style="width: 40%;">心愿标题</label>
+					<input id="wishTitle" type="text" readonly="readonly" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入心愿标题"/>
+				</div>
+				<div class="mui-input-row" style="background-color: white;padding-bottom: 100px;display: none;">
+					<form action="" method= "post" id="uploadForm">
+						<div id="files" style="display: inline-block;margin: 5px 0px;float:left;"></div>
+					</form>
+					<a id="addBtn" class="myBtn mui-icon mui-icon-plusempty">
+						<input id="addImageBtn" type="file" accept="image" onchange="selectFileImage(this)"  style="display:none;"/>
+						<canvas id="myCanvas" style="display: none" ></canvas>
+						<img src="" alt="" id="ago" style="display: none"/>
+					</a>
+				</div>
+				<div class="mui-input-row">
+					<p style="margin-left: 5px;">心愿内容</p>
+					<textarea id="wishContent" type="textarea" rows="4" placeholder="请输入心愿内容" class="mui-input-speech mui-input-clear">sdsss </textarea>
+				</div>
+				<ul class="mui-table-view mui-table-view-chevron u">
+					<li class="mui-table-view-cell" id="timePicker">
+						<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;完成时间</label>
+						<input id="wishFinishDate" type="text" class="mui-input mui-hidden"/>
+						<p id="wfdHandle" class="mui-pull-right">请选择</p>
+					</li>
+				</ul>
+				<div class="mui-input-row">
+					<label class="mui-pull-left" style="width: 40%;"><p1 style="color: red;">*</p1>&nbsp;完成人</label>
+					<input id="realizeName" type="text" class="mui-input mui-pull-right" style="width: 60%;" placeholder="请输入完成人姓名"/>
+				</div>
+				<div class="mui-input-row" style="margin-top: 10px;">
+					<p style="margin-left: 5px;">完成详情</p>
+					<textarea id="realizeIntro" type="textarea" rows="4" placeholder="请输入完成心愿详情" class="mui-input-speech mui-input-clear"></textarea>
+				</div>
+			</form>
+			<button id="submitBtn" class="mui-btn mui-btn-block btn-blue" style="margin-top: 5px;">保存</button>
+		</div>
+		
+		
+		
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.picker.all.js"></script>
+	<script src="../js/jquery2.min.js"></script>
+	<script src="../js/app.js"></script>
+	<script src="../js/appajax.js"></script>
+	
+	<script type="text/javascript">
+	var state = app.getUserState();
+	var id = localStorage.getItem("wid");
+	var name = localStorage.getItem("pname");
+	mui.init();
+ 	mui.ready(function() {
+			//初始化数据
+			initData();
+			$("#povertyName").val(name);
+			gbid('timePicker').addEventListener('tap', function(event) {
+				timePicker.show(function(items) {
+					var wishFinishDate=parseDate(items.toString());
+					$("#wishFinishDate").val(wishFinishDate);
+					if(items != null) {;
+			           $("#wfdHandle").addClass("mui-navigate-right");
+			           $("#wfdHandle").removeClass("mui-pull-right");
+					}
+					$("#wfdHandle").html(items.toString());
+				});
+			});
+			
+			
+			gbid('submitBtn').addEventListener('tap', function(event) {
+				submitFun();
+			});
+		
+	});
+
+		
+        //数据初始化
+        var timePicker = new mui.DtPicker({"type":"date"});
+		function initData() {
+			var data = {id:id};
+			appajax.SendRequestByPost("buss/wish/selectWishById",JSON.stringify(data),function(response) {
+				if("0000" == response.code) {
+					var rtnData = response.result;
+					$("#wctHandle").html(rtnData.wishCreateDate);
+					$("#wishTitle").val(rtnData.wishTitle);
+					$("#wishContent").val(rtnData.wishContent);
+					if(rtnData.wishStatus == "1") {
+						$("#wfdHandle").removeClass("mui-pull-right");
+						$("#wfdHandle").html(rtnData.wishFinishDate);
+						$("#realizeName").val(rtnData.realizeName);
+						$("#realizeIntro").val(rtnData.realizeIntro);
+						$("#submitBtn").attr('disabled',true);
+					}
+				}else {
+					mui.toast("查询数据详情失败！");
+				}
+			},function(response) {
+				mui.toast("查询数据详情失败！");
+			},true);
+		}
+		
+		
+		
+		//提交方法
+		function submitFun() {
+			//校验
+			var data = {id:id,wishFinishDate:$("#wishFinishDate").val(),wishStatus:"1",
+				realizeName:$("#realizeName").val(),realizeIntro:$("#realizeIntro").val()
+			};
+			if(!checkIsEmpty(data)) {
+				return;
+			}
+			$("#submitBtn").attr('disabled',true);
+		    appajax.SendRequestByPost("buss/wish/updateById",JSON.stringify(data),function (response) {
+				if("0000" == response.code) {
+					mui.toast("修改成功");
+					setTimeout(function() {
+						openUrl("wishlist_brow.html");
+					},500);
+				}else{
+					mui.toast("修改失败！");
+					$("#submitBtn").attr('disabled',false);
+				}
+		    },function(response) {
+				mui.toast("修改失败！");
+				$("#submitBtn").attr('disabled',false);
+		    });
+		}
+		
+		function checkIsEmpty(data) {
+			if(data.wishFinishDate == "") {
+				mui.toast("完成时间不能为空！");
+				return false;
+			}
+			if(data.realizeName == "") {
+				mui.toast("完成人姓名不能为空！");
+				return false;
+			}
+			if(data.address == "") {
+				mui.toast("住址不能为空！");
+				return false;
+			}
+			return true;
+		}
+		
+
+	</script>
+
+</html>
