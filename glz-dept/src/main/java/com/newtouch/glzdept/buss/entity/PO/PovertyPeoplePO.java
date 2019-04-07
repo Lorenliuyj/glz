@@ -56,6 +56,8 @@ public class PovertyPeoplePO {
 
     private String status;
 
+    private String tSum;
+
     public String getId() {
         return id;
     }
@@ -238,6 +240,14 @@ public class PovertyPeoplePO {
 
     public void setLastModifyTime(Date lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
+    }
+
+    public String gettSum() {
+        return tSum;
+    }
+
+    public void settSum(String tSum) {
+        this.tSum = tSum;
     }
 }
 

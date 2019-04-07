@@ -9,8 +9,8 @@
     <result column="WISH_TITLE" jdbcType="VARCHAR" property="wishTitle" />
     <result column="WISH_CONTENT" jdbcType="VARCHAR" property="wishContent" />
     <result column="WISH_STATUS" jdbcType="CHAR" property="wishStatus" />
-    <result column="WISH_CREATE_DATE" jdbcType="DATE" property="wishCreateDate" />
-    <result column="WISH_FINISH_DATE" jdbcType="DATE" property="wishFinishDate" />
+    <result column="WISH_CREATE_DATE" jdbcType="VARCHAR" property="wishCreateDate" />
+    <result column="WISH_FINISH_DATE" jdbcType="VARCHAR" property="wishFinishDate" />
     <result column="REALIZE_INTRO" jdbcType="VARCHAR" property="realizeIntro" />
     <result column="RECORD_ID" jdbcType="BIGINT" property="recordId" />
     <result column="REALIZE_NAME" jdbcType="VARCHAR" property="realizeName" />
@@ -18,6 +18,9 @@
     <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
     <result column="LAST_MODIFY_TIME" jdbcType="TIMESTAMP" property="lastModifyTime" />
     <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
+    <result column="TROUBLE_ID" jdbcType="VARCHAR" property="troubleId" />
+    <result column="TSUM" jdbcType="VARCHAR" property="tSum" />
+    <result column="POVERTY_NAME" jdbcType="VARCHAR" property="povertyName" />
   </resultMap>
   <sql id="Base_Column_List">
     ID, POVERTY_PEOPLE_ID, MAKE_POVERTY_VISIT_ID, FINISH_POVERTY_VISIT_ID, WISH_TITLE, 
@@ -221,4 +224,117 @@
       IS_DELETE = #{isDelete,jdbcType=CHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="selectWishCount" parameterType="com.newtouch.glzdept.base.entity.base.BaseTransCommonVO" resultMap="BaseResultMap">
+    select
+      tpp.trouble_id as trouble_id,
+      sum(tbw.id) as tSum
+    from
+      t_buss_wish tbw
+    left join
+      t_poverty_people tpp
+    on
+      tbw.poverty_people_id = tpp.id
+    where
+      tpp.status &lt;&gt; '0'
+    and
+      tbw.wish_status = '0'
+      <if test="baseVillageIds != null and baseVillageIds != ''">
+        and tpp.village_id in
+        <foreach collection="baseVillageIds" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+      <if test="baseDeptIds != null and baseDeptIds != ''">
+        and tpp.dept_id in
+        <foreach collection="baseDeptIds" item="item" open="(" separator="," close=")">
+          #{item}
+        </foreach>
+      </if>
+      group by tpp.trouble_id
+  </select>
+
+  <select id="selectWishCountByPid" parameterType="com.newtouch.glzdept.buss.entity.PO.PovertyPeoplePO" resultMap="BaseResultMap">
+    select
+    tbw.poverty_people_id as poverty_people_id,
+    sum(tbw.id) as tSum
+    from
+    t_buss_wish tbw
+    left join
+    t_poverty_people tpp
+    on
+    tbw.poverty_people_id = tpp.id
+    where
+    tpp.status &lt;&gt; '0'
+    and
+    tbw.wish_status = '0'
+    <if test="villageId != null and villageId != ''">
+      and tpp.village_id in
+      <foreach collection="villageId" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    <if test="deptId != null and deptId != ''">
+      and tpp.dept_id in
+      <foreach collection="deptId" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+    group by tbw.poverty_people_id
+  </select>
+
+  <select id="selectWishPage" parameterType="com.newtouch.glzdept.buss.entity.VO.TBussWishVO" resultMap="BaseResultMap">
+    select
+      tbw.id,
+      tpp.poverty_name as poverty_name,
+      tbw.wish_title,
+      tbw.wish_content,
+      tbw.wish_status,
+      tbw.wish_create_date,
+      tbw.wish_finish_date,
+      tbw.realize_name
+    from
+      t_buss_wish tbw
+    left join
+      t_poverty_people tpp
+    on
+      tbw.poverty_people_id = tpp.id
+    where
+      1=1
+    <if test="tBussWishVO.povertyPeopleId != null and tBussWishVO.povertyPeopleId != ''">
+      and tbw.poverty_people_id = #{tBussWishVO.povertyPeopleId}
+    </if>
+    <if test="tBussWishVO.wishTitle != null and tBussWishVO.wishTitle != ''">
+      AND (
+        tbw.wish_title like CONCAT('%',#{tBussWishVO.wishTitle},'%')
+        OR tbw.wish_content like CONCAT('%',#{tBussWishVO.wishContent},'%')
+      )
+    </if>
+    order by tbw.create_time desc
+    limit #{page.minNum},#{page.pageSize}
+  </select>
+
+  <select id="selectTotalNum" parameterType="com.newtouch.glzdept.buss.entity.VO.TBussWishVO" resultType="java.lang.Integer">
+    select
+      count(tbw.id)
+    from
+    t_buss_wish tbw
+    left join
+    t_poverty_people tpp
+    on
+    tbw.poverty_people_id = tpp.id
+    where
+    1=1
+    <if test="tBussWishVO.povertyPeopleId != null and tBussWishVO.povertyPeopleId != ''">
+      and tbw.poverty_people_id = #{tBussWishVO.povertyPeopleId}
+    </if>
+    <if test="tBussWishVO.wishTitle != null and tBussWishVO.wishTitle != ''">
+      AND (
+      tbw.wish_title like CONCAT('%',#{tBussWishVO.wishTitle},'%')
+      OR tbw.wish_content like CONCAT('%',#{tBussWishVO.wishContent},'%')
+      )
+    </if>
+  </select>
+
+
 </mapper>

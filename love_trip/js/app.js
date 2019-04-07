@@ -218,6 +218,13 @@ function getDictJsonTextByValue(dictJson,dictVal) {
 	return "";
 }
 
+function getTextNotNull(data) {
+	if(data == null || data == 0) {
+		return "";
+	}
+	return data;
+}
+
 function openUrl(pageUrl,extras){
 	if(typeof(extras)=="undefined"){
 		extras={};
