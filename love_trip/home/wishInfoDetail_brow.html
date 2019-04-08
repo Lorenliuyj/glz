@@ -128,6 +128,7 @@
         var timePicker = new mui.DtPicker({"type":"date"});
 		function initData() {
 			var data = {id:id};
+			console.log(data);
 			appajax.SendRequestByPost("buss/wish/selectWishById",JSON.stringify(data),function(response) {
 				if("0000" == response.code) {
 					var rtnData = response.result;
