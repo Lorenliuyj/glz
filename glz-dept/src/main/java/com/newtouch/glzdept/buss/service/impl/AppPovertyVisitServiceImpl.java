@@ -24,7 +24,7 @@ public class AppPovertyVisitServiceImpl implements AppPovertyVisitService {
     TBussWishDAO tBussWishDAO;
 
     @Override
-    @Transactional
+    @Transactional(value="txManager")
     public void saveVisitInfo(PovertyVisitVO visitVO) {
         if(visitVO == null){
             return ;

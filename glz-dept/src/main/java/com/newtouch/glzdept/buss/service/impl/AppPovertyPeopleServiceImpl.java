@@ -1,6 +1,7 @@
 package com.newtouch.glzdept.buss.service.impl;
 
 import com.newtouch.common.entity.base.Page;
+import com.newtouch.common.util.CheckUtil;
 import com.newtouch.glzdept.buss.dao.PovertyPeopleDao;
 import com.newtouch.glzdept.buss.dao.TBussWishDAO;
 import com.newtouch.glzdept.buss.entity.PO.PovertyPeoplePO;
@@ -8,8 +9,12 @@ import com.newtouch.glzdept.buss.entity.VO.PovertyPeopleVO;
 import com.newtouch.glzdept.buss.entity.VO.TBussWishVO;
 import com.newtouch.glzdept.buss.service.AppPovertyPeopleService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -60,6 +65,18 @@ public class AppPovertyPeopleServiceImpl implements AppPovertyPeopleService {
                 }
             }
         }
+        Collections.sort(list, new Comparator<PovertyPeoplePO>() {
+            @Override
+            public int compare(PovertyPeoplePO o1, PovertyPeoplePO o2) {
+                String num1 = o1.gettSum()==null?"0":o1.gettSum();
+                String num2 = o2.gettSum()==null?"0":o2.gettSum();
+
+                    return num2.compareTo(num1);
+
+            }
+        });
+
+
         page.setTotalNum(povertyPeopleDao.total(povertyPeopleVO));
         page.setList(list);
         return page;
