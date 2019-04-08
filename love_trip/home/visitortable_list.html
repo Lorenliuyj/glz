@@ -228,13 +228,14 @@
 					if(!list) {return;}//为空直接返回
 					for(var i=0;i<list.length;i++) {
 						var li = document.createElement('li');
+						var listid = list[i].id;
 						li.className = "mui-table-view-cell mui-media";
 						li.innerHTML = '<div class="mui-slider-handle" id="'+list[i].id+'" povertyName="'+list[i].povertyName+'" status="'+list[i].status+'" birthday="'+list[i].birthday+'" villageId="'+list[i].villageId+'" familyDetail="'+list[i].familyDetail+'">'+
 											'<a href="javascript:;" onclick="">'+
 												'<img class="mui-media-object mui-pull-left userIcon" src="data:image/png;base64,'+list[i].imageMin+'">'+
 												'<div class="mui-media-body">'+
 													'<span class="">'+list[i].povertyName+'</span>'+
-													'<span class="mui-badge mui-badge-danger mui-pull-right" style="margin-top:2px;">'+getTextNotNull(list[i].tSum)+'</span>'+
+													'<span id="'+list[i].id+'" class="mui-badge mui-badge-danger mui-pull-right" style="margin-top:2px;">'+getTextNotNull(list[i].tSum)+'</span>'+
 													'<span class="mui-pull-right" style="color:red;">'+getDictJsonTextByValue(statusData,list[i].status)+'</span>'+
 												'</div>'+
 												'<div class="meta-info">'+
@@ -246,6 +247,9 @@
 										'</div>';
 						table.appendChild(li);		
 						imgCheck();
+						if(list[i].tSum == null) {
+							$("#"+listid+".mui-badge").hide();
+						}
 					}
 				}
 			},function(response) {
