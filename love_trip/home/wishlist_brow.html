@@ -165,7 +165,7 @@
 		}
 		
 		$("#wishInfolist").on('tap','.mui-table',function () {
-			localStorage.setItem("pid",this.id);
+			localStorage.setItem("wid",this.id);
 			localStorage.setItem("pname",this.getAttribute('povertyName'));
 			openUrl("wishInfoDetail_brow.html");
 		});

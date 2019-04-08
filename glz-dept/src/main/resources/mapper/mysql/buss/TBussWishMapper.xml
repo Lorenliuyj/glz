@@ -23,12 +23,12 @@
     <result column="POVERTY_NAME" jdbcType="VARCHAR" property="povertyName" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, POVERTY_PEOPLE_ID, MAKE_POVERTY_VISIT_ID, FINISH_POVERTY_VISIT_ID, WISH_TITLE, 
-    WISH_CONTENT, WISH_STATUS, WISH_CREATE_DATE, WISH_FINISH_DATE, REALIZE_INTRO, RECORD_ID, 
+    ID, POVERTY_PEOPLE_ID, MAKE_POVERTY_VISIT_ID, FINISH_POVERTY_VISIT_ID, WISH_TITLE,
+    WISH_CONTENT, WISH_STATUS, WISH_CREATE_DATE, WISH_FINISH_DATE, REALIZE_INTRO, RECORD_ID,
     REALIZE_NAME, CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME, IS_DELETE
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_buss_wish
     where ID = #{id,jdbcType=BIGINT}
@@ -38,17 +38,17 @@
     where ID = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.newtouch.glzdept.buss.entity.VO.TBussWishVO">
-    insert into t_buss_wish (ID, POVERTY_PEOPLE_ID, MAKE_POVERTY_VISIT_ID, 
-      FINISH_POVERTY_VISIT_ID, WISH_TITLE, WISH_CONTENT, 
-      WISH_STATUS, WISH_CREATE_DATE, WISH_FINISH_DATE, 
-      REALIZE_INTRO, RECORD_ID, REALIZE_NAME, 
-      CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME, 
+    insert into t_buss_wish (ID, POVERTY_PEOPLE_ID, MAKE_POVERTY_VISIT_ID,
+      FINISH_POVERTY_VISIT_ID, WISH_TITLE, WISH_CONTENT,
+      WISH_STATUS, WISH_CREATE_DATE, WISH_FINISH_DATE,
+      REALIZE_INTRO, RECORD_ID, REALIZE_NAME,
+      CREATE_ID, CREATE_TIME, LAST_MODIFY_TIME,
       IS_DELETE)
-    values (#{id,jdbcType=BIGINT}, #{povertyPeopleId,jdbcType=BIGINT}, #{makePovertyVisitId,jdbcType=BIGINT}, 
-      #{finishPovertyVisitId,jdbcType=BIGINT}, #{wishTitle,jdbcType=VARCHAR}, #{wishContent,jdbcType=VARCHAR}, 
-      #{wishStatus,jdbcType=CHAR}, #{wishCreateDate,jdbcType=DATE}, #{wishFinishDate,jdbcType=DATE}, 
-      #{realizeIntro,jdbcType=VARCHAR}, #{recordId,jdbcType=BIGINT}, #{realizeName,jdbcType=VARCHAR}, 
-      #{createId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=BIGINT}, #{povertyPeopleId,jdbcType=BIGINT}, #{makePovertyVisitId,jdbcType=BIGINT},
+      #{finishPovertyVisitId,jdbcType=BIGINT}, #{wishTitle,jdbcType=VARCHAR}, #{wishContent,jdbcType=VARCHAR},
+      #{wishStatus,jdbcType=CHAR}, #{wishCreateDate,jdbcType=DATE}, #{wishFinishDate,jdbcType=DATE},
+      #{realizeIntro,jdbcType=VARCHAR}, #{recordId,jdbcType=BIGINT}, #{realizeName,jdbcType=VARCHAR},
+      #{createId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{lastModifyTime,jdbcType=TIMESTAMP},
       #{isDelete,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.newtouch.glzdept.buss.entity.VO.TBussWishVO">
@@ -239,16 +239,16 @@
       tpp.status &lt;&gt; '0'
     and
       tbw.wish_status = '0'
-      <if test="baseVillageIds != null and baseVillageIds != ''">
+      <if test="baseVillageIds != null and baseVillageIds.size() > 0">
         and tpp.village_id in
-        <foreach collection="baseVillageIds" item="item" open="(" separator="," close=")">
-          #{item}
+        <foreach collection="baseVillageIds" item="item1" open="(" separator="," close=")">
+          #{item1}
         </foreach>
       </if>
-      <if test="baseDeptIds != null and baseDeptIds != ''">
+      <if test="baseDeptIds != null and baseDeptIds.size() > 0">
         and tpp.dept_id in
-        <foreach collection="baseDeptIds" item="item" open="(" separator="," close=")">
-          #{item}
+        <foreach collection="baseDeptIds" item="item2" open="(" separator="," close=")">
+          #{item2}
         </foreach>
       </if>
       group by tpp.trouble_id
@@ -268,13 +268,13 @@
     tpp.status &lt;&gt; '0'
     and
     tbw.wish_status = '0'
-    <if test="villageId != null and villageId != ''">
+    <if test="villageId != null and villageId.size() > 0">
       and tpp.village_id in
       <foreach collection="villageId" item="item" open="(" separator="," close=")">
         #{item}
       </foreach>
     </if>
-    <if test="deptId != null and deptId != ''">
+    <if test="deptId != null and deptId.size() > 0">
       and tpp.dept_id in
       <foreach collection="deptId" item="item" open="(" separator="," close=")">
         #{item}
