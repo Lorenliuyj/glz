@@ -50,7 +50,8 @@
         trouble_desc,
         income,
         status,
-        comments
+        comments,
+        is_delete
     </sql>
 
     <sql id="IMGS_COLUMN">
@@ -76,6 +77,7 @@
         #{PovertyPeopleObj.income},
         #{PovertyPeopleObj.status},
         #{PovertyPeopleObj.comments},
+        #{PovertyPeopleObj.isDelete},
         #{PovertyPeopleObj.image1},
         #{PovertyPeopleObj.image2},
         #{PovertyPeopleObj.image3},

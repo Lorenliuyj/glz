@@ -9,6 +9,7 @@ import com.newtouch.glzdept.buss.entity.VO.PovertyVisitVO;
 import com.newtouch.glzdept.buss.entity.VO.TBussWishVO;
 import com.newtouch.glzdept.buss.service.AppPovertyVisitService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
@@ -23,15 +24,16 @@ public class AppPovertyVisitServiceImpl implements AppPovertyVisitService {
     TBussWishDAO tBussWishDAO;
 
     @Override
+    @Transactional
     public void saveVisitInfo(PovertyVisitVO visitVO) {
         if(visitVO == null){
             return ;
         }
         //TODO 缺少当前用户id赋值
         visitVO.setIsdelete("n");
-        Long key = povertyVisitDao.insert(visitVO);
+        povertyVisitDao.insert(visitVO);
         TBussWishVO tBussWishVO = visitVO.gettBussWishVO();
-        tBussWishVO.setId(key);
+        tBussWishVO.setMakePovertyVisitId(Long.valueOf(visitVO.getId()));
         tBussWishDAO.insert(tBussWishVO);
     }
 
