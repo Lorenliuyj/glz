@@ -249,5 +249,6 @@ public class PovertyPeoplePO {
     public void settSum(String tSum) {
         this.tSum = tSum;
     }
+
 }
 
