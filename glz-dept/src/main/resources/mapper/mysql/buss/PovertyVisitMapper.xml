@@ -122,7 +122,7 @@
     </sql>
 
     <!--插入-->
-   <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.newtouch.glzdept.buss.entity.VO.PovertyVisitVO">
+   <insert id="insert"  keyProperty="id" useGeneratedKeys="true" parameterType="com.newtouch.glzdept.buss.entity.VO.PovertyVisitVO">
         INSERT INTO
           t_poverty_visit
        <trim prefix="(" suffix=")" suffixOverrides=",">

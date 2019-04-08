@@ -228,7 +228,7 @@
   <select id="selectWishCount" parameterType="com.newtouch.glzdept.base.entity.base.BaseTransCommonVO" resultMap="BaseResultMap">
     select
       tpp.trouble_id as trouble_id,
-      sum(tbw.id) as tSum
+      count(tbw.id) as tSum
     from
       t_buss_wish tbw
     left join
@@ -257,7 +257,7 @@
   <select id="selectWishCountByPid" parameterType="com.newtouch.glzdept.buss.entity.PO.PovertyPeoplePO" resultMap="BaseResultMap">
     select
     tbw.poverty_people_id as poverty_people_id,
-    sum(tbw.id) as tSum
+    count(tbw.id) as tSum
     from
     t_buss_wish tbw
     left join
