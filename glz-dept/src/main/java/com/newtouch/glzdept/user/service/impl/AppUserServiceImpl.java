@@ -3,6 +3,7 @@ package com.newtouch.glzdept.user.service.impl;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.newtouch.common.util.CheckUtil;
+import com.newtouch.common.util.MD5;
 import com.newtouch.glzdept.base.dao.TTroubleTpyeDAO;
 import com.newtouch.glzdept.base.entity.VO.TTroubleTpyeVO;
 import com.newtouch.glzdept.user.dao.UserDao;
@@ -26,6 +27,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public Map<String,Object> userLogin(TUserVO userVO) {
+        //userVO.setPassword(MD5.getMD5(userVO.getPassword()));
         List<TUserVO> userlist = userDao.userLogin(userVO);
         if(CheckUtil.isEmpty(userlist) || userlist.size() > 1) {
             return null;
