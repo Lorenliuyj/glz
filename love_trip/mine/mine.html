@@ -1,18 +1,158 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的页面</title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	<link href="../css/viewImg.css" rel="stylesheet" />
+<style>
+	html,body {
+		background-color: #F6F9FC;
+	}
+	.mui-grid-view.mui-grid-9 .mui-table-view-cell.nopadding{padding: 0px;}
+	.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{font-size: 12px;}
+	.mui-grid-view.mui-grid-9 .mui-table-view-cell img{width:40.8px;height: 39px;margin-bottom: -5px;}
+	.head-image{width: 60px;height: 60px;border-radius: 60px;border: 1px solid black;margin: -5px 0px 0px 20px;float: left;}
+	.mui-table-view-cell{border-bottom: 0px !important; border-left:0px !important;border-right:0px !important;}
+	.mui-table-view:after{height: 0px;}
+	.color-blue{color: #12B6F6 !important;}
+	.zh{line-height:50px; color: white;padding-left: 6px;background-color: rgba(0,0,0,.4);border-top-left-radius: 10px; border-bottom-left-radius: 10px;}
+	#msgNumber{top: 12px;font-size: 8px;margin-right: -4px;}
+	.mui-col-xs-12-5,.mui-col-sm-12-5{
+	    position: relative;
+	    min-height: 1px;
+	}
+	.mui-col-xs-12-5{
+	    width: 20%;
+	}
+	@media (min-width: 400px){
+	    .mui-col-sm-12-5{
+	        width: 20%;
+	    }
+	} 
 
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<link href="../css/mui.css" rel="stylesheet" />
-	</head>
+</style>
+</head>
+<body">	
+		<nav class="mui-bar mui-bar-tab">
+			<a class="mui-tab-item mui-active" onclick="openUrl('../menu.html')">
+				<span class="mui-icon mui-icon-home"></span>
+				<span class="mui-tab-label">首页</span>
+			</a>
+			<a class="mui-tab-item" onclick="openUrl('../mine/mine.html')">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<div class="mui-content" style="background-color: white;margin-top: 0px;">
+			<ul class="mui-table-view mui-grid-view" style="margin-top: 0px;padding: 0px;background-image:url(../images/mine.png);" >
+				<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="height:40px;">
+					<a class="mui-pull-right" onclick="openUrl('setting.html')" style="width: 38px;margin-right: 20px;">
+						<img src="../images/setting.png" class="mui-pull-right" style="width: 25px;max-width: 25px;"/>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="height:80px;">
+					<img id="headImg" class="head-image userIcon" data-preview-src="" />
+					<div style="display:inline-block;float:left; line-height:50px;text-align:left;margin-left: 10px;">
+						<span id="userName" style="color: white;"></span><br/>
+					</div>	
+					<div class="mui-pull-right zh">
+						<div>
+							<img src="../images/m-account.png" style="width: 16px;max-width: 16px;margin-top: 14px;float: left;"/> 
+						</div>
+						<span onclick="openUrl('account.html')" style="padding-right: 34px;margin-top: 50px;margin-left: 4px;">
+							账户管理>
+						</span>
+					</div>
+				</li>
+			</ul>
+			<ul class="mui-table-view mui-grid-view" style="margin-top: 0px;padding: 0px;" >
+			<li class="mui-table-view-cell mui-col-xs-6 mui-col-sm-6" style="border-right: 1px solid #EEEEEE !important;margin: 10px 0px;padding: 0px;">
+					<span>爱心</span>
+					<span>--</span>
+					<span>颗</span>
+				</li>
+				<li class="mui-table-view-cell mui-col-xs-6 mui-col-sm-6" style="margin: 10px 0px;padding: 0px;">
+					<span>签到</span>
+					<span>--</span>
+					<span>天</span>
+				</li>
+			</ul>
+			<hr style="height: 5px; background-color: #F2F2F2;border: 0px;margin: 0px;" />
+			<div class="mui-content">
+				<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin: 0px;">
+					<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" onclick="">
+						<span>爱心足迹</span>
+					</li>
+				</ul>
+				<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin: 0px;width: 100%;">
+					<li class="mui-table-view-cell mui-col-xs-3 mui-col-sm-3" style="border: 0;" onclick="mui.toast('敬请期待')">
+						<a href="#" style="margin-top: -10px;margin-bottom: -10px;">
+					        <span class=""><img src="../images/mine_xy.png" style="width: 30px;height: 30px;max-height: 28px;"/></span>
+					        <div class="mui-media-body" style="">心愿</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-col-xs-3 mui-col-sm-3" onclick="mui.toast('敬请期待')">
+						<a href="#" style="margin-top: -10px;margin-bottom: -10px;">
+					        <span class=""><img src="../images/mine_jl.png" style="width: 30px;height: 30px;max-height: 28px;"/></span>
+					        <div class="mui-media-body">记录</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-col-xs-3 mui-col-sm-3" style="" onclick="mui.toast('敬请期待')">
+						<a href="#" style="margin-top: -10px;margin-bottom: -10px;">
+					        <span class=""><img src="../images/mine_zj.png" style="width: 30px;height: 30px;max-height: 28px;"/></span>
+					        <div class="mui-media-body" style="">走访</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-col-xs-3 mui-col-sm-3" style="" onclick="mui.toast('敬请期待')">
+						<a href="#" style="margin-top: -10px;margin-bottom: -10px;">
+					        <span class=""><img src="../images/mine_qd.png" style="width: 30px;height: 30px;max-height: 28px;"/></span>
+					        <div class="mui-media-body" style="">等待</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+</body>
 
-	<body>
-		<script src="../js/mui.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
-	</body>
-
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/jquery2.min.js"></script>
+	<script src="../js/mui.previewimage.js"></script>
+	<script src="../js/app.js"></script>
+    <script src="../js/appajax.js"></script>
+	<script>
+		var state=app.getUserState();
+		mui.ready(function() {
+		    mui.init();
+			mui.previewImage();
+			loadData();
+		});
+		
+		function loadData() {
+			var data = {id:state.userId};
+			appajax.SendRequestByPost("user/selectUserInfo",JSON.stringify(data),function (response) {
+				if("0000" == response.code) {
+					var rtnData = response.result;
+					$("#userName").html(rtnData.userName);
+					gbid("headImg").src = "data:image/png;base64," + rtnData.headImg;
+					imgCheck();
+				}
+			},function(response) {
+				mui.toast("初始化数据失败！");
+			},true);
+		}
+		
+		function imgCheck(){
+			var t = document.getElementsByClassName("userIcon");  
+			for(i = 0; i < t.length; i++){  
+			    t.item(i).onerror = function(){
+			    	this.src = "../images/tx.png";
+			      	this.onerror = null;
+			    }  
+			}  
+		}
+		
+		
+	</script>
+</body>
 </html>

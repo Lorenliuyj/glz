@@ -80,5 +80,11 @@ public class AppUserServiceImpl implements AppUserService {
         return resultMap;
     }
 
+    @Override
+    public TUserVO selectUserInfo(TUserVO userVO) {
+        TUserVO user = userDao.selectByPrimaryKey(userVO.getId());
+        return user;
+    }
+
 
 }
