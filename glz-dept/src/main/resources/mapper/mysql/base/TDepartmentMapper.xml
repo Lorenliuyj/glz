@@ -149,9 +149,11 @@
     from
       t_department TD
     where
-      1=1
+      1 = 1
+    and
+      TD.ID = 6
     <if test="listss != null and listss.size() > 0">
-      and TD.ID in
+      or TD.ID in
       <foreach collection="listss" item="item" open="(" separator="," close=")">
         #{item}
       </foreach>

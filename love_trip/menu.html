@@ -78,7 +78,7 @@
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a class="mui-tab-item" onclick="mui.toast('攻城狮正在玩命研发中')">
+			<a class="mui-tab-item" onclick="openUrl('mine/mine.html')">
 				<span class="mui-icon mui-icon-contact"></span>
 				<span class="mui-tab-label">我的</span>
 			</a>
@@ -158,9 +158,23 @@
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
 								<a onclick="openUrlByTrouble(this)">
 									<img src="images/ty.png"/>
-									<div class="mui-media-body">单亲家庭</div>
+									<div class="mui-media-body">困难单亲家庭</div>
 								</a>
-								<span datasrc="单亲家庭" class="mui-badge mui-badge-danger" style="display: none;">0</span>
+								<span datasrc="困难单亲家庭" class="mui-badge mui-badge-danger" style="display: none;">0</span>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+								<a onclick="openUrlByTrouble(this)">
+									<img src="images/ty.png"/>
+									<div class="mui-media-body">困难职工</div>
+								</a>
+								<span datasrc="困难职工" class="mui-badge mui-badge-danger" style="display: none;">0</span>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
+								<a onclick="">
+									<img src="images/ty.png"/>
+									<div class="mui-media-body">其他</div>
+								</a>
+								<span class="mui-badge mui-badge-danger" style="display: none;">0</span>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" style="border: 0;">
 								<a onclick="openUrl('home/villageInfo_brow.html')">
@@ -203,8 +217,6 @@
 		slider.slider({interval: 3000});
 		mui.init();
 		mui.ready(function() {
-			
-			
 			var data = {baseVillageIds:state.villageIds,baseDeptIds:state.deptIds};
 			appajax.SendRequestByPost("buss/wish/selectWishCount",JSON.stringify(data),function(response) {
 				if("0000" == response.code) {
@@ -225,9 +237,6 @@
 				}
 			},function(response) {
 			},true);
-			
-			
-			
 		});
 		
 		var trouble = state.trouble;

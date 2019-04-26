@@ -7,4 +7,6 @@ import java.util.Map;
 public interface AppUserService {
 
     Map<String,Object> userLogin(TUserVO userVO);
+
+    TUserVO selectUserInfo(TUserVO userVO);
 }

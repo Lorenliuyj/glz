@@ -12,7 +12,7 @@ public interface UserDao {
 
     int insertSelective(TUserVO record);
 
-    TUserVO selectByPrimaryKey(Long id);
+    TUserVO selectByPrimaryKey(@Param("id")Long id);
 
     int updateByPrimaryKeySelective(TUserVO record);
 

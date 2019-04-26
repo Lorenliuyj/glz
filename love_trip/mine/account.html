@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+	
+	<style>
+		html,body,.mui-content {background-color: #F6F9FC;}
+		.mui-bar-nav{background-color: white;box-shadow :0 0 0.5px rgba(0,0,0,0.1)}
+		.head-image{width: 50px;height: 50px;border-radius: 50px;border: 1px solid black;margin-right: -10px;}
+		.mui-btn{width: 90%;margin:30px auto;}
+		.btn-blue{background-color: #12B6F6;color: white;padding:6px 10px;border-radius: 6px;border: 0px;}
+		.color-blue{color: #12B6F6 !important;}
+		label,span {font-size: 16px;}
+	</style>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title color-blue">个人信息</h1>
+		</header>
+		<hr style="height: 10px; background-color: #F6F9FC;border: 0px;margin: 0px;" />
+		<div class="mui-content">
+				<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin: 0px;">
+					<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="text-align: left;" onclick="">
+						<label style="line-height: 50px;">头像</label>
+						<img id="headImg" class="head-image mui-pull-right userIcon" style="margin-right: 20px;"/>
+					</li>
+					<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="text-align: left;" onclick="">
+						<label>姓名</label>
+						<span id="trueName" class="mui-pull-right mui-navigate-right" style="margin-right: 20px;"></span>
+					</li>
+					<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="text-align: left;" onclick="">
+						<label>昵称</label>
+						<span id="userName" class="mui-pull-right mui-navigate-right" style="margin-right: 20px;font-size: 16px;"></span>
+					</li>
+					<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="text-align: left;" onclick="mui('#sexSelect').popover('toggle');">
+						<label>性别</label>
+						<span id='sex' class="mui-pull-right mui-navigate-right" style="margin-right: 20px;"></span>
+					</li>
+				</ul>
+			
+			<div id="sexSelect" class="mui-popover mui-popover-action mui-popover-bottom">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-divider">选择性别</li>
+					<li class="mui-table-view-cell">
+						<a  id="M"  href="#" onclick="setSex(this)">男</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a id="F" href="#" onclick="setSex(this)">女</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a href="#sexSelect"><b>取消</b></a>
+					</li>
+				</ul>
+			</div>
+				
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery2.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../js/appajax.js"></script>
+		<script type="text/javascript">
+			var state = app.getUserState();
+         	mui.ready(function() {		
+	         	mui.init();
+	         	loadData();
+            });
+			
+			function loadData() {
+				var data = {id:state.userId};
+				appajax.SendRequestByPost("user/selectUserInfo",JSON.stringify(data),function (response) {
+					if("0000" == response.code) {
+						var rtnData = response.result;
+						$("#userName").html(rtnData.userName);
+						gbid("headImg").src = "data:image/png;base64," + rtnData.headImg;
+						$("#trueName").html(rtnData.trueName);
+						$("#sex").html(rtnData.sex == "M" ? "男" : "女");
+						imgCheck();
+					}
+				},function(response) {
+					mui.toast("初始化数据失败！");
+				},true);
+			}
+			
+			function imgCheck(){
+				var t = document.getElementsByClassName("userIcon");  
+				for(i = 0; i < t.length; i++){  
+				    t.item(i).onerror = function(){
+				    	this.src = "../images/tx.png";
+				      	this.onerror = null;
+				    }  
+				}  
+			}
+			
+		</script>
+	</body>
+
+</html>

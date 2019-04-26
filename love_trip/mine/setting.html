@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>设置</title>
+    <link href="../css/mui.min.css" rel="stylesheet"/>
+	
+	<style>
+		html,body,.mui-content {background-color: #F6F9FC;}
+		.mui-bar-nav{background-color: white;box-shadow :0 0 0.5px rgba(0,0,0,0.1)}
+		.mui-btn{width: 90%;margin:30px auto;}
+		.btn-blue{background-color: #12B6F6;color: white;padding:6px 10px;border-radius: 6px;border: 0px;}
+		.color-blue{color: #12B6F6 !important;}
+	</style>
+</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 id="title" class="mui-title color-blue">设置</h1>
+		</header>
+		
+		<div class="mui-content" style="margin: 0px;">
+			<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;margin: 0px;">
+				<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="text-align: left;" onclick="checkUpdata();">
+					<span  class="mui-navigate-right">检查更新</span>
+				</li>
+				<li class="mui-table-view-cell mui-col-xs-12 mui-col-sm-12" style="text-align: left;" onclick="openUrl('aboutUs.html')">
+					<span class="mui-navigate-right">关于我们</span>
+				</li>
+			</ul>
+			<button onclick="logOut()" type="button" class="mui-btn btn-blue mui-btn-block">退出登录</button>
+		</div>
+	</body>
+</html>
+
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/app.js"></script>
+    <script src="../js/appajax.js"></script>
+    <script type="text/javascript">
+    	var state=app.getUserState();
+    	mui.ready(function() {
+		    mui.init();
+		    
+		});
+    
+        /**
+         * 退出登录
+         */
+    	function logOut(){
+				mui.confirm('您确定要退出当前账户么', '确认操作',["确定","取消"],function(e) {
+					if (e.index == 0) {
+						openUrl("../login.html");
+					} else {
+						return;
+					}
+				});
+			}
+    </script>
+	

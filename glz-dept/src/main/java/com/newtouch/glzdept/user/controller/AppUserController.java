@@ -38,4 +38,16 @@ public class AppUserController {
         return ResponseUtil.errorResponse(null);
     }
 
+    /**
+     * 查询个人信息
+     * @param userVO
+     * @return
+     */
+    @RequestMapping(value="/selectUserInfo",method=RequestMethod.POST)
+    @ResponseBody
+    public ResponseVO selectUserInfo(@RequestBody TUserVO userVO) {
+        TUserVO user = appUserService.selectUserInfo(userVO);
+        return ResponseUtil.successResponse(user);
+    }
+
 }
