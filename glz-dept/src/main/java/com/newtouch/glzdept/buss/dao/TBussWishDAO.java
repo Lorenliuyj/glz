@@ -28,4 +28,6 @@ public interface TBussWishDAO {
     List<TBussWishVO> selectWishPage(@Param("page")Page page, @Param("tBussWishVO")TBussWishVO tBussWishVO);
 
     int selectTotalNum(@Param("tBussWishVO")TBussWishVO tBussWishVO);
+
+    int selectNumByOther(@Param("deptId")Long deptId);
 }

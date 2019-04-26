@@ -336,5 +336,23 @@
     </if>
   </select>
 
+  <select id="selectNumByOther" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select
+      count(tbw.id)
+    from
+      t_buss_wish tbw
+    left join
+      t_poverty_people tpp
+    on
+      tbw.poverty_people_id = tpp.id
+    where
+      tpp.status &lt;&gt; '0'
+    and
+      tbw.wish_status = '0'
+    <if test="deptId != null and deptId != ''">
+      and tpp.dept_id = #{deptId}
+    </if>
+
+  </select>
 
 </mapper>

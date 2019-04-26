@@ -5,9 +5,10 @@ import com.newtouch.glzdept.base.entity.base.BaseTransCommonVO;
 import com.newtouch.glzdept.buss.entity.VO.TBussWishVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AppWishService {
-    List<TBussWishVO> selectWishCount(BaseTransCommonVO baseTransCommonVO);
+    Map selectWishCount(BaseTransCommonVO baseTransCommonVO);
 
     Page<TBussWishVO> selectWishPage(Page page, TBussWishVO tBussWishVO);
 

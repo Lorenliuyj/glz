@@ -27,7 +27,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public Map<String,Object> userLogin(TUserVO userVO) {
-        //userVO.setPassword(MD5.getMD5(userVO.getPassword()));
+        userVO.setPassword(MD5.getMD5(userVO.getPassword()));
         List<TUserVO> userlist = userDao.userLogin(userVO);
         if(CheckUtil.isEmpty(userlist) || userlist.size() > 1) {
             return null;
