@@ -162,6 +162,7 @@
 		var villageData = [];
 		var TroubleData = [];//二级类型
 		var statusData = [];//贫困户状态
+		var dId = localStorage.getItem("dpId");
 		function loadInitData(rtnData) {
 			villageData = rtnData.villages;
 			statusData = rtnData.status;
@@ -173,13 +174,15 @@
 				gbid('forcountryRow').appendChild(li);
 			}
 			for(var i=0;i<TroData.length;i++) {
-				if(TroData[i].children != undefined) {
-					TroubleData = TroubleData.concat(TroData[i].children);
+				if(TroData[i].text == '其他') {
+					if(TroData[i].children != undefined) {
+						TroubleData = TroubleData.concat(TroData[i].children);
+					}
+					var li = document.createElement('li');
+					li.className = 'mui-table-view-cell mui-col-sm-3 mui-col-xs-3';
+					li.innerHTML = '<a id="'+TroData[i].id+'">'+TroData[i].text+'</a>';
+					gbid('hardRow1').appendChild(li);
 				}
-				var li = document.createElement('li');
-				li.className = 'mui-table-view-cell mui-col-sm-3 mui-col-xs-3';
-				li.innerHTML = '<a id="'+TroData[i].id+'">'+TroData[i].text+'</a>';
-				gbid('hardRow1').appendChild(li);
 			}
 			for(var i=0;i<TroubleData.length;i++) {
 				var li = document.createElement('li');
@@ -193,8 +196,6 @@
 		    pageNum++;
             upAndDown = 0;
             setTimeout(function () {
-                //mui('#pullrefresh').pullRefresh().endPullup(true);
-                //mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 				getData(upAndDown);
 			},1000);
         }
@@ -214,7 +215,7 @@
 		var table = gbid("villageInfolist");
  		function getData(upAndDown) {
 			var data = {pageNum:pageNum,pageSize:pageSize,povertyName:$("#sName").val(),
-			deptIds:povertyType1s,troubleIds:povertyType2s,villageIds:villages,
+			deptIds:dId,troubleIds:povertyType2s,villageIds:villages,
 			baseVillageIds:state.villageIds.join(","),baseDeptIds:state.deptIds.join(",")};
 			console.log(JSON.stringify(data));
 			appajax.SendRequestByGet("poverty/selectPovertyPeoplePage",data,function(response) {

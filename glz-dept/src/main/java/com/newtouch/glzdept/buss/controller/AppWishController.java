@@ -24,9 +24,9 @@ public class AppWishController {
     @ResponseBody
     public ResponseVO selectWishCount(@RequestBody BaseTransCommonVO baseTransCommonVO) {
 
-        List<TBussWishVO> list = appWishService.selectWishCount(baseTransCommonVO);
+        Map map = appWishService.selectWishCount(baseTransCommonVO);
 
-        return ResponseUtil.successResponse(list);
+        return ResponseUtil.successResponse(map);
     }
 
     @GetMapping(value="/selectWishPage")
